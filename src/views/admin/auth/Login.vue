@@ -1,14 +1,56 @@
 <template>
-    <div class="flex flex-col items-center justify-center w-full min-h-screen">
-        
-        <div class="border border-solid shadow-md h-96 w-96 ">
-            <p class="text-center mt-4 font-medium text-lg">Login</p>
+    <div class="flex flex-col items-center justify-center w-full min-h-screen bg-slate-200">
+        <div class="flex rounded-lg">
+            <div class="rounded-lg">
+                <img src="../../../images/milktea.jpg" alt="" class="h-[620px] w-96 object-cover">
+            </div>
+            <div class="border border-solid shadow-md h-[620px] w-96 bg-white rounded-lg pt-10">
+                <div class="flex justify-center">
+                    <img src="../../../images/logo.png" alt="" class="w-40 h-40 object-cover text-center">
+                </div>
+                <form class="px-6" @submit.prevent="submit">
+                    <p class="text-center font-medium text-3xl">Chào mừng quay lại.</p>
+                    <p class="text-zinc-600 mt-1 text-center">Hãy điền đầy đủ thông tin bên dưới.</p>
+                    <div class="mt-3">
+                        <p>Email</p>
+                        <input type="text" name="email" placeholder="Email" v-model="email" class="outline-orange-500/[.55] mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    </div>
+                    <div class="mt-3">
+                        <p>Mật khẩu</p>
+                        <input type="password" name="password" placeholder="Mật khẩu" v-model="password" class="outline-orange-500/[.55] mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+                    </div>
+                    <div class="flex">
+                        <a class="ml-auto text-orange-500 font-medium mt-2">Quên mật khẩu</a>
+                    </div>
+                    <button class="px-4 py-2 bg-orange-400 w-full mt-4 rounded-md text-white font-bold">Đăng nhập</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+import { ref } from 'vue'
 
+import axios from 'axios'
+
+export default {
+    setup() {
+        const employee = ref({ email: '', password: '' })
+
+        const submit = async() => {
+            console.log(email)
+
+            await axios
+            .post('http://127.0.0.1:8000/api/admin/auth/login', employee)
+            .then((response) => {
+                console.log(response.data)
+            })
+        }
+
+        return {
+            submit
+        }
+    }
 }
 </script>
