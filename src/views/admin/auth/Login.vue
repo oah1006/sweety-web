@@ -1,17 +1,32 @@
 <template>
-    <div class="flex flex-col items-center justify-center w-full min-h-screen bg-slate-200">
-        <div class="flex rounded-lg">
-            <div class="rounded-lg">
+    <div class="lg:flex lg:flex-col lg:items-center lg:justify-center w-full h-full lg:min-h-screen lg:bg-slate-200">
+        <div class="lg:flex rounded-lg overflow-hidden">
+            <div class="lg:rounded-lg lg:block hidden">
                 <img src="../../../images/milktea.jpg" alt="" class="h-[620px] w-96 object-cover">
             </div>
-            <div class="border border-solid shadow-md h-[620px] w-96 bg-white rounded-lg pt-10">
+            <div class="lg:border lg:border-solid lg:shadow-md h-full lg:h-[620px] lg:w-96 bg-white py-24 lg:py-10">
                 <div class="flex justify-center">
-                    <img src="../../../images/logo.png" alt="" class="w-40 h-40 object-cover text-center">
+                    <img src="../../../images/logo.png" alt="" class="w-32 h-32 object-cover text-center">
                 </div>
                 <p class="text-center font-medium text-3xl">Chào mừng quay lại.</p>
                 <p class="text-zinc-600 mt-1 text-center">Hãy điền đầy đủ thông tin bên dưới.</p>
-                <form class="px-6" @submit.prevent="submit">
-                    <div class="mt-3">
+                <div class="text-red-900 mt-2 text-md mx-4 px-4 py-4 bg-red-100 rounded-md h-26">
+                    <div class="text-red-900" v-if="errors?.errors?.email && errors?.errors?.password">
+                        <p>{{ errors?.errors?.email[0] }}</p>
+                        <p>{{ errors?.errors?.password[0] }}</p>
+                    </div>
+                    <div class="text-red-900" v-else-if="errors?.errors?.email">
+                        <p v-if="errors?.errors?.email">{{ errors?.errors?.email[0] }}</p>
+                    </div>
+                    <div class="text-red-900" v-else-if="errors?.errors?.password">
+                        <p v-if="errors?.errors?.password">{{ errors?.errors?.password[0] }}</p>
+                    </div>
+                    <div class="text-red-900" v-else-if="errors?.message">
+                        <p v-if="errors?.message">{{ errors?.message }}</p>
+                    </div>
+                </div>
+                <form class="px-6 mt-3" @submit.prevent="submit">
+                    <div class="mt-2">
                         <p>Email</p>
                         <input type="text" name="email" placeholder="Email" v-model="employee.email" class="outline-orange-500/[.55] mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
@@ -31,42 +46,39 @@
 
 <script>
 import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import useLogin from '../../../repositories/login'
 
-import { useToastStore } from '@/stores/toast'
-
-import axios from 'axios'
+import { useToastStore } from '../../../stores/toast'
+import { useRouter } from 'vue-router'
 
 export default {
     setup() {
         const employee = ref({ email: '', password: '' })
-        const errors = ref([]);
+        const errors = ref({});
 
         const router = useRouter()
-        const useToast = useToastStore() 
 
-        const submit = async () => {
-            await axios
-            .post('http://127.0.0.1:8000/api/admin/auth/login', employee.value)
+        const submit = async() => {
+            await useLogin(employee)
             .then((response) => {
-                // set token staff
+                console.log(response);
                 $cookies.set('token', response.data.token, 60*60*24)
 
-                // show toast login successfully
-                useToast.success('Đăng nhập thành công', 3000)
+                useToastStore().success('Đăng nhập thành công', 3000)
 
-                // redirect to dashboard when login is successful
                 const redirectPath = '/dashboard'
                 router.push(redirectPath)
             })
             .catch((error) => {
-                this.error = errors.value.response.data
+                errors.value = error.response.data
+                console.log(errors.value)
             })
         }
-        
+
         return {
             employee,
-            submit
+            submit,
+            errors
         }
     }
 }
