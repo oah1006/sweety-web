@@ -13,14 +13,43 @@ const router = createRouter({
     {
       path: '/',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
-    },
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },  
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = $cookies.get('token')
+
+  if (to.meta.requiresAuth) {
+    if (token) {
+      next()
+    } else { 
+      next({
+        name: 'login'
+      })
+    }
+  } 
+  else if (to.meta.guest) { 
+    if (token) {
+      next({
+        name: 'dashboard'
+      })
+    } else {
+      next();
+    }
+  }
 })
 
 export default router
