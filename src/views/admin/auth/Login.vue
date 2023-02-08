@@ -10,19 +10,9 @@
                 </div>
                 <p class="text-center font-medium text-3xl">Chào mừng quay lại.</p>
                 <p class="text-zinc-600 mt-1 text-center">Hãy điền đầy đủ thông tin bên dưới.</p>
-                <div class="text-red-900 mt-2 text-md mx-4 px-4 py-4 bg-red-100 rounded-md h-26">
-                    <div class="text-red-900" v-if="errors?.errors?.email && errors?.errors?.password">
-                        <p>{{ errors?.errors?.email[0] }}</p>
-                        <p>{{ errors?.errors?.password[0] }}</p>
-                    </div>
-                    <div class="text-red-900" v-else-if="errors?.errors?.email">
-                        <p v-if="errors?.errors?.email">{{ errors?.errors?.email[0] }}</p>
-                    </div>
-                    <div class="text-red-900" v-else-if="errors?.errors?.password">
-                        <p v-if="errors?.errors?.password">{{ errors?.errors?.password[0] }}</p>
-                    </div>
-                    <div class="text-red-900" v-else-if="errors?.message">
-                        <p v-if="errors?.message">{{ errors?.message }}</p>
+                <div class="">
+                    <div class="text-red-900 mt-2 text-md mx-4 px-4 py-4 bg-red-100 rounded-md h-26" v-if="errors?.message">
+                        <p>{{ errors?.message }}</p>
                     </div>
                 </div>
                 <form class="px-6 mt-3" @submit.prevent="submit">
