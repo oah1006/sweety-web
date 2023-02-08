@@ -5,7 +5,8 @@ import Login from '../views/admin/auth/Login.vue'
 
 import Dashboard from '../views/admin/Dashboard.vue'
 
-import ToastNotification from '../components/ToastNotification.vue'
+import NavigationBar from '../components/NavigationBar.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +26,15 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
-    },  
+    },
+    {
+      path: '/navigationbar',
+      name: 'navigationbar',
+      component: NavigationBar,
+      meta: {
+        requiresAuth: true
+      }
+    }  
   ]
 })
 
