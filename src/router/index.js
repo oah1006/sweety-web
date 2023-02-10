@@ -5,6 +5,10 @@ import Login from '../views/admin/auth/Login.vue'
 
 import Dashboard from '../views/admin/Dashboard.vue'
 
+import IndexStaff from '../views/admin/staff/index-staff.vue'
+import CreateStaff from '../views/admin/staff/create-staff.vue'
+
+
 import NavigationBar from '../components/NavigationBar.vue'
 
 
@@ -23,6 +27,22 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/staffs',
+      name: 'index-staff',
+      component: IndexStaff,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create-staff',
+      name: 'create-staff',
+      component: CreateStaff,
       meta: {
         requiresAuth: true
       }

@@ -6,7 +6,7 @@
         <div class="flex ml-auto grow">
             <div class="flex gap-3 items-center ml-auto pr-10 h-full">
                 <div class="rounded-full h-8 w-8 border-solid border-1 border"></div>
-                <p class="text-orange-500 font-medium text-base">Nhật Hào</p>
+                <p class="text-orange-500 font-medium text-lg">Nhật Hào</p>
             </div>
         </div>
     </div>
