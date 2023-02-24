@@ -1,3 +1,39 @@
+<script setup>
+import { ref } from 'vue'
+import useLogin from '../../../repositories/login'
+
+import { useToastStore } from '../../../stores/toast'
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+
+const employee = ref({
+    email: '',
+    password: ''
+})
+
+const errors = ref({});
+
+async function submit() {
+    await useLogin(employee)
+        .then((response) => {
+            console.log(response.data.token)
+
+            $cookies.set('token', response.data.token, 60*60*24)
+
+            useToastStore().success('Đăng nhập thành công', 3000)
+            
+            router.push({ path: '/dashboard' })
+        })
+        .catch((error) => {
+            errors.value = error.response.data
+        })
+} 
+
+
+</script>
+
 <template>
     <div class="lg:flex lg:flex-col lg:items-center lg:justify-center w-full h-full lg:min-h-screen lg:bg-slate-200">
         <div class="lg:flex rounded-lg overflow-hidden">
@@ -34,42 +70,3 @@
     </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import useLogin from '../../../repositories/login'
-
-import { useToastStore } from '../../../stores/toast'
-import { useRouter } from 'vue-router'
-
-export default {
-    setup() {
-        const employee = ref({ email: '', password: '' })
-        const errors = ref({});
-
-        const router = useRouter()
-
-        const submit = async() => {
-            await useLogin(employee)
-            .then((response) => {
-                console.log(response);
-                $cookies.set('token', response.data.token, 60*60*24)
-
-                useToastStore().success('Đăng nhập thành công', 3000)
-
-                const redirectPath = '/dashboard'
-                router.push(redirectPath)
-            })
-            .catch((error) => {
-                errors.value = error.response.data
-                console.log(errors.value)
-            })
-        }
-
-        return {
-            employee,
-            submit,
-            errors
-        }
-    }
-}
-</script>

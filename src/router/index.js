@@ -55,7 +55,8 @@ const router = createRouter({
         requiresAuth: true
       }
     }  
-  ]
+  ],
+  linkActiveClass: 'vue-active-link'
 })
 
 router.beforeEach((to, from, next) => {

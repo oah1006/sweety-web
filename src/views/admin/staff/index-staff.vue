@@ -1,33 +1,35 @@
 <template>
-    <Header />
     <div class="flex min-h-screen">
         <NavigationBar class="flex-none" />
-        <div class="grow">
+        <div class="grow bg-zinc-50 py-10 rounded-3xl border-l border-zinc-100 shadow">
             <!-- Title and search -->
-            <p class="px-12 py-4 text-4xl text-zinc-500">Nhân viên</p>
-            <div class="flex items-center justify-between px-12 w-full">
-                <div class="w-1/3 relative">
-                    <input type="text" v-model="search" placeholder="Tìm kiếm" class="outline-orange-300 mt-2 border border-zinc-300 w-full py-1 rounded-3xl pl-10 text-slate-300" />
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-4 left-2 w-5 h-5 text-zinc-500">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
+            <div class="mx-12 py-6 rounded-lg">
+                <p class="text-3xl text-zinc-800">Nhân viên</p>
+                <p class="text-zinc-400 text-sm">Chào mừng bạn đến với trang nhân viên</p>
+                <div class="flex items-center justify-between w-full mt-4">
+                    <div class="w-1/3 relative">
+                        <input type="text" v-model="search" placeholder="Tìm kiếm" class="outline-orange-300 mt-2 border border-zinc-300 w-full py-1 rounded-3xl pl-10 text-slate-300" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-4 left-2 w-5 h-5 text-zinc-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </div>
+                    <router-link :to="{ name: 'create-staff' }" class="flex gap-3 items-center px-4 py-2 text-white text-center bg-orange-500 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        <p>Tạo mới</p>
+                    </router-link>
                 </div>
-                <button class="flex gap-3 items-center px-4 py-2 text-white text-center bg-orange-500 rounded-xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    <p>Tạo mới</p>
-                </button>
             </div>
             <!-- Title and search -->
             
             <!-- table list staffs -->
-            <div class="mt-6 mx-12 border border-solid rounded-md">
+            <div class="mt-6 mx-12 shadow-md rounded-md bg-white">
                 <div class="py-4 px-4">
                     <input type="checkbox" class="form-checkbox text-orange-500 border-zinc-300 rounded focus:ring-orange-400" />
                 </div>
                 <table class="w-full bg-white rounded-lg border-t">
-                    <thead class="uppercase rounded-lg bg-zinc-50">
+                    <thead class="uppercase rounded-lg bg-zinc-100">
                         <tr class="text-xs text-zinc-600 font-bold">
                             <td></td>
                             <td class="lg:px-4 py-4">Mã nhân viên</td>
@@ -196,14 +198,7 @@
     </div>
 </template>
 
-<script>
-import Header from '../../../components/Header.vue'
+<script setup>
 import NavigationBar from '../../../components/NavigationBar.vue'
 
-export default {
-    components: {
-        Header,
-        NavigationBar
-    }
-}
 </script>

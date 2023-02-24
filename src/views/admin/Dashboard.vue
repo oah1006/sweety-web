@@ -1,5 +1,4 @@
 <template>
-  <Header />
   <div class="flex min-h-screen">
     <NavigationBar />
     <div>
@@ -8,14 +7,7 @@
   </div>
 </template>
 
-<script>
-import Header from '../../components/Header.vue'
+<script setup>
 import NavigationBar from '../../components/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-    Header
-  }
-}
 </script>
