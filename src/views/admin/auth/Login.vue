@@ -18,9 +18,8 @@ const errors = ref({});
 async function submit() {
     await useLogin(employee)
         .then((response) => {
-            console.log(response.data.token)
 
-            $cookies.set('token', response.data.token, 60*60*24)
+            $cookies.set('token', response.data.data.token, 60*60*24)
 
             useToastStore().success('Đăng nhập thành công', 3000)
             
@@ -30,7 +29,6 @@ async function submit() {
             errors.value = error.response.data
         })
 } 
-
 
 </script>
 
@@ -51,7 +49,7 @@ async function submit() {
                         <p>{{ errors?.message }}</p>
                     </div>
                 </div>
-                <form class="px-6 mt-3" @submit.prevent="submit">
+                <form class="px-6 mt-8" @submit.prevent="submit">
                     <div class="mt-2">
                         <p>Email</p>
                         <input type="text" name="email" placeholder="Email" v-model="employee.email" class="outline-orange-500/[.55] mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
