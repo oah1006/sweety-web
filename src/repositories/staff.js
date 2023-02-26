@@ -5,7 +5,7 @@ export function storeStaff(form, config) {
         .postForm('http://127.0.0.1:8000/private/staff', form, config)
 }
 
-export function indexStaff() {
+export function indexStaff(page) {
     const token = $cookies.get('token')
 
     const config = {
@@ -15,7 +15,7 @@ export function indexStaff() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/staff', config)
+        .get('http://127.0.0.1:8000/private/staff?', config)
 }
 
 
