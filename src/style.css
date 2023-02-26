@@ -3,11 +3,14 @@
 @tailwind utilities;
 
 
+@font-face {
+    font-family: "Nunito";
+    src: url('/public/font/Nunito-VariableFont_wght.ttf'),
+    url('/public/font/Nunito-Italic-VariableFont_wght.ttf');
+}
 
 @layer base {
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
-    
     body {
-        font-family: 'Nunito', sans-serif;
+        @apply text-gray-900 font-nunito
     }
 }
