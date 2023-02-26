@@ -10,6 +10,8 @@ import CreateStaff from '../views/admin/staff/create-staff.vue'
 
 
 import NavigationBar from '../components/NavigationBar.vue'
+import Pagination from '../components/Pagination.vue'
+
 
 
 const router = createRouter({
@@ -54,7 +56,15 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
-    }  
+    },
+    {
+      path: '/pagination',
+      name: 'pagination',
+      component: Pagination,
+      meta: {
+        requiresAuth: true
+      }
+    } 
   ],
   linkActiveClass: 'vue-active-link'
 })

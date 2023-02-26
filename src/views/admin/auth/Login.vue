@@ -18,7 +18,6 @@ const errors = ref({});
 async function submit() {
     await useLogin(employee)
         .then((response) => {
-
             $cookies.set('token', response.data.data.token, 60*60*24)
 
             useToastStore().success('Đăng nhập thành công', 3000)

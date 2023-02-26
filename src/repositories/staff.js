@@ -11,7 +11,7 @@ export function indexStaff() {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
-        }
+        },
     }
 
     return axios
