@@ -51,12 +51,18 @@
                             <td class="px-4 py-4">{{ person.user?.email }}</td>
                             <td class="px-4 py-4">Sweety 1</td>
                             <td class="px-4 py-4">
-                                <p class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+                                <p v-if="person.is_admin === 1" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+                                <p v-else class="inline-block text-center text-xs text-white px-2 py-0.5 bg-blue-400 rounded-lg">Nhân viên</p>
                             </td>
                             <td class="px-4 py-4">
-                                <div class="flex items-center justify-center">
+                                <div v-if="person.is_active" class="flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-500">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div v-else class="flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
                             </td>
@@ -80,11 +86,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="h-12 flex items-center justify-between px-4">
-                    <p class="text-zinc-400">Trước</p>
-                    <p class="text-zinc-600">1-7 trang</p>
-                    <p class="text-zinc-400">Sau</p>
-                </div>
+                <Pagination :total="pagination.total"/>
             </div>
         </div>
     </div>
@@ -92,24 +94,30 @@
 
 <script setup>
 import NavigationBar from '../../../components/NavigationBar.vue'
+import Pagination from '../../../components/Pagination.vue'
 
 import { indexStaff } from "../../../repositories/staff";
 
-import { useRouter } from 'vue-router'
-
-import { ref } from 'vue'
-
-
-
-
-
+import { ref, onBeforeMount } from 'vue'
 
 const staff = ref([])
 
-indexStaff(staff.value)
-    .then((response) => {
-        staff.value = response.data.data.data
-    })
+const pagination = ref({
+    total: '',
+    current_page: '',
+    per_page: '',
+});
+
+onBeforeMount(() => {
+    indexStaff(staff.value)
+        .then((response) => {
+            pagination.value.current_page = response.data.data.current_page
+            pagination.value.total = response.data.data.total
+            pagination.value.per_page = response.data.data.per_page
+
+            staff.value = response.data.data.data   
+        })
+})
 
 
 
