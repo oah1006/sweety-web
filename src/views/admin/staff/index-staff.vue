@@ -86,7 +86,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <Pagination :total="pagination.total"/>
+                <Pagination @pre-page="prePage" @next-page="nextPage" :total="pagination.total" :page="page" :per_page="pagination.per_page"/>
             </div>
         </div>
     </div>
@@ -102,22 +102,33 @@ import { ref, onBeforeMount } from 'vue'
 
 const staff = ref([])
 
+const page = ref(1);
+
+console.log(page)
+
 const pagination = ref({
     total: '',
-    current_page: '',
     per_page: '',
 });
 
 onBeforeMount(() => {
-    indexStaff(staff.value)
+    indexStaff(page.value)
         .then((response) => {
-            pagination.value.current_page = response.data.data.current_page
+            console.log(response.data.data.per_page)
             pagination.value.total = response.data.data.total
             pagination.value.per_page = response.data.data.per_page
 
             staff.value = response.data.data.data   
         })
 })
+
+function prePage() {
+    page.value = page.value--
+}
+
+function nextPage() {
+    page.value = page.value++
+}
 
 
 
