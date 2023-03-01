@@ -12,6 +12,9 @@ export function indexStaff(page) {
         headers: {
             Authorization: `Bearer ${token}`,
         },
+        params: {
+            page
+        }
     }
 
     return axios

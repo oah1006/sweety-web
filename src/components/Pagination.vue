@@ -2,8 +2,8 @@
     <div class="h-12 flex items-center justify-between px-4">
         <a class="text-zinc-400 cursor-pointer" @click="prePage">Trước</a>
         <div class="flex gap-2 items-center">
-            <input type="text" class="form-input w-7 px-2 py-0.5 text-center" />
-            <p>/ 4</p>
+            <input type="text" class="form-input w-7 px-1 py-0 text-center" v-model="page" ref="input" />
+            <p>/ {{ props.total }}</p>
         </div>
         <a class="text-zinc-400 cursor-pointer" @click="nextPage">Sau</a>
     </div>
@@ -11,13 +11,35 @@
 
 <script setup>
 
+import { ref, computed, watch} from 'vue'
+
+const emits = defineEmits(['pre-page', 'next-page', 'update:modelValue', 'get-data'])
+
 const props = defineProps({
     total: Number,
     per_page: Number,
-    page: Number
+    modelValue: String
 })
 
-const emits = defineEmits(['pre-page'])
+const input = ref('');
+
+const page = computed({
+  get: () => props.modelValue,
+
+  set: (value) => emits('update:modelValue', value)
+})
+
+
+watch(page, () => {
+  const regex = /^[0-9]+$/;
+
+  if (regex.test(page.value)) {
+    emits('get-data')
+  } else {
+    input.value.value = ''
+    page.value = ''
+  }
+})
 
 function prePage() {
     emits('pre-page')
@@ -26,6 +48,7 @@ function prePage() {
 function nextPage() {
     emits('next-page')
 }
+
 
 
 

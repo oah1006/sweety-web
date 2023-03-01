@@ -86,7 +86,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <Pagination @pre-page="prePage" @next-page="nextPage" :total="pagination.total" :page="page" :per_page="pagination.per_page"/>
+                <Pagination v-model="page" @pre-page="prePage" @get-data="getData" @next-page="nextPage" :total="pagination.total" :per_page="pagination.per_page"/>
             </div>
         </div>
     </div>
@@ -98,39 +98,46 @@ import Pagination from '../../../components/Pagination.vue'
 
 import { indexStaff } from "../../../repositories/staff";
 
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, watch } from 'vue'
 
 const staff = ref([])
 
 const page = ref(1);
-
-console.log(page)
 
 const pagination = ref({
     total: '',
     per_page: '',
 });
 
-onBeforeMount(() => {
-    indexStaff(page.value)
-        .then((response) => {
-            console.log(response.data.data.per_page)
-            pagination.value.total = response.data.data.total
-            pagination.value.per_page = response.data.data.per_page
 
-            staff.value = response.data.data.data   
-        })
+function getData() {
+  indexStaff(page.value)
+      .then((response) => {
+        pagination.value.total = response.data.data.total
+        pagination.value.per_page = response.data.data.per_page
+
+        staff.value = response.data.data.data
+      })
+}
+
+onBeforeMount(() => {
+  getData()
 })
 
+
 function prePage() {
-    page.value = page.value--
+  if (page.value === 1) {
+    return
+  } else {
+    page.value--
+    getStaff()
+  }
 }
 
 function nextPage() {
-    page.value = page.value++
+  page.value++
+  getData()
 }
-
-
 
 
 </script>
