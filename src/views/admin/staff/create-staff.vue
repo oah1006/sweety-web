@@ -104,7 +104,7 @@
 <script setup>
 import NavigationBar from '../../../components/NavigationBar.vue'
 
-import { storeStaff } from "../../../repositories/staff";
+import { storeStaff } from "@/repositories/staff";
 
 import { useRouter } from 'vue-router'
 
@@ -123,7 +123,7 @@ const config = {
     }
 }
 
-const file = ref('');
+const file = ref();
 const url = ref('');
 
 const formStaff = ref({
