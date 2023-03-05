@@ -7,10 +7,10 @@ import Dashboard from '../views/admin/Dashboard.vue'
 
 import IndexStaff from '../views/admin/staff/index-staff.vue'
 import CreateStaff from '../views/admin/staff/create-staff.vue'
+import UpdateStaff from '../views/admin/staff/update-staff.vue'
 
 
-import NavigationBar from '../components/NavigationBar.vue'
-import Pagination from '../components/Pagination.vue'
+
 
 
 
@@ -50,21 +50,13 @@ const router = createRouter({
       }
     },
     {
-      path: '/navigationbar',
-      name: 'navigationbar',
-      component: NavigationBar,
+      path: '/update-staff/:id',
+      name: 'update-staff',
+      component: UpdateStaff,
       meta: {
         requiresAuth: true
       }
     },
-    {
-      path: '/pagination',
-      name: 'pagination',
-      component: Pagination,
-      meta: {
-        requiresAuth: true
-      }
-    } 
   ],
   linkActiveClass: 'vue-active-link'
 })

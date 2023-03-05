@@ -3,8 +3,8 @@
         <NavigationBar class="flex-none" />
         <div class="grow bg-zinc-100 py-6 rounded-l-[40px] border-l border-zinc-100 shadow">
             <div class="px-12">
-                <p class="text-2xl font-medium text-zinc-800">Tạo nhân viên</p>
-                <p class="text-zinc-400 text-sm">Bạn sẽ tạo nhân viên mới ở đây nhé!</p>
+                <p class="text-2xl font-medium text-zinc-800">Cập nhật nhân viên</p>
+                <p class="text-zinc-400 text-sm">Bạn sẽ cập nhật nhân viên mới ở đây nhé!</p>
             </div>
             <form @submit.prevent="submit" class="mt-8">
                 <div class="flex mx-10 gap-20">
@@ -37,48 +37,44 @@
                             <div class="border-zinc-100 border-b-0 px-6 pb-3 pt-3">
                                 <p class="text-zinc-600">Chức vụ</p>
                                 <select v-model="formStaff.position" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4 mt-1">
-                                    <option disabled value="">Hãy chọn dưới đây</option>
-                                    <option value="manager">Quản lý</option>
-                                    <option value="employee">Nhân viên</option>
+                                    <option>Hãy chọn dưới đây</option>
+                                    <option :value="1">Quản lý</option>
+                                    <option :value="0">Nhân viên</option>
                                 </select>
                             </div>
                             <div class="border-zinc-100 border-b-0 px-6 pb-8">
                                 <p class="text-zinc-600">Trạng thái</p>
                                 <select v-model="formStaff.status" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4 mt-1">
                                     <option disabled value="">Hãy chọn dưới đây</option>
-                                    <option value="active">Active</option>
-                                    <option value="disable">Disable</option>
+                                    <option :value="1">Hoạt động</option>
+                                    <option :value="0">Vô hiệu hóa</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>               
                     </div>
-                    <div class="grow">
+                    <div class="grow my-auto">
                         <div class="grow shadow rounded-lg bg-white border border-zinc-100 border-solid">
                             <div class="bg-zinc-50 py-6 px-4">
                                 <p class="text-zinc-900 text-lg font-medium">Thông tin nhân viên</p>
                             </div>
-                            <div class="border-b-2 py-6 border-zinc-100 flex items-center px-6">
+                            <div class="border-b-2 border-zinc-100 flex items-center px-6 py-6">
                                 <p class="text-zinc-600 w-1/3 font-semibold text-sm">Họ và tên</p>
                                 <input type="text" placeholder="Tên của bạn" name="full_name" v-model="formStaff.full_name" class="form-input text-md placeholder:text-zinc-400 mt-1 w-full bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
                             </div>
-                            <div class="border-b-2 py-6 border-zinc-100 flex items-center px-6">
+                            <div class="border-b-2 border-zinc-100 flex items-center px-6 py-6">
                                 <p class="text-zinc-600 w-1/3 font-semibold text-sm">Địa chỉ Email</p>
                                 <input type="text" v-model="formStaff.email" name="email" placeholder="Email của bạn" class="form-input text-md placeholder:text-zinc-400 mt-1 w-full bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
                             </div>
-                            <div class="border-b-2 py-6 border-zinc-100 flex items-center px-6">
-                                <p class="text-zinc-600 w-1/3 font-semibold text-sm">Mật khẩu</p>
-                                <input type="password" placeholder="Mật khẩu của bạn" name="password" v-model="formStaff.password" class="form-input text-md placeholder:text-zinc-400 mt-1 w-full bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
-                            </div>
-                            <div class="border-b-2 py-6 border-zinc-100 flex items-center px-6">
+                            <div class="border-b-2 border-zinc-100 flex items-center px-6 py-6">
                                 <p class="text-zinc-600 w-1/3 font-semibold text-sm">Số điện thoại</p>
                                 <input type="text" v-model="formStaff.phone_number" name="phone_number" placeholder="Số điện thoại của bạn" class="form-input text-md placeholder:text-zinc-400 mt-1 w-full bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
                             </div>
-                            <div class="py-6 flex items-center px-6">
+                            <div class="flex items-center px-6 py-6">
                                 <p class="text-zinc-600 w-1/3 font-semibold text-sm">Địa chỉ</p>
                                 <input type="text" v-model="formStaff.address" name="address" placeholder="Địa chỉ của bạn" class="form-input text-md placeholder:text-zinc-400 mt-1 w-full bg-white border border-solid border-zinc-300 rounded py-2 px-4" />
                             </div>
                         </div>
-                    </div>
+                    </div>        
                 </div>
                 <div class="flex my-4 mx-10">
                     <div class="ml-auto flex gap-4">
@@ -103,12 +99,12 @@
 
 <script setup>
 import NavigationBar from '../../../components/NavigationBar.vue'
+import { getStaffProfile, updateStaff } from "../../../repositories/staff";
 
-import { storeStaff } from "@/repositories/staff";
 
 import { useRouter } from 'vue-router'
 
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 
 const router = useRouter();
 
@@ -124,16 +120,16 @@ const config = {
 }
 
 const file = ref();
+
 const url = ref('');
 
 const formStaff = ref({
-  email: '',
-  password: '',
-  full_name: '',
-  phone_number: '',
-  address: '',
-  position: '',
-  status: ''
+    email: '',
+    full_name: '',
+    phone_number: '',
+    address: '',
+    position: '',
+    status: ''
 });
 
 function onImageChange(e) {
@@ -141,20 +137,43 @@ function onImageChange(e) {
   url.value = URL.createObjectURL(file.value)
 }
 
+function getData() {
+    getStaffProfile() 
+        .then((response) => {
+            console.log(response.data)
+
+            formStaff.value.email = response.data.user?.email
+            formStaff.value.full_name = response.data.full_name
+            formStaff.value.phone_number = response.data.user?.phone_number
+            formStaff.value.address = response.data.user?.address
+            formStaff.value.position = response.data.is_admin
+            formStaff.value.status = response.data.is_active
+
+            url.value = response.data.attachment.url
+
+        })
+}
+
 async function submit() {
     formData.append('avatar', file.value)
 
     formData.append('email', formStaff.value.email)
-    formData.append('password', formStaff.value.password)
     formData.append('full_name', formStaff.value.full_name)
     formData.append('phone_number', formStaff.value.phone_number)
     formData.append('address', formStaff.value.address)
     formData.append('position', formStaff.value.position)
     formData.append('status', formStaff.value.status)
 
-    await storeStaff(formData)
+    await updateStaff(formData)
       .then((response) => {
         router.push({ path: 'staffs' })
       })
 }
+
+
+
+getData()
+
+
+
 </script>

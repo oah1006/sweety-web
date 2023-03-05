@@ -5,7 +5,7 @@
             <input type="text" class="form-input w-7 px-1 py-0 text-center" v-model="page" ref="input" />
             <p>/ {{ props.total }}</p>
         </div>
-        <a class="text-zinc-400 cursor-pointer" v-if="props.modelValue > props.total" @click="nextPage">Sau</a>
+        <a class="text-zinc-400 cursor-pointer" @click="nextPage">Sau</a>
     </div>
 </template>
 
