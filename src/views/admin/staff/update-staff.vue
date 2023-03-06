@@ -13,9 +13,14 @@
                             <div class="bg-zinc-50 py-3 px-4">
                                 <p class="text-zinc-900 text-lg font-medium">Ảnh đại diện</p>
                             </div>
-                            <div class="flex flex-col items-center justify-center">
-                                <div class="w-40 h-40 my-4">
-                                    <img v-if="url" :src="url" class="w-40 h-40 object-cover"/>
+                            <div class="flex flex-col items-center justify-center relative">
+                                <div class="w-52 h-52 my-4">
+                                    <img v-if="url" :src="url" class="w-48 h-48 object-cover rounded-full"/>
+                                    <a v-if="url" @click="detachAttachment" class="cursor-pointer absolute top-6 right-14 rounded-full bg-zinc-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                        </svg>
+                                    </a>
                                 </div>
                                 <div class="ml-12 pb-4">
                                     <input type="file"
@@ -99,42 +104,45 @@
 
 <script setup>
 import NavigationBar from '../../../components/NavigationBar.vue'
-import { getStaffProfile, updateStaff } from "../../../repositories/staff";
-
+import { getStaffProfile, updateStaff } from "../../../repositories/staff"
+import { detach, sync } from '../../../repositories/attachment'
 
 import { useRouter } from 'vue-router'
 
-import { onBeforeMount, ref } from 'vue'
+import { ref } from 'vue'
 
-const router = useRouter();
+const router = useRouter()
 
-const formData = new FormData();
+const file = ref()
 
-const token = $cookies.get('token')
-
-const config = {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data'
-    }
-}
-
-const file = ref();
-
-const url = ref('');
+const url = ref('')
 
 const formStaff = ref({
+    id: '',
+    attachment_id: '',
     email: '',
     full_name: '',
     phone_number: '',
     address: '',
     position: '',
     status: ''
-});
+})
 
 function onImageChange(e) {
-  file.value = e.target.files[0]
-  url.value = URL.createObjectURL(file.value)
+    file.value = e.target.files[0]
+
+    sync('staff', formStaff.value.id, file.value, 'avatars') 
+        .then((response) => {
+            url.value = URL.createObjectURL(file.value)
+            console.log(response)
+        })
+}
+
+function detachAttachment() {
+    detach(formStaff.value.attachment_id)
+        .then((response) => {
+            url.value = ''
+        }) 
 }
 
 function getData() {
@@ -142,21 +150,23 @@ function getData() {
         .then((response) => {
             console.log(response.data)
 
+            formStaff.value.id = response.data.id
+            formStaff.value.attachment_id = response.data.attachment?.id
             formStaff.value.email = response.data.user?.email
             formStaff.value.full_name = response.data.full_name
             formStaff.value.phone_number = response.data.user?.phone_number
             formStaff.value.address = response.data.user?.address
             formStaff.value.position = response.data.is_admin
             formStaff.value.status = response.data.is_active
+            
 
-            url.value = response.data.attachment.url
-
+            if (response.data.attachment != null) {
+                url.value = response.data.attachment.url
+            }
         })
 }
 
 async function submit() {
-    formData.append('avatar', file.value)
-
     formData.append('email', formStaff.value.email)
     formData.append('full_name', formStaff.value.full_name)
     formData.append('phone_number', formStaff.value.phone_number)
@@ -164,13 +174,17 @@ async function submit() {
     formData.append('position', formStaff.value.position)
     formData.append('status', formStaff.value.status)
 
+    
+
     await updateStaff(formData)
       .then((response) => {
         router.push({ path: 'staffs' })
       })
+
+
+
+
 }
-
-
 
 getData()
 
