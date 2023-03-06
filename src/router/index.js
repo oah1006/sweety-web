@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// import auth/ login view
+
 import Login from '../views/admin/auth/Login.vue'
 
 import Dashboard from '../views/admin/Dashboard.vue'
@@ -8,11 +8,6 @@ import Dashboard from '../views/admin/Dashboard.vue'
 import IndexStaff from '../views/admin/staff/index-staff.vue'
 import CreateStaff from '../views/admin/staff/create-staff.vue'
 import UpdateStaff from '../views/admin/staff/update-staff.vue'
-
-
-
-
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

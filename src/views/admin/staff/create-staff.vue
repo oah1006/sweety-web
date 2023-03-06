@@ -112,17 +112,6 @@ import { ref } from 'vue'
 
 const router = useRouter();
 
-const formData = new FormData();
-
-const token = $cookies.get('token')
-
-const config = {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data'
-    }
-}
-
 const file = ref();
 const url = ref('');
 
@@ -137,12 +126,16 @@ const formStaff = ref({
 });
 
 function onImageChange(e) {
-  file.value = e.target.files[0]
-  url.value = URL.createObjectURL(file.value)
-}
+    file.value = e.target.files[0]
+    url.value = URL.createObjectURL(file.value)
+}   
 
 async function submit() {
-    formData.append('avatar', file.value)
+    const formData = new FormData();
+    
+    if (file.value != undefined) {
+        formData.append('avatar', file.value)
+    }
 
     formData.append('email', formStaff.value.email)
     formData.append('password', formStaff.value.password)

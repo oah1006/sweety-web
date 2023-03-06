@@ -17,8 +17,7 @@ const emits = defineEmits(['pre-page', 'next-page', 'update:modelValue', 'get-da
 
 const props = defineProps({
     total: Number,
-    per_page: Number,
-    modelValue: String
+    modelValue: Number
 })
 
 const input = ref('');
@@ -36,8 +35,8 @@ watch(page, () => {
   if (regex.test(page.value)) {
     emits('get-data')
   } else {
-    input.value.value = ''
-    page.value = ''
+    input.value.value = 1
+    page.value = 1
   }
 })
 
