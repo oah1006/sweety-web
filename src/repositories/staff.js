@@ -1,11 +1,12 @@
 import axios from "axios"
-import { useRouter, useRoute  } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 export function storeStaff(form) {
     const token = $cookies.get('token')
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
         },
     }
 
