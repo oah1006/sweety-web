@@ -9,6 +9,8 @@ import IndexStaff from '../views/admin/staff/index-staff.vue'
 import CreateStaff from '../views/admin/staff/create-staff.vue'
 import UpdateStaff from '../views/admin/staff/update-staff.vue'
 
+import Header from '../components/Header.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -29,7 +31,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/staffs',
+      path: '/staff',
       name: 'index-staff',
       component: IndexStaff,
       meta: {
