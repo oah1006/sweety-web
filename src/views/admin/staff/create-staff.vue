@@ -4,10 +4,7 @@
       <div class="flex">
         <NavigationBar class="flex-none" />
         <div class="grow bg-zinc-50 py-24">
-          <div class="px-12">
-            <p class="text-2xl font-medium text-zinc-800">Tạo nhân viên</p>
-            <p class="text-zinc-400 text-sm">Bạn sẽ tạo nhân viên mới ở đây nhé!</p>
-          </div>
+          <TitlePage title="Tạo nhân viên" sub-title="Bạn có thể tạo nhân viên ở đây!" />
           <form @submit.prevent="submit" class="mt-8">
             <div class="flex mx-10 gap-20">
               <div class="w-1/4">
@@ -107,6 +104,7 @@
 <script setup>
 import NavigationBar from '../../../components/NavigationBar.vue'
 import Header from '../../../components/Header.vue'
+import TitlePage from '../../../components/TitlePage.vue'
 
 import { storeStaff } from "@/repositories/staff";
 
