@@ -12,10 +12,7 @@
             </div>
           </div>
 
-          <div class="mt-6 mx-12 shadow-md rounded-md bg-white">
-            <ListTable @delete-item="deleteStaff" :list-item="staff"/>
-            <Pagination v-model="page" @pre-page="prePage" @get-data="getData" @next-page="nextPage" :total="pagination.total"/>
-          </div>
+          <ListTable @delete-item="deleteStaff" :list-item="staff" :pagination="pagination" :page="page"/>
         </div>
       </div>
     </div>
@@ -24,7 +21,6 @@
 <script setup>
 import NavigationBar from '@/components/NavigationBar.vue'
 import Header from '@/components/Header.vue'
-import Pagination from '@/components/Pagination.vue'
 import TitlePage from '@/components/TitlePage.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import Button from "@/components/Button.vue";
@@ -67,18 +63,6 @@ onBeforeMount(() => {
   getData()
 })
 
-function prePage() {
-  if (page.value === 1) {
-    return
-  } else {
-    page.value--
-  }
-}
-
-function nextPage() {
-    console.log('hi')
-    page.value++
-}
 
 function useClickRedirect() {
   router.push({ name: 'create-staff' })
