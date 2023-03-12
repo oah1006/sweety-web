@@ -71,18 +71,23 @@
         </tr>
       </tbody>
     </table>
-    <Pagination v-model="page" @pre-page="prePage" @get-data="getData" @next-page="nextPage" :total="props.pagination.total"/>
+    <Pagination v-model="page" @pre-page="prePage" @next-page="nextPage" :total="props.total"/>
   </div>
-</template>'
+</template>
 
 <script setup>
+import { ref } from 'vue'
 import Pagination from '@/components/Pagination.vue'
+import Button from "@/components/Button.vue";
 
 const props = defineProps({
   listItem: Object,
-  pagination: Object,
-  page: Number
+  total: Number,
+  page: Number,
+  text: String,
 })
+
+const page = ref(props.page)
 
 const emits = defineEmits(['delete-item'])
 
@@ -100,6 +105,10 @@ function prePage() {
 
 function nextPage() {
   props.page.value++
+}
+
+function useClickRedirect() {
+  router.push({ name: 'create-staff' })
 }
 
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 pt-32">
+  <div class="w-64 bg-white z-20 fixed bg-white h-full">
       <div class="pb-6">
           <p class="text-base font-medium text-orange-600 px-4">Hệ thống</p>
           <div>
