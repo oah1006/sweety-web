@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 bg-white z-20 fixed bg-white h-full">
+  <div class="w-64 bg-white z-20 fixed bg-white h-full flex-none py-28">
       <div class="pb-6">
           <p class="text-base font-medium text-orange-600 px-4">Hệ thống</p>
           <div>

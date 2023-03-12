@@ -9,7 +9,7 @@ import IndexStaff from '../views/admin/staff/index-staff.vue'
 import CreateStaff from '../views/admin/staff/create-staff.vue'
 import UpdateStaff from '../views/admin/staff/update-staff.vue'
 
-import Header from '../components/Header.vue'
+import LoadingTable from '../components/LoadingTable.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,6 +54,14 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: '/loadingTable',
+      name: 'loading-table',
+      component: LoadingTable,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ],
   linkActiveClass: 'vue-active-link'
 })

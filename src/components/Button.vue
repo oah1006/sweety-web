@@ -15,9 +15,9 @@
     }
   });
 
-  const emits = defineEmits(['click-redirect'])
+  const emits = defineEmits(['click-redirect-create'])
 
   function clickRedirect() {
-    emits('click-redirect')
+    emits('click-redirect-create')
   }
 </script>

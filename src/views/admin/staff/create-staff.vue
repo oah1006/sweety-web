@@ -3,7 +3,7 @@
       <Header />
       <div class="flex">
         <NavigationBar class="flex-none" />
-        <div class="grow bg-zinc-50 py-24">
+        <div class="grow bg-zinc-50 py-24 ml-60">
           <TitlePage title="Tạo nhân viên" sub-title="Bạn có thể tạo nhân viên ở đây!" />
           <form @submit.prevent="submit" class="mt-8">
             <div class="flex mx-10 gap-20">
