@@ -1,21 +1,13 @@
 <template>
-    <div class="min-h-screen">
-      <Header />
-      <div class="flex">
-        <NavigationBar class="flex-none" />
-        <div class="grow bg-zinc-50 py-24 z-0">
-          <div class="py-6 rounded-lg">
-            <TitlePage title="Nhân viên" sub-title="Chào mừng bạn đến với trang quản lý nhân viên!" />
-            <div class="flex items-center justify-between w-full mt-4">
-              <SearchBar />
-              <Button name-button="Tạo mới" @click-redirect="useClickRedirect" />
-            </div>
-          </div>
-
-          <ListTable @delete-item="deleteStaff" :list-item="staff" :pagination="pagination" :page="page"/>
-        </div>
-      </div>
+  <div class="min-h-screen bg-zinc-50">
+    <Header />
+    <div class="flex h-full">
+      <NavigationBar class="flex-none py-8" />
+      <ListTable v-if="pagination.total > 0" class="ml-64 grow z-0" text="Nhân viên" @delete-item="deleteStaff" :list-item="staff" :total="pagination.total" :page="page"/>
+      <NoData v-else class="ml-64 grow z-0" @click-redirect="useClickRedirect" text="nhân viên"/>
+<!--      Bỏ no data vào list table, tạo layout bỏ slot -->
     </div>
+  </div>
 </template>
 
 <script setup>
@@ -25,6 +17,7 @@ import TitlePage from '@/components/TitlePage.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import Button from "@/components/Button.vue";
 import ListTable from "@/components/ListTable.vue"
+import NoData from "@/components/NoData.vue"
 
 import { indexStaff, useDeleteStaffApi } from "../../../repositories/staff";
 
@@ -42,7 +35,6 @@ const page = ref(1);
 const pagination = ref({
     total: null,
 });
-
 
 function getData() {
   indexStaff(page.value)
@@ -65,6 +57,7 @@ onBeforeMount(() => {
 
 
 function useClickRedirect() {
+  console.log('hi')
   router.push({ name: 'create-staff' })
 }
 
