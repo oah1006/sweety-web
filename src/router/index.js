@@ -9,7 +9,8 @@ import IndexStaff from '../views/admin/staff/index-staff.vue'
 import CreateStaff from '../views/admin/staff/create-staff.vue'
 import UpdateStaff from '../views/admin/staff/update-staff.vue'
 
-import LoadingTable from '../components/LoadingTable.vue'
+import LoadingTable from '../components/loadings/LoadingTable.vue'
+import LoadingPage from '../components/loadings/LoadingPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,14 @@ const router = createRouter({
       path: '/loadingTable',
       name: 'loading-table',
       component: LoadingTable,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/loadingPage',
+      name: 'loading-page',
+      component: LoadingPage,
       meta: {
         requiresAuth: true
       }

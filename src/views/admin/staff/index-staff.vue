@@ -1,42 +1,66 @@
 <template>
   <IndexLayout>
+    <template #title>
+      <TitlePage title="Nhân viên" subTitle="Chào mừng bạn đến với trang nhân viên của cửa hàng!" :text-button="textButton"/>
+    </template>
     <template #list-table>
-      <ListTable class="grow z-0" text="Nhân viên" @delete-item="deleteStaff" :list-item="staff" :total="pagination.total" :page="page"
+      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :list-item="staff" :total="pagination.total" :last-page="pagination.lastPage"
+                 v-model:modelValue="page" v-model:modelBoolean="isLoadingListTable"
                  @click-redirect-update-staff="useClickRedirectUpdateStaff" @click-redirect-create="useClickRedirectCreate"
-                 :is-loading="isLoading" @pre-page="prePage" @next-page="nextPage"/>
+                 @delete-item="deleteStaff" @get-data="getData"
+      >
+        <template #header-table-column>
+          <HeaderTableColumn text="ID" />
+        </template>
+      </ListTable>
+
+      <LoadingPage v-else />
     </template>
   </IndexLayout>
 </template>
 
 <script setup>
-import ListTable from "@/components/ListTable.vue"
+import ListTable from "@/components/layouts/ListTableLayout.vue"
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
+import LoadingPage from "@/components/loadings/LoadingPage.vue"
+import TitlePage from "@/components/TitlePage.vue"
+import HeaderTableColumn from "@/components/table/HeaderTableColumn.vue";
+
 
 import { indexStaff, useDeleteStaffApi } from "../../../repositories/staff";
 
 import { ref, onBeforeMount } from 'vue'
 
 import { useRouter } from 'vue-router'
-
 const router = useRouter()
+
+const textButton = 'Tạo mới'
 
 const staff = ref([])
 
 const page = ref(1);
 
-const isLoading = ref(true)
+const isLoadingPage = ref(true)
+const isLoadingListTable = ref(false)
 
 const pagination = ref({
     total: null,
+    lastPage: null
 });
 
 function getData() {
-  indexStaff(page.value)
+  setTimeout(() => {
+    indexStaff(page.value)
       .then((response) => {
+        pagination.value.lastPage = response.data.data.last_page
         pagination.value.total = response.data.data.total
+
         staff.value = response.data.data.data
-        isLoading.value = false
+
+        isLoadingPage.value = false
+        isLoadingListTable.value = false
       })
+  }, 0)
 }
 function deleteStaff(id) {
   useDeleteStaffApi(id)
@@ -51,7 +75,6 @@ onBeforeMount(() => {
 
 
 function useClickRedirectCreate() {
-  console.log('ho')
   router.push({ name: 'create-staff' })
 }
 
@@ -63,17 +86,4 @@ function useClickRedirectUpdateStaff(id) {
     }
   })
 }
-
-function prePage() {
-  if (page.value === 1) {
-    return
-  } else {
-    page.value--
-  }
-}
-
-function nextPage() {
-  page.value++
-}
-
 </script>

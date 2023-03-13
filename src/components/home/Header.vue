@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center pl-20 border-b border-zinc-100 shadow w-full z-50 fixed top-0 bg-white">
     <div class="flex justify-between">
-      <img src="../images/logo.png" class="w-20 h-20 object-cover mx-auto" />
+      <img src="../../images/logo.png" class="w-20 h-20 object-cover mx-auto" />
     </div>
     <div class="flex-none flex items-center px-4 ml-auto mr-10">
       <div class="flex items-center grow gap-2">

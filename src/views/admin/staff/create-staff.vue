@@ -102,8 +102,8 @@
 </template>
 
 <script setup>
-import NavigationBar from '../../../components/NavigationBar.vue'
-import Header from '../../../components/Header.vue'
+import NavigationBar from '../../../components/home/NavigationBar.vue'
+import Header from '../../../components/home/Header.vue'
 import TitlePage from '../../../components/TitlePage.vue'
 
 import { storeStaff } from "@/repositories/staff";
