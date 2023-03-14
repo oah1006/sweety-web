@@ -3,7 +3,15 @@
     <Header />
     <div class="flex h-full">
       <NavigationBar />
-      <slot name="list-table"></slot>
+      <div class="ml-64 px-12 grow mt-28">
+        <slot name="form-create"></slot>
+      </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import NavigationBar from '@/components/home/NavigationBar.vue'
+import Header from '@/components/home/Header.vue'
+
+</script>

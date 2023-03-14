@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 
-import Login from '../views/admin/auth/Login.vue'
+import Login from '@/views/admin/auth/Login.vue'
 
-import Dashboard from '../views/admin/Dashboard.vue'
+import Dashboard from '@/views/admin/Dashboard.vue'
 
-import IndexStaff from '../views/admin/staff/index-staff.vue'
-import CreateStaff from '../views/admin/staff/create-staff.vue'
-import UpdateStaff from '../views/admin/staff/update-staff.vue'
+import IndexStaff from '@/views/admin/staff/index-staff.vue'
+import CreateStaff from '@/views/admin/staff/create-staff.vue'
+import UpdateStaff from '@/views/admin/staff/update-staff.vue'
+
+import IndexCustomer from '@/views/admin/customers/index-customer.vue'
+import CreateCustomer from '@/views/admin/customers/create-customer.vue'
 
 import LoadingTable from '../components/loadings/LoadingTable.vue'
 import LoadingPage from '../components/loadings/LoadingPage.vue'
@@ -56,21 +59,21 @@ const router = createRouter({
       }
     },
     {
-      path: '/loadingTable',
-      name: 'loading-table',
-      component: LoadingTable,
+      path: '/customers',
+      name: 'index-customer',
+      component: IndexCustomer,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/loadingPage',
-      name: 'loading-page',
-      component: LoadingPage,
+      path: '/create-customer',
+      name: 'create-customer',
+      component: CreateCustomer,
       meta: {
         requiresAuth: true
       }
-    }
+    },
   ],
   linkActiveClass: 'vue-active-link'
 })

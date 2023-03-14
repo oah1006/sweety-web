@@ -4,7 +4,7 @@
       <p class="text-3xl text-zinc-800">{{ props.title }}</p>
       <p class="text-zinc-400 text-sm">{{ props.subTitle }}</p>
     </div>
-    <Button :text-button="props.textButton" class="ml-auto"/>
+    <slot name="button"></slot>
   </div>
 </template>
 
@@ -24,5 +24,10 @@ const props = defineProps({
   textButton: String
 })
 
+const emits = defineEmits(['click-redirect'])
+
+function useClickRedirectCreate() {
+  emits('click-redirect')
+}
 
 </script>

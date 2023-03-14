@@ -4,7 +4,6 @@
     <div class="flex h-full">
       <NavigationBar />
       <div class="ml-64 px-12 grow mt-28">
-        <slot name="title"></slot>
         <slot name="list-table"></slot>
       </div>
     </div>
