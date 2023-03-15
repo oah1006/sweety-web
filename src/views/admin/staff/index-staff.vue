@@ -1,8 +1,8 @@
 <template>
   <IndexLayout>
     <template #list-table>
-      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
-                 v-model:modelBoolean="isLoadingListTable" @get-data="getData"
+      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :total="pagination.total" :last-page="pagination.lastPage"
+                 v-model:modelValue="page" v-model:modelBoolean="isLoadingListTable" @get-data="getData"
       >
         <template #title>
           <TitlePage title="Nhân viên" subTitle="Chào mừng bạn đến với trang nhân viên của cửa hàng!">
@@ -29,7 +29,7 @@
           <ListTableRow v-for="item in staff" :key="item.id">
             <template #table-column>
               <ListTableColumnCheckbox />
-              <ListTableColumn :text="item.id" />
+              <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
               <ListTableColumn text="Cửa hàng" />
@@ -58,7 +58,7 @@ import ListTableColumnBadge from "@/components/table/ListTableColumnBadge.vue"
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue"
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue"
 
-import { indexStaff, useDeleteStaffApi } from "@/repositories/staff"
+import {useIndexStaff, useDeleteStaffApi} from "@/repositories/staff"
 
 import { ref, onBeforeMount } from 'vue'
 
@@ -80,7 +80,7 @@ const pagination = ref({
 
 function getData() {
   setTimeout(() => {
-    indexStaff(page.value)
+    useIndexStaff(page.value)
       .then((response) => {
         pagination.value.lastPage = response.data.data.last_page
         pagination.value.total = response.data.data.total

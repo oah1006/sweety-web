@@ -3,7 +3,7 @@
       <Header />
       <div class="flex">
         <NavigationBar class="flex-none" />
-        <div class="grow bg-zinc-100 py-24">
+        <div class="grow bg-zinc-100 py-32 pl-80">
           <TitlePage title="Cập nhật nhân viên" sub-title="Bạn có thể cập nhật nhân viên ở đây!" />
           <form @submit.prevent="submit" class="mt-8">
             <div class="flex mx-10 gap-20">
@@ -103,12 +103,12 @@
 </template>
 
 <script setup>
-import NavigationBar from '../../../components/home/NavigationBar.vue'
-import Header from '../../../components/home/Header.vue'
-import TitlePage from '../../../components/TitlePage.vue'
+import NavigationBar from '@/components/home/NavigationBar.vue'
+import Header from '@/components/home/Header.vue'
+import TitlePage from '@/components/TitlePage.vue'
 
-import { getStaffProfile, updateStaff } from "../../../repositories/staff"
-import { detach, sync } from '../../../repositories/attachment'
+import {useGetStaffInformation, useUpdateStaffApi} from "@/repositories/staff"
+import { detach, sync } from '@/repositories/attachment'
 
 import {useRoute, useRouter} from 'vue-router'
 
@@ -116,7 +116,7 @@ import { ref } from 'vue'
 
 const router = useRouter()
 
-const file = ref()
+const file = ref('')
 
 const url = ref('')
 
@@ -137,9 +137,11 @@ const formStaff = ref({
 
 function onImageChange(e) {
     file.value = e.target.files[0]
+    console.log(file.value)
 
     sync('staff', formStaff.value.id, file.value, 'avatars') 
         .then((response) => {
+            console.log(response)
             url.value = URL.createObjectURL(file.value)
         })
 }
@@ -152,26 +154,25 @@ function detachAttachment() {
 }
 
 function getStaffInformation() {
-    getStaffProfile() 
-        .then((response) => {
-            formStaff.value.id = response.data.id
-            formStaff.value.attachment_id = response.data.attachment?.id
-            formStaff.value.email = response.data.user?.email
-            formStaff.value.full_name = response.data.full_name
-            formStaff.value.phone_number = response.data.user?.phone_number
-            formStaff.value.address = response.data.user?.address
-            formStaff.value.is_admin = response.data.is_admin
-            formStaff.value.is_active = response.data.is_active
+  useGetStaffInformation()
+    .then((response) => {
+        formStaff.value.id = response.data.id
+        formStaff.value.attachment_id = response.data.attachment?.id
+        formStaff.value.email = response.data.user?.email
+        formStaff.value.full_name = response.data.full_name
+        formStaff.value.phone_number = response.data.user?.phone_number
+        formStaff.value.address = response.data.user?.address
+        formStaff.value.is_admin = response.data.is_admin
+        formStaff.value.is_active = response.data.is_active
 
-
-            if (response.data.attachment != null) {
-                url.value = response.data.attachment.url
-            }
-        })
+        if (response.data.attachment != null) {
+            url.value = response.data.attachment.url
+        }
+    })
 }
 
 async function submit() {
-   updateStaff(formStaff.value, id)
+  useUpdateStaffApi(formStaff.value, id)
     .then((response) => {
       router.push({ name: 'index-staff' })
     })

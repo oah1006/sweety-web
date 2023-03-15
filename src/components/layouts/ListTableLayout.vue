@@ -29,7 +29,8 @@
 </template>
 
 <script setup>
-import {computed, ref} from 'vue'
+import { computed } from 'vue'
+
 import Pagination from '@/components/table/Pagination.vue'
 import NoData from '@/components/NoData.vue'
 import LoadingTable from "@/components/loadings/LoadingTable.vue"
@@ -55,7 +56,7 @@ const isShowLoadingListTable = computed({
   set: (value) => emits('update:modelBoolean', value)
 })
 
-const emits = defineEmits(['get-data'])
+const emits = defineEmits(['get-data', 'update:modelValue', 'update:modelBoolean'])
 
 function getData() {
   emits('get-data')

@@ -11,9 +11,8 @@ import UpdateStaff from '@/views/admin/staff/update-staff.vue'
 
 import IndexCustomer from '@/views/admin/customers/index-customer.vue'
 import CreateCustomer from '@/views/admin/customers/create-customer.vue'
-
-import LoadingTable from '../components/loadings/LoadingTable.vue'
-import LoadingPage from '../components/loadings/LoadingPage.vue'
+import UpdateCustomer from '@/views/admin/customers/update-customer.vue'
+import DetailCustomer from '@/views/admin/customers/detail-customer.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +69,22 @@ const router = createRouter({
       path: '/create-customer',
       name: 'create-customer',
       component: CreateCustomer,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/update-customer/:id',
+      name: 'update-customer',
+      component: UpdateCustomer,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-customer/:id',
+      name: 'detail-customer',
+      component: DetailCustomer,
       meta: {
         requiresAuth: true
       }

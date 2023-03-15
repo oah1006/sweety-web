@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import useLogin from '../../../repositories/login'
+import useLogin from '@/repositories/login'
 
-import { useToastStore } from '../../../stores/toast'
+import { useToastStore } from '@/stores/toast'
 
 import { useRouter } from 'vue-router'
 

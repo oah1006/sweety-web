@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useRoute } from 'vue-router'
 
-export function storeStaff(file, email, password, full_name, phone_number, address, is_admin, is_active) {
+export function useStoreStaffApi(file, email, password, full_name, phone_number, address, is_admin, is_active) {
     const formData = new FormData();
 
     if (file != undefined) {
@@ -29,7 +29,7 @@ export function storeStaff(file, email, password, full_name, phone_number, addre
         .postForm('http://127.0.0.1:8000/private/staff', formData, config)
 }
 
-export function updateStaff(formStaff, id) {
+export function useUpdateStaffApi(formStaff, id) {
     const token = $cookies.get('token')
 
     const config = {
@@ -57,7 +57,7 @@ export function useDeleteStaffApi(id) {
         .delete('http://127.0.0.1:8000/private/staff/' + id, config)
 }
 
-export function indexStaff(page = null) {
+export function useIndexStaff(page = null) {
     const token = $cookies.get('token')
 
     var config = {
@@ -74,7 +74,7 @@ export function indexStaff(page = null) {
 }
 
 
-export function getStaffProfile() {
+export function useGetStaffInformation() {
     const token = $cookies.get('token')
 
     const route = useRoute();

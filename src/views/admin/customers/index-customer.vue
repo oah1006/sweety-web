@@ -27,11 +27,11 @@
           <ListTableRow v-for="item in customers" :key="item.id">
             <template #table-column>
               <ListTableColumnCheckbox />
-              <ListTableColumn :text="item.code" />
+              <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
               <ListTableColumn :text="item.user?.address" />
-              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @delete-item="deleteItem" :item-id="item.id" />
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id" />
             </template>
           </ListTableRow>
         </template>
@@ -49,17 +49,14 @@ import TitlePage from "@/components/TitlePage.vue"
 import Button from "@/components/Button.vue"
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
-import ListTableColumnBoolean from "@/components/table/ListTableColumnBoolean.vue";
-import ListTableColumnBadge from "@/components/table/ListTableColumnBadge.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue";
 
-import { indexCustomer } from "@/repositories/customer";
+import { useIndexCustomerApi } from "@/repositories/customer";
 
 import { ref, onBeforeMount } from 'vue'
 
 import { useRouter } from 'vue-router'
-import {indexStaff} from "@/repositories/staff";
 
 const router = useRouter()
 
@@ -77,9 +74,8 @@ const pagination = ref({
 
 function getData() {
   setTimeout(() => {
-    indexCustomer()
+    useIndexCustomerApi(page.value)
         .then((response) => {
-          console.log(response.data.data)
           pagination.value.lastPage = response.data.data.last_page
           pagination.value.total = response.data.data.total
 
@@ -97,6 +93,24 @@ onBeforeMount(() => {
 
 function useClickRedirectCreate() {
   router.push({ name: 'create-customer' })
+}
+
+function useClickRedirectUpdate(id) {
+  router.push({
+    name: 'update-customer',
+    params: {
+      id: id
+    }
+  })
+}
+
+function useClickRedirectDetail(id) {
+  router.push({
+    name: 'detail-customer',
+    params: {
+      id: id
+    }
+  })
 }
 
 </script>
