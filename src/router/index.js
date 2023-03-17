@@ -8,11 +8,14 @@ import Dashboard from '@/views/admin/Dashboard.vue'
 import IndexStaff from '@/views/admin/staff/index-staff.vue'
 import CreateStaff from '@/views/admin/staff/create-staff.vue'
 import UpdateStaff from '@/views/admin/staff/update-staff.vue'
+import DetailStaff from '@/views/admin/staff/detail-staff.vue'
 
 import IndexCustomer from '@/views/admin/customers/index-customer.vue'
 import CreateCustomer from '@/views/admin/customers/create-customer.vue'
 import UpdateCustomer from '@/views/admin/customers/update-customer.vue'
 import DetailCustomer from '@/views/admin/customers/detail-customer.vue'
+
+import ModalDelete from '@/components/ModalDelete.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +40,14 @@ const router = createRouter({
       path: '/staff',
       name: 'index-staff',
       component: IndexStaff,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-staff/:id',
+      name: 'detail-staff',
+      component: DetailStaff,
       meta: {
         requiresAuth: true
       }
@@ -85,6 +96,14 @@ const router = createRouter({
       path: '/detail-customer/:id',
       name: 'detail-customer',
       component: DetailCustomer,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/modalDelete',
+      name: 'modal-delete',
+      component: ModalDelete,
       meta: {
         requiresAuth: true
       }

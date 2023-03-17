@@ -1,8 +1,8 @@
 <template>
   <IndexLayout>
     <template #list-table>
-      <ListTable v-if="!isLoadingPage" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
-                 v-model:modelBoolean="isLoadingListTable" @get-data="getData"
+      <ListTableLayout v-if="!isLoadingPage" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
+                 v-model:modelBoolean="isLoadingListTable" @get-data="getData" @click-redirect-create="useClickRedirectCreate" :name-page="namePage"
       >
         <template #title>
           <TitlePage title="Khách hàng" subTitle="Chào mừng bạn đến với trang khách hàng của cửa hàng!">
@@ -31,18 +31,23 @@
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
               <ListTableColumn :text="item.user?.address" />
-              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id" />
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
+                                       @show-modal="showModal" />
             </template>
           </ListTableRow>
         </template>
-      </ListTable>
+      </ListTableLayout>
       <LoadingPage v-else />
     </template>
+    <template #modal-delete>
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :idCustomer="idCustomer" />
+    </template>
   </IndexLayout>
+
 </template>
 
 <script setup>
-import ListTable from "@/components/layouts/ListTableLayout.vue"
+import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import TitlePage from "@/components/TitlePage.vue"
@@ -51,16 +56,25 @@ import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue";
+import ModalDelete from "@/components/ModalDelete.vue"
+import NoData from "@/components/NoData.vue"
 
-import { useIndexCustomerApi } from "@/repositories/customer";
+import {useDeleteCustomerApi, useIndexCustomerApi} from "@/repositories/customer";
 
 import { ref, onBeforeMount } from 'vue'
 
 import { useRouter } from 'vue-router'
+import { useToastStore } from "@/stores/toast";
+
+const isModal = ref(false)
+const idCustomer = ref(null)
 
 const router = useRouter()
 
 const customers = ref([])
+
+const namePage = "Khách hàng"
+
 
 const page = ref(1);
 
@@ -92,6 +106,7 @@ onBeforeMount(() => {
 })
 
 function useClickRedirectCreate() {
+  console.log('hi')
   router.push({ name: 'create-customer' })
 }
 
@@ -111,6 +126,19 @@ function useClickRedirectDetail(id) {
       id: id
     }
   })
+}
+
+function showModal(id) {
+  isModal.value = true
+  idCustomer.value = id
+}
+
+function useDeleteCustomer(id) {
+  useDeleteCustomerApi(id)
+      .then((response) => {
+        useToastStore().success('Xóa thành công', 3000)
+        getData()
+      })
 }
 
 </script>

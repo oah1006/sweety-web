@@ -7,6 +7,7 @@
         <slot name="list-table"></slot>
       </div>
     </div>
+    <slot name="modal-delete"></slot>
   </div>
 </template>
 

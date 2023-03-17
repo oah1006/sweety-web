@@ -17,6 +17,11 @@
         </a>
       </div>
     </div>
+    <div class="flex flex-col items-center justify-center">
+      <div class="bg-white w-1/3 rounded-lg shadow-md mt-8 flex flex-col items-center justify-center">
+        <slot name="box-image"></slot>
+      </div>
+    </div>
 
     <div class="bg-white w-full rounded-lg shadow-md mt-8">
       <slot name="box-item"></slot>

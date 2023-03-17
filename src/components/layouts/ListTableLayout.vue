@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <NoData v-else class="ml-64 grow z-0" @click-redirect="useClickRedirectCreate" text="nhân viên"/>
+  <NoData v-else class="ml-64 grow z-0" @click-redirect-create="clickRedirectCreate" :name-page="namePage"/>
 </template>
 
 <script setup>
@@ -41,7 +41,8 @@ const props = defineProps({
   lastPage: Number,
   text: String,
   modelValue: Number,
-  modelBoolean: Boolean
+  modelBoolean: Boolean,
+  namePage: String
 })
 
 const page = computed({
@@ -56,10 +57,14 @@ const isShowLoadingListTable = computed({
   set: (value) => emits('update:modelBoolean', value)
 })
 
-const emits = defineEmits(['get-data', 'update:modelValue', 'update:modelBoolean'])
+const emits = defineEmits(['get-data', 'click-redirect-create', 'update:modelValue', 'update:modelBoolean'])
 
 function getData() {
   emits('get-data')
+}
+
+function clickRedirectCreate() {
+  emits('click-redirect-create')
 }
 
 </script>

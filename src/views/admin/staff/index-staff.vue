@@ -35,7 +35,7 @@
               <ListTableColumn text="Cửa hàng" />
               <ListTableColumnBadge :is-admin="item.is_admin" />
               <ListTableColumnBoolean :is-active="item.is_active" />
-              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @delete-item="deleteItem" :item-id="item.id" />
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" @delete-item="deleteItem" :item-id="item.id" />
             </template>
           </ListTableRow>
         </template>
@@ -111,6 +111,15 @@ function useClickRedirectCreate() {
 function useClickRedirectUpdate(id) {
   router.push({
     name: 'update-staff',
+    params: {
+      id: id
+    }
+  })
+}
+
+function useClickRedirectDetail(id) {
+  router.push({
+    name: 'detail-staff',
     params: {
       id: id
     }

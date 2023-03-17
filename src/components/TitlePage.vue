@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="flex items-center mb-4">
     <div>
       <p class="text-3xl text-zinc-800">{{ props.title }}</p>
       <p class="text-zinc-400 text-sm">{{ props.subTitle }}</p>

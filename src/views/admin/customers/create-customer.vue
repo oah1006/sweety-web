@@ -42,7 +42,7 @@
 import CreateLayout from "@/components/layouts/CreateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue";
-import InputBox from "@/components/inputs/InputBox.vue"
+import InputBox from "@/components/layouts/BoxInputLayout.vue"
 import InputEmail from "@/components/inputs/InputEmail.vue";
 import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
@@ -67,7 +67,6 @@ const customers = ref({
 async function submit() {
   useStoreCustomerApi(customers.value)
     .then((response) => {
-      console.log('hi')
       useToastStore().success('Tạo thành công', 3000)
       router.push({ name: 'index-customer' })
     })

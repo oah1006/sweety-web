@@ -1,0 +1,18 @@
+<template>
+  <div class="flex">
+    <p class="w-1/3">{{ props.nameLabel }}</p>
+    <div>
+      <p v-if="props.item == 1" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+      <p v-else class="inline-block text-center text-xs text-white px-2 py-0.5 bg-blue-400 rounded-lg">Nhân viên</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+
+const props = defineProps({
+  nameLabel: String,
+  item: String
+})
+
+</script>
