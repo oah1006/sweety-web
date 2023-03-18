@@ -1,7 +1,7 @@
 <template>
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormUpdateLayout listName="Danh sách nhân viên" @redirect-index="redirectIndex">
+      <FormUpdateLayout v-if="!isLoadingPage" listName="Danh sách nhân viên" @redirect-index="redirectIndex">
         <template #title>
           <TitlePage title="Tạo nhân viên" subTitle="Chào mừng bạn đến với trang tạo nhân viên!"></TitlePage>
         </template>
@@ -46,6 +46,7 @@
           </InputBox>
         </template>
       </FormUpdateLayout>
+      <LoadingPage v-else />
     </template>
   </UpdateLayout>
 </template>
@@ -55,11 +56,13 @@
 import TitlePage from '@/components/TitlePage.vue'
 
 import {useGetStaffInformation, useUpdateStaffApi} from "@/repositories/staff"
+
 import { sync, detach } from '@/repositories/attachment'
 
 import {useRoute, useRouter} from 'vue-router'
 
 import { ref } from 'vue'
+
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import AvatarLayout from "@/components/layouts/AvatarLayout.vue";
@@ -72,6 +75,7 @@ import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
+import LoadingPage from "@/components/loadings/LoadingPage.vue"
 
 const router = useRouter()
 
@@ -93,6 +97,8 @@ const formStaff = ref({
     is_admin: '',
     is_active: ''
 })
+
+const isLoadingPage = ref(true)
 
 const selectOptionRole = ref([
   {
@@ -149,6 +155,8 @@ function getStaffInformation() {
       if (response.data.attachment != null) {
           url.value = response.data.attachment.url
       }
+
+      isLoadingPage.value = false
     })
 }
 async function submit() {

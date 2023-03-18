@@ -1,8 +1,8 @@
 <template>
-  <div class="px-10 py-4 flex flex-col justify-center items-center ">
-    <img :src="props.url" class="w-20 h-20 object-cover rounded-full text-center"/>
-    <p class="text-zinc-500 font-bold mt-3">{{ props.item }}</p>
-    <BoxItemRole class="mt-3" :item="props.role"/>
+  <div class="bg-white w-1/3 rounded-lg shadow-md mt-8 flex flex-col items-center justify-center px-10 py-4">
+    <img :src="props.url" class="w-32 h-32 object-cover rounded-full text-center"/>
+    <p class="text-zinc-500 font-bold mt-3 text-lg">{{ props.item }}</p>
+    <BoxItemRole class="mt-2" :item="props.role"/>
   </div>
 </template>
 

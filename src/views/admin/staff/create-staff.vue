@@ -68,16 +68,12 @@ import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
 import SelectRole from "@/components/inputs/SelectRole.vue";
-
-import { useStoreStaffApi } from "@/repositories/staff";
-
-import { useRouter } from 'vue-router'
-
-import { ref } from 'vue'
 import SelectStatus from "@/components/inputs/SelectStatus.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 
-
+import { useStoreStaffApi } from "@/repositories/staff";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter();
 

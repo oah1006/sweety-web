@@ -1,6 +1,7 @@
 <template>
   <div v-if="props.total > 0">
     <slot name="title"></slot>
+    <slot name="box-filter"></slot>
     <div class="mt-6 shadow-md rounded-md bg-white">
       <div class="py-4 px-4">
         <input type="checkbox" class="form-checkbox text-orange-500 border-zinc-300 rounded focus:ring-orange-400" />
@@ -10,12 +11,17 @@
           <slot name="list-table-row-head"></slot>
         </thead>
         <tbody>
-        <template v-if="!isShowLoadingListTable">
+        <template v-if="!isShowLoadingListTable && props.staff.length > 0">
           <slot name="list-table-row-body"></slot>
         </template>
-        <tr v-else>
+        <tr v-else-if="isShowLoadingListTable">
           <td colspan="8">
             <LoadingTable />
+          </td>
+        </tr>
+        <tr v-else-if="!isShowLoadingListTable && props.staff.length == 0">
+          <td colspan="8">
+            <NoDataListTable namePage="lọc theo ý bạn" />
           </td>
         </tr>
         </tbody>
@@ -25,15 +31,18 @@
     </div>
   </div>
 
-  <NoData v-else class="ml-64 grow z-0" @click-redirect-create="clickRedirectCreate" :name-page="namePage"/>
+  <NoDataTable v-else class="ml-64 grow z-0" namePage="Nhân viên" @click-redirect-create="useClickRedirectCreate">
+  </NoDataTable>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 
 import Pagination from '@/components/table/Pagination.vue'
-import NoData from '@/components/NoData.vue'
+import NoDataTable from '@/components/nodata/NoDataTable.vue'
 import LoadingTable from "@/components/loadings/LoadingTable.vue"
+import Button from "@/components/Button.vue"
+import NoDataListTable from "@/components/nodata/NoDataListTable.vue";
 
 const props = defineProps({
   listItem: Object,
@@ -42,7 +51,8 @@ const props = defineProps({
   text: String,
   modelValue: Number,
   modelBoolean: Boolean,
-  namePage: String
+  namePage: String,
+  staff: Object
 })
 
 const page = computed({
@@ -63,7 +73,7 @@ function getData() {
   emits('get-data')
 }
 
-function clickRedirectCreate() {
+function useClickRedirectCreate() {
   emits('click-redirect-create')
 }
 

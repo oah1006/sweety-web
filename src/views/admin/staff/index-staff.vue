@@ -1,15 +1,33 @@
 <template>
   <IndexLayout>
     <template #list-table>
-      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :total="pagination.total" :last-page="pagination.lastPage"
-                 v-model:modelValue="page" v-model:modelBoolean="isLoadingListTable" @get-data="getData"
-      >
+      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :staff="staff" :total="pagination.total"
+                 :last-page="pagination.lastPage" @click-redirect-create="useClickRedirectCreate"
+                 v-model:modelValue="page" v-model:modelBoolean="isLoadingListTable" @get-data="getData">
         <template #title>
           <TitlePage title="Nhân viên" subTitle="Chào mừng bạn đến với trang nhân viên của cửa hàng!">
             <template #button>
               <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
             </template>
           </TitlePage>
+        </template>
+        <template #box-filter>
+          <FilterLayout>
+            <template #input-search>
+              <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
+                           v-model:modalSearch="filters.search" label="Tìm kiếm theo từ khóa" />
+            </template>
+            <template #select-role>
+              <SelectFilterRole :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
+                                v-model:modalFilterRole="filters.filterRole" label="Vai trò"
+                                :selectOptionRole="selectOptionRole"/>
+            </template>
+            <template #select-status>
+              <SelectFilterStatus :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
+                                  v-model:modalFilterStatus="filters.filterStatus" label="Trạng thái"
+                                  :selectOptionStatus="selectOptionStatus" />
+            </template>
+          </FilterLayout>
         </template>
         <template #list-table-row-head>
           <ListTableRow>
@@ -35,12 +53,17 @@
               <ListTableColumn text="Cửa hàng" />
               <ListTableColumnBadge :is-admin="item.is_admin" />
               <ListTableColumnBoolean :is-active="item.is_active" />
-              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" @delete-item="deleteItem" :item-id="item.id" />
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
+                                       @click-redirect-detail="useClickRedirectDetail" @delete-item="deleteItem"
+                                       @show-modal="showModal" :item-id="item.id" />
             </template>
           </ListTableRow>
         </template>
       </ListTable>
       <LoadingPage v-else />
+    </template>
+    <template #modal-delete>
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteStaff" :idCustomer="idCustomer" />
     </template>
   </IndexLayout>
 </template>
@@ -57,12 +80,19 @@ import ListTableColumnBoolean from "@/components/table/ListTableColumnBoolean.vu
 import ListTableColumnBadge from "@/components/table/ListTableColumnBadge.vue"
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue"
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue"
+import ModalDelete from "@/components/ModalDelete.vue";
+import FilterLayout from "@/components/layouts/FilterLayout.vue";
+
 
 import {useIndexStaff, useDeleteStaffApi} from "@/repositories/staff"
 
-import { ref, onBeforeMount } from 'vue'
+import { ref, watch, onBeforeMount } from 'vue'
 
 import { useRouter } from 'vue-router'
+import { useToastStore } from "@/stores/toast";
+import InputSearch from "@/components/inputs/InputSearch.vue";
+import SelectFilterRole from "@/components/inputs/SelectFilterRole.vue";
+import SelectFilterStatus from "@/components/inputs/SelectFilterStatus.vue";
 
 const router = useRouter()
 
@@ -70,16 +100,51 @@ const staff = ref([])
 
 const page = ref(1);
 
+const isModal = ref(false)
+const idCustomer = ref(null)
+
 const isLoadingPage = ref(true)
 const isLoadingListTable = ref(false)
 
 const pagination = ref({
     total: null,
     lastPage: null
-});
+})
+
+const filters = ref({
+  filterStatus: '',
+  filterRole: '',
+  search: '',
+})
+
+const debounce = ref('')
+
+const selectOptionRole = ref([
+  {
+    value: "1",
+    label: "Quản lý"
+  },
+  {
+    value: "0",
+    label: "Nhân viên"
+  }
+])
+
+const selectOptionStatus = ref([
+  {
+    value: "1",
+    label: "Hoạt động"
+  },
+  {
+    value: "0",
+    label: "Không hoạt động"
+  }
+])
 
 function getData() {
   setTimeout(() => {
+    isLoadingListTable.value = true
+
     useIndexStaff(page.value)
       .then((response) => {
         pagination.value.lastPage = response.data.data.last_page
@@ -92,6 +157,7 @@ function getData() {
       })
   }, 0)
 }
+
 function deleteItem(id) {
   useDeleteStaffApi(id)
       .then((response) => {
@@ -125,4 +191,33 @@ function useClickRedirectDetail(id) {
     }
   })
 }
+
+function showModal(id) {
+  isModal.value = true
+  idCustomer.value = id
+}
+
+function useDeleteStaff(id) {
+  useDeleteStaffApi(id)
+      .then((response) => {
+        useToastStore().success('Xóa thành công', 3000)
+        getData()
+      })
+}
+
+function filterData() {
+  clearTimeout(debounce.value)
+
+  debounce.value = setTimeout(() => {
+    isLoadingListTable.value = true
+
+    useIndexStaff(page.value, filters.value.filterStatus, filters.value.filterRole, filters.value.search)
+        .then((response) => {
+          staff.value = response.data.data.data
+
+          isLoadingListTable.value = false
+        })
+  }, 400)
+}
+
 </script>

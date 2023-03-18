@@ -2,7 +2,8 @@
   <IndexLayout>
     <template #list-table>
       <ListTableLayout v-if="!isLoadingPage" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
-                 v-model:modelBoolean="isLoadingListTable" @get-data="getData" @click-redirect-create="useClickRedirectCreate" :name-page="namePage"
+                 v-model:modelBoolean="isLoadingListTable" @get-data="getData"
+                 @click-redirect-create="useClickRedirectCreate" :name-page="namePage"
       >
         <template #title>
           <TitlePage title="Khách hàng" subTitle="Chào mừng bạn đến với trang khách hàng của cửa hàng!">
@@ -57,7 +58,7 @@ import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue";
 import ModalDelete from "@/components/ModalDelete.vue"
-import NoData from "@/components/NoData.vue"
+import NoData from "@/components/nodata/NoDataTable.vue"
 
 import {useDeleteCustomerApi, useIndexCustomerApi} from "@/repositories/customer";
 

@@ -1,7 +1,8 @@
 <template>
   <DetailLayout>
     <template #form-detail>
-      <FormDetailLayout @use-click-index="useClickRedirectIndex" :item-id="staff.id">
+      <FormDetailLayout v-if="!isLoadingPage" @use-click-index="redirectIndex" @use-click-update="useClickRedirectUpdate"
+                        listName="Danh sách nhân viên" :item-id="staff.id">
         <template #title>
           <TitlePage title="Thông tin nhân viên" subTitle="Chào mừng bạn đến với trang thông tin nhân viên!"></TitlePage>
         </template>
@@ -13,24 +14,30 @@
           <BoxItem nameLabel="Email" :item="staff.user?.email"/>
           <BoxItem nameLabel="địa chỉ" :item="staff.user?.address"/>
           <BoxItem nameLabel="Số điện thoại" :item="staff.user?.phone_number"/>
-          <BoxItemRole class="py-4 px-10" nameLabel="Vai trò" :item="staff.is_admin"/>
+          <BoxItemStatus class="py-4 px-10" nameLabel="Trạng thái" :item="staff.is_active"/>
         </template>
       </FormDetailLayout>
+      <LoadingPage v-else />
     </template>
   </DetailLayout>
 </template>
 
 <script setup>
 
-import { useGetStaffInformation } from "@/repositories/staff";
-import DetailLayout from "@/components/layouts/DetailLayout.vue";
-import FormDetailLayout from "@/components/layouts/FormDetailLayout.vue";
-import TitlePage from "@/components/TitlePage.vue";
-import BoxItem from "@/components/details/BoxItem.vue";
-import { ref } from "vue";
-import BoxItemRole from "@/components/details/BoxItemRole.vue";
+import DetailLayout from "@/components/layouts/DetailLayout.vue"
+import FormDetailLayout from "@/components/layouts/FormDetailLayout.vue"
+import TitlePage from "@/components/TitlePage.vue"
+import BoxItem from "@/components/details/BoxItem.vue"
+import BoxAvatarDetail from "@/components/details/BoxAvatarDetail.vue"
+import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import BoxItemStatus from "@/components/details/BoxItemStatus.vue";
-import BoxAvatarDetail from "@/components/details/BoxAvatarDetail.vue";
+
+import { useGetStaffInformation } from "@/repositories/staff"
+import { ref } from "vue";
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+
 
 const staff = ref({
   code: '',
@@ -43,13 +50,34 @@ const staff = ref({
   src: ''
 })
 
+const isLoadingPage = ref(true)
+
 function getInformationCustomer() {
   useGetStaffInformation()
       .then((response) => {
         console.log(response.data)
         staff.value = response.data
+        isLoadingPage.value = false
       })
 }
 
 getInformationCustomer()
+
+function redirectIndex() {
+  router.push({
+    name: 'index-staff'
+  })
+  console.log('hi')
+}
+
+function useClickRedirectUpdate(id) {
+  router.push({
+    name: 'update-staff',
+    params: {
+      id: id
+    }
+  })
+}
+
+
 </script>

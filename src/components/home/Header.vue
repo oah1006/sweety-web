@@ -5,16 +5,21 @@
     </div>
     <div class="flex-none flex items-center px-4 ml-auto mr-10">
       <div class="flex items-center grow gap-2">
-        <div class="rounded-full h-12 w-12 border-solid border-1 border"></div>
+        <img :src="profileStore.profile.profile?.attachment?.url" class="w-16 h-16 object-cover rounded-full"/>
         <div>
-          <p class="text-orange-500 text-md font-medium">Nhật Hào</p>
-          <p class="text-zinc-500">Manager</p>
+          <p class="text-orange-500 text-lg font-medium">{{ profileStore.profile.profile?.full_name }}</p>
+          <p v-if="profileStore.profile.profile?.isAdmin === 1" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+          <p v-else class="inline-block text-center text-xs text-white px-2 py-0.5 bg-blue-400 rounded-lg">Nhân viên</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+
+import { useProfileStore } from "@/stores/getMyProfile";
+
+const profileStore = useProfileStore()
 
 </script>

@@ -17,6 +17,9 @@ import DetailCustomer from '@/views/admin/customers/detail-customer.vue'
 
 import ModalDelete from '@/components/ModalDelete.vue'
 
+import { useProfileStore } from "@/stores/getMyProfile";
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -117,6 +120,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.requiresAuth) {
     if (token) {
+      useProfileStore().getMyProfile()
       next()
     } else { 
       next({

@@ -17,20 +17,20 @@
         </a>
       </div>
     </div>
-    <div class="flex flex-col items-center justify-center">
-      <div class="bg-white w-1/3 rounded-lg shadow-md mt-8 flex flex-col items-center justify-center">
-        <slot name="box-image"></slot>
+
+    <div class="flex gap-10">
+      <slot name="box-image"></slot>
+
+      <div class="bg-white w-full rounded-lg shadow-md mt-8">
+        <slot name="box-item"></slot>
       </div>
     </div>
 
-    <div class="bg-white w-full rounded-lg shadow-md mt-8">
-      <slot name="box-item"></slot>
-    </div>
-    <button @click="useClickRedirectIndex" class="font-medium text-lg inline-flex mt-3 items-center rounded-md bg-white text-black px-4 py-2 shadow-lg hover:bg-zinc-50 gap-3">
+    <button @click="redirectIndex" class="font-medium text-lg inline-flex mt-3 items-center rounded-md bg-white text-black px-4 py-2 shadow-lg hover:bg-zinc-50 gap-3">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
       </svg>
-      Danh sách nhân viên
+      {{ props.listName }}
     </button>
   </div>
 </template>
@@ -38,12 +38,13 @@
 <script setup>
 
 const props = defineProps({
-  itemId: Number
+  itemId: Number,
+  listName: String,
 })
 
 const emits = defineEmits(['use-click-index', 'use-click-update'])
 
-function useClickRedirectIndex() {
+function redirectIndex() {
   emits('use-click-index')
 }
 

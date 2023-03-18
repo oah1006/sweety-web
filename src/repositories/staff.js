@@ -57,15 +57,18 @@ export function useDeleteStaffApi(id) {
         .delete('http://127.0.0.1:8000/private/staff/' + id, config)
 }
 
-export function useIndexStaff(page = null) {
+export function useIndexStaff(page = null, status = '', role = '', keyword = '') {
     const token = $cookies.get('token')
 
-    var config = {
+    const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
         params: {
-            page
+            page,
+            status,
+            role,
+            keyword
         }
     }
 
@@ -80,7 +83,7 @@ export function useGetStaffInformation() {
     const route = useRoute();
     const id = route.params.id
 
-    var config = {
+    const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
