@@ -2,7 +2,7 @@
   <IndexLayout>
     <template #list-table>
       <ListTableLayout v-if="!isLoadingPage" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
-                 v-model:modelBoolean="isLoadingListTable" @get-data="getData"
+                 v-model:modelBoolean="isLoadingListTable" @get-data="getData" :listName="customers"
                  @click-redirect-create="useClickRedirectCreate" :name-page="namePage"
       >
         <template #title>

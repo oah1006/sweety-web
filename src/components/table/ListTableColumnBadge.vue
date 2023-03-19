@@ -8,7 +8,7 @@
 <script setup>
 
 const props = defineProps({
-  isAdmin: Boolean
+  isAdmin: Number
 })
 
 </script>

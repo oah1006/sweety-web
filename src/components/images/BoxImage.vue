@@ -1,24 +1,20 @@
 <template>
-  <div class="w-20 h-20 my-4">
-    <img v-if="props.url" :src="props.url" class="w-20 h-20 object-cover"/>
-    <a v-if="props.url" @click="detachAttachment" class="cursor-pointer absolute top-16 right-28 rounded-full bg-zinc-700">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-      </svg>
-    </a>
+  <div :class="`${props.width} ${props.height}`" class="my-4">
+    <img v-if="props.url" :class="`${props.width} ${props.height} ${props.shape}`" :src="props.url" class="object-cover"/>
   </div>
 </template>
 
 <script setup>
 
 const props = defineProps({
-  url: String
+  url: String,
+  width: String,
+  height: String,
+  shape: String,
 })
 
-const emits = defineEmits(['detach-image'])
+console.log(props.url)
 
-function detachAttachment() {
-  emits('detachImage')
-}
+
 
 </script>

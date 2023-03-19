@@ -3,10 +3,17 @@
     <template #form-create>
       <FormUpdateLayout v-if="!isLoadingPage" listName="Danh sách nhân viên" @redirect-index="redirectIndex">
         <template #title>
-          <TitlePage title="Tạo nhân viên" subTitle="Chào mừng bạn đến với trang tạo nhân viên!"></TitlePage>
+          <TitlePage title="Cập nhật nhân viên" subTitle="Chào mừng bạn đến với trang cập nhật nhân viên!"></TitlePage>
         </template>
         <template #avatar>
-          <AvatarLayout @change-image="onImageChange" @detach-image="detachAttachment" :url="url" />
+          <AvatarLayout :url="url" width="w-24" height="h-24">
+            <template #icon-detach-image>
+              <IconDetachImage :url="url"  @detach-image="detachAttachment"/>
+            </template>
+            <template #input-image>
+              <InputFile class="text-center ml-20 py-4" @change-image="onImageChange" />
+            </template>
+          </AvatarLayout>
         </template>
         <template #select>
           <SelectLayout name="Thông tin nhân viên" nameLabelStatus="Trạng thái" nameLabelRole="Vai trò">
@@ -76,6 +83,8 @@ import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
+import InputFile from "@/components/inputs/InputFile.vue";
+import IconDetachImage from "@/components/IconDetachImage.vue";
 
 const router = useRouter()
 
@@ -172,7 +181,6 @@ function redirectIndex() {
   router.push({
     name: 'index-staff'
   })
-  console.log('hi')
 }
 
 </script>

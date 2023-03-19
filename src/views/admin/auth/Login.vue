@@ -34,7 +34,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import useLogin from '@/repositories/login'
+import { useLogin } from '@/repositories/auth.js'
 
 import { useToastStore } from '@/stores/toast'
 
@@ -49,8 +49,8 @@ const employee = ref({
 
 const errors = ref({});
 
-async function submit() {
-  await useLogin(employee)
+ function submit() {
+    useLogin(employee)
       .then((response) => {
         $cookies.set('token', response.data.data.token, 60*60*24)
 

@@ -11,7 +11,7 @@
           <slot name="list-table-row-head"></slot>
         </thead>
         <tbody>
-        <template v-if="!isShowLoadingListTable && props.staff.length > 0">
+        <template v-if="!isShowLoadingListTable && props.listName.length > 0">
           <slot name="list-table-row-body"></slot>
         </template>
         <tr v-else-if="isShowLoadingListTable">
@@ -19,7 +19,7 @@
             <LoadingTable />
           </td>
         </tr>
-        <tr v-else-if="!isShowLoadingListTable && props.staff.length == 0">
+        <tr v-else-if="!isShowLoadingListTable && props.listName.length == 0">
           <td colspan="8">
             <NoDataListTable namePage="lọc theo ý bạn" />
           </td>
@@ -52,7 +52,7 @@ const props = defineProps({
   modelValue: Number,
   modelBoolean: Boolean,
   namePage: String,
-  staff: Object
+  listName: Object
 })
 
 const page = computed({

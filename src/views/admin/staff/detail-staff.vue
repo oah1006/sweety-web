@@ -7,7 +7,7 @@
           <TitlePage title="Thông tin nhân viên" subTitle="Chào mừng bạn đến với trang thông tin nhân viên!"></TitlePage>
         </template>
         <template #box-image>
-          <BoxAvatarDetail class="" nameLabel="Họ và tên" :item="staff.full_name" :url="staff.attachment?.url" :role="staff.is_admin" />
+          <BoxAvatarDetail class="" nameLabel="Họ và tên" :item="staff.full_name" :url="staff.attachment?.url" :role="staff.is_admin" width="w-28" height="h-28" />
         </template>
         <template #box-item>
           <BoxItem nameLabel="Mã nhân viên" :item="staff.code"/>
@@ -55,7 +55,6 @@ const isLoadingPage = ref(true)
 function getInformationCustomer() {
   useGetStaffInformation()
       .then((response) => {
-        console.log(response.data)
         staff.value = response.data
         isLoadingPage.value = false
       })

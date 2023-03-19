@@ -15,6 +15,6 @@
 
 <script setup>
   const props = defineProps({
-    isActive: Boolean
+    isActive: Number
   })
 </script>

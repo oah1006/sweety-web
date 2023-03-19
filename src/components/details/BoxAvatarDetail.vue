@@ -14,7 +14,7 @@ const props = defineProps({
   nameLabel: String,
   item: String,
   url: String,
-  role: String
+  role: Number
 })
 
 console.log(props.url)

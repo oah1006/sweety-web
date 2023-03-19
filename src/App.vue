@@ -1,16 +1,26 @@
-<script>
-import ToastNotification from '../src/components/ToastNotification.vue'
+<script setup>
+import ToastNotification from '@/components/ToastNotification.vue'
+import LoadingPage from '@/components/loadings/LoadingPage.vue'
 
-export default {
-  components: {
-    ToastNotification
-  }
+
+import { useRoute } from 'vue-router'
+import { ref } from "vue";
+
+const route = useRoute();
+const isLoadingPage = ref(true)
+
+if (route.name == "login") {
+  isLoadingPage.value = false
+} else {
+  isLoadingPage.value = false
 }
+
 </script>
 
 <template>
   <ToastNotification />
-  <RouterView />
+  <LoadingPage v-if="isLoadingPage" />
+  <RouterView v-else />
 </template>
 
 <style>

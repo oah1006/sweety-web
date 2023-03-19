@@ -13,7 +13,7 @@ import {computed, watch} from "vue";
 const props = defineProps({
   selectOptionRole: Array,
   label: String,
-  modalFilterRole: Array,
+  modalFilterRole: String,
   isLoadingListTable: Boolean
 })
 

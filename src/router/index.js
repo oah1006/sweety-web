@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 
 import Login from '@/views/admin/auth/Login.vue'
+import Profile from '@/views/admin/auth/Profile.vue'
 
 import Dashboard from '@/views/admin/Dashboard.vue'
 
@@ -14,6 +15,8 @@ import IndexCustomer from '@/views/admin/customers/index-customer.vue'
 import CreateCustomer from '@/views/admin/customers/create-customer.vue'
 import UpdateCustomer from '@/views/admin/customers/update-customer.vue'
 import DetailCustomer from '@/views/admin/customers/detail-customer.vue'
+
+
 
 import ModalDelete from '@/components/ModalDelete.vue'
 
@@ -91,6 +94,14 @@ const router = createRouter({
       path: '/update-customer/:id',
       name: 'update-customer',
       component: UpdateCustomer,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/profile',
+      name: 'my-profile',
+      component: Profile,
       meta: {
         requiresAuth: true
       }

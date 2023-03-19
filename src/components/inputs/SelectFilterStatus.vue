@@ -13,7 +13,7 @@ import {computed, watch} from "vue";
 const props = defineProps({
   selectOptionStatus: Array,
   label: String,
-  modalFilterStatus: Array
+  modalFilterStatus: String
 })
 
 const emits = defineEmits(['update:modalFilterStatus'])

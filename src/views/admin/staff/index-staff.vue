@@ -1,7 +1,7 @@
 <template>
   <IndexLayout>
     <template #list-table>
-      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :staff="staff" :total="pagination.total"
+      <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :listName="staff" :total="pagination.total"
                  :last-page="pagination.lastPage" @click-redirect-create="useClickRedirectCreate"
                  v-model:modelValue="page" v-model:modelBoolean="isLoadingListTable" @get-data="getData">
         <template #title>
@@ -117,7 +117,7 @@ const filters = ref({
   search: '',
 })
 
-const debounce = ref('')
+const debounce = ref(0)
 
 const selectOptionRole = ref([
   {

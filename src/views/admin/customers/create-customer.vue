@@ -1,7 +1,7 @@
 <template>
   <CreateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormCreateLayout listName="Danh sách khách hàng">
+      <FormCreateLayout listName="Danh sách khách hàng" @redirect-index="redirectIndex">
         <template #title>
           <TitlePage title="Tạo khách hàng" subTitle="Chào mừng bạn đến với trang tạo khách hàng!"></TitlePage>
         </template>
@@ -70,6 +70,12 @@ async function submit() {
       useToastStore().success('Tạo thành công', 3000)
       router.push({ name: 'index-customer' })
     })
+}
+
+function redirectIndex() {
+  router.push({
+    name: 'index-customer'
+  })
 }
 
 

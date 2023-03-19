@@ -12,7 +12,7 @@
 
 const props = defineProps({
   nameLabel: String,
-  item: String
+  item: Number
 })
 
 </script>
