@@ -17,6 +17,5 @@ const props = defineProps({
   role: Number
 })
 
-console.log(props.url)
 
 </script>

@@ -66,7 +66,6 @@ function redirectIndex() {
   router.push({
     name: 'index-staff'
   })
-  console.log('hi')
 }
 
 function useClickRedirectUpdate(id) {

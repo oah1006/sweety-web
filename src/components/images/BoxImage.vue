@@ -13,8 +13,4 @@ const props = defineProps({
   shape: String,
 })
 
-console.log(props.url)
-
-
-
 </script>

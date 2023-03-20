@@ -133,11 +133,9 @@ const selectOptionStatus = ref([
 
 function onImageChange(e) {
     file.value = e.target.files[0]
-    console.log(file.value)
 
     sync('staff', formStaff.value.id, file.value, 'avatars') 
         .then((response) => {
-            console.log(response)
             url.value = URL.createObjectURL(file.value)
         })
 }

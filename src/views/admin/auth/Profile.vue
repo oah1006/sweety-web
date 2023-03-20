@@ -79,32 +79,36 @@ import {ref} from "vue";
 
 const profileStore = useProfileStore()
 
-const formStaff = ref({
-  id: '',
-  attachment_id: '',
-  email: profileStore.profile.email,
-  full_name: '',
-  phone_number: '',
-  address: '',
-  is_admin: '',
-  is_active: ''
-})
-function detachAttachment() {
-  detach(formStaff.value.attachment_id)
-      .then((response) => {
-        url.value = ''
-      })
-}
+console.log(profileStore.profile)
 
-function onImageChange(e) {
-  file.value = e.target.files[0]
-  console.log(file.value)
 
-  sync('staff', formStaff.value.id, file.value, 'avatars')
-      .then((response) => {
-        console.log(response)
-        url.value = URL.createObjectURL(file.value)
-      })
-}
+
+// const formStaff = ref({
+//   id: '',
+//   attachment_id: '',
+//   email: profileStore.profile.email,
+//   full_name: '',
+//   phone_number: '',
+//   address: '',
+//   is_admin: '',
+//   is_active: ''
+// })
+// function detachAttachment() {
+//   detach(formStaff.value.attachment_id)
+//       .then((response) => {
+//         url.value = ''
+//       })
+// }
+//
+// function onImageChange(e) {
+//   file.value = e.target.files[0]
+//   console.log(file.value)
+//
+//   sync('staff', formStaff.value.id, file.value, 'avatars')
+//       .then((response) => {
+//         console.log(response)
+//         url.value = URL.createObjectURL(file.value)
+//       })
+// }
 
 </script>

@@ -107,7 +107,6 @@ onBeforeMount(() => {
 })
 
 function useClickRedirectCreate() {
-  console.log('hi')
   router.push({ name: 'create-customer' })
 }
 
