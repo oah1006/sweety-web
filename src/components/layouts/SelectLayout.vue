@@ -1,6 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg shadow-md w-3/4 h-56">
-    <TitleFormField :name="props.name" />
+  <div class="bg-white rounded-lg shadow-md h-56 w-full">
     <div class="border-zinc-100 border-b-0 px-6 pb-3 pt-3">
       <p class="text-zinc-600">{{ props.nameLabelRole }}</p>
       <slot name="role"></slot>

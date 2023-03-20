@@ -6,26 +6,14 @@
           <TitlePage title="Cập nhật nhân viên" subTitle="Chào mừng bạn đến với trang cập nhật nhân viên!"></TitlePage>
         </template>
         <template #avatar>
-          <AvatarLayout :url="url" width="w-24" height="h-24">
+          <AvatarLayout :url="url" width="w-48" height="h-48" shape="rounded-full">
             <template #icon-detach-image>
-              <IconDetachImage :url="url"  @detach-image="detachAttachment"/>
+              <IconDetachImage :url="url"  @detach-image="detachAttachment" top="top-0" right="right-0"/>
             </template>
             <template #input-image>
-              <InputFile class="text-center ml-20 py-4" @change-image="onImageChange" />
+              <InputFile v-model:modalInput="input" class="text-center ml-20 py-4" @change-image="onImageChange" />
             </template>
           </AvatarLayout>
-        </template>
-        <template #select>
-          <SelectLayout name="Thông tin nhân viên" nameLabelStatus="Trạng thái" nameLabelRole="Vai trò">
-            <template #role>
-              <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole" >
-              </SelectRole>
-            </template>
-            <template #status>
-              <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
-              </SelectStatus>
-            </template>
-          </SelectLayout>
         </template>
         <template #title-box-input>
           <TitleFormField name="Thông tin nhân viên" />
@@ -51,6 +39,18 @@
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>
           </InputBox>
+          <InputBox name="Vai trò">
+            <template #input>
+              <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole">
+              </SelectRole>
+            </template>
+          </InputBox>
+          <InputBox name="Trạng thái">
+            <template #input>
+              <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
+              </SelectStatus>
+            </template>
+          </InputBox>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -65,15 +65,16 @@ import TitlePage from '@/components/TitlePage.vue'
 import {useGetStaffInformation, useUpdateStaffApi} from "@/repositories/staff"
 
 import { sync, detach } from '@/repositories/attachment'
+import { useToastStore } from "@/stores/toast";
+
 
 import {useRoute, useRouter} from 'vue-router'
-
 import { ref } from 'vue'
+
 
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import AvatarLayout from "@/components/layouts/AvatarLayout.vue";
-import SelectLayout from "@/components/layouts/SelectLayout.vue";
 import SelectRole from "@/components/inputs/SelectRole.vue";
 import SelectStatus from "@/components/inputs/SelectStatus.vue";
 import InputBox from "@/components/layouts/BoxInputLayout.vue";
@@ -89,6 +90,8 @@ import IconDetachImage from "@/components/IconDetachImage.vue";
 const router = useRouter()
 
 const file = ref('')
+
+const input = ref('')
 
 const url = ref('')
 
@@ -133,18 +136,20 @@ const selectOptionStatus = ref([
 
 function onImageChange(e) {
     file.value = e.target.files[0]
+    url.value = URL.createObjectURL(file.value)
 
     sync('staff', formStaff.value.id, file.value, 'avatars') 
-        .then((response) => {
-            url.value = URL.createObjectURL(file.value)
-        })
+      .then((response) => {
+        formStaff.value.attachment_id = response.data[0][0].id
+        input.value.value = ''
+      })
 }
 
 function detachAttachment() {
   detach(formStaff.value.attachment_id)
-      .then((response) => {
-        url.value = ''
-      })
+    .then((response) => {
+      url.value = ''
+    })
 }
 
 function getStaffInformation() {
@@ -170,6 +175,7 @@ async function submit() {
   useUpdateStaffApi(formStaff.value, id)
     .then((response) => {
       router.push({ name: 'index-staff' })
+      useToastStore().success('Cập nhật thành công', 3000)
     })
 }
 

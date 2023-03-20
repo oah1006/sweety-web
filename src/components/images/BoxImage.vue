@@ -1,6 +1,7 @@
 <template>
-  <div :class="`${props.width} ${props.height}`" class="my-4">
-    <img v-if="props.url" :class="`${props.width} ${props.height} ${props.shape}`" :src="props.url" class="object-cover"/>
+  <div :class="`${props.width} ${props.height}`" class="my-4 ">
+    <img v-if="props.url" :class="`${props.width} ${props.height} ${props.shape} ${props.border}`" :src="props.url" class="object-cover rounded-full"/>
+    <img v-else :class="`${props.width} ${props.height} ${props.shape} ${props.border}`" src="../../images/no-avatar.jpg" class="object-cover rounded-full"/>
   </div>
 </template>
 
@@ -11,6 +12,7 @@ const props = defineProps({
   width: String,
   height: String,
   shape: String,
+  border: String,
 })
 
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <div class="rounded-lg bg-white shadow border border-zinc-100 border-solid w-1/4 relative">
-    <TitleFormField name="Ảnh đại diện" />
+  <div :class="`${props.widthBox} ${props.shape} ${props.background} ${props.border} ${props.round} ${props.shadow}`">
+    <slot name="title-form-field"></slot>
     <div class="flex flex-col items-center justify-center">
-      <div>
-        <BoxImage :url="props.url"  :width="props.width" :height="props.height" :shape="props.shape" />
+      <div class="relative">
+        <BoxImage :url="props.url" :border="props.border" :width="props.width" :height="props.height" :shape="props.shape" />
         <slot name="icon-detach-image"></slot>
       </div>
-      <div>
+      <div class="flex flex-col items-center justify-center">
         <slot name="input-image"></slot>
       </div>
     </div>
@@ -28,9 +28,38 @@ const emits = defineEmits(['change-image', 'detach-image'])
 const props = defineProps({
   url: String,
   name: String,
-  width: String,
-  height: String,
-  shape: String
+  widthBox: {
+    type: String,
+    default: () => ''
+  },
+  width: {
+    type: String,
+    default: () => ''
+  },
+  height: {
+    type: String,
+    default: () => ''
+  },
+  shape: {
+    type: String,
+    default: () => ''
+  },
+  background: {
+    type: String,
+    default: () => ''
+  },
+  border: {
+    type: String,
+    default: () => ''
+  },
+  round: {
+    type: String,
+    default: () => ''
+  },
+  shadow: {
+    type: String,
+    default: () => ''
+  },
 })
 
 function onImageChange(e) {

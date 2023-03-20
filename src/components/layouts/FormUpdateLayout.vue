@@ -1,13 +1,13 @@
 <template>
   <form>
     <slot name="title"></slot>
-    <div class="flex gap-10">
+    <div>
       <slot name="avatar"></slot>
-      <slot name="select"></slot>
     </div>
     <div class="bg-white w-full mt-5 rounded-lg shadow-md">
       <slot name="title-box-input"></slot>
       <slot name="box-input"></slot>
+      <slot name="select"></slot>
     </div>
     <div class="flex my-8">
       <div class="flex items-center gap-3">

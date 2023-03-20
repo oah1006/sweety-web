@@ -9,7 +9,7 @@
 
 <script setup>
   const props = defineProps({
-    textButton: String
+    textButton: String,
   });
 
   const emits = defineEmits(['click-redirect-create'])

@@ -126,12 +126,12 @@ const router = createRouter({
   linkActiveClass: 'vue-active-link'
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   const token = $cookies.get('token')
 
   if (to.meta.requiresAuth) {
     if (token) {
-      useProfileStore().getMyProfile()
+      await useProfileStore().getMyProfile()
       next()
     } else { 
       next({

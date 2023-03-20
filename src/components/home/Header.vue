@@ -6,7 +6,7 @@
     <div class="flex-none flex items-center px-4 ml-auto mr-10">
       <div class="flex items-center grow gap-2">
         <div class="relative">
-          <img @click="showPopup" :src="profileStore.profile.profile?.attachment?.url" class="cursor-pointer w-16 h-16 object-cover rounded-full"/>
+          <BoxImage :url="profileStore.profile.profile?.attachment?.url" :key="profileStore.profile.profile?.attachment?.id" width="w-12" height="h-12" :shape="rounded-full"/>
           <div v-if="isPopup" class="absolute w-60 py-3 bg-white rounded-lg shadow top-20 right-0 px-4">
             <a @click="redirectProfile" class="flex items-center gap-2 hover:bg-zinc-100 hover:rounded-lg px-2 py-3 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -24,7 +24,7 @@
         </div>
         <div>
           <p class="text-orange-500 text-lg font-medium">{{ profileStore.profile.profile?.full_name }}</p>
-          <p v-if="profileStore.profile.profile?.full_name == 1" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+          <p v-if="profileStore.profile.profile?.is_admin == 1" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
           <p v-else class="inline-block text-center text-xs text-white px-2 py-0.5 bg-blue-400 rounded-lg">Nhân viên</p>
         </div>
       </div>
@@ -33,6 +33,8 @@
 </template>
 
 <script setup>
+import BoxImage from "@/components/images/BoxImage.vue";
+
 
 import { useProfileStore } from "@/stores/getMyProfile";
 import { ref } from "vue";
@@ -42,7 +44,7 @@ import { useRouter } from "vue-router";
 
 const profileStore = useProfileStore()
 
-
+console.log(profileStore.profile.profile.attachment)
 
 const isPopup = ref(false)
 

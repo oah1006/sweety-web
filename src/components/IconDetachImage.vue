@@ -1,7 +1,7 @@
 <template>
-  <a v-if="props.url" @click="detachAttachment" class="cursor-pointer absolute top-16 right-28 rounded-full bg-zinc-700">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+  <a v-if="props.url" :class="`${props.top} ${props.right}`" @click="detachAttachment" class="cursor-pointer absolute rounded-full bg-amber-600">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   </a>
 </template>
@@ -10,7 +10,9 @@
 <script setup>
 
 const props = defineProps({
-  url: String
+  url: String,
+  top: String,
+  right: String,
 })
 
 const emits = defineEmits(['detach-image'])

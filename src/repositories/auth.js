@@ -18,3 +18,17 @@ export async function useLogoutApi() {
     return axios
         .post('http://127.0.0.1:8000/private/auth/logout', {}, config)
 }
+
+export function useUpdateProfileApi(formStaff) {
+    const token = $cookies.get('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+        },
+    }
+
+    return axios
+        .put('http://127.0.0.1:8000/private/auth/profile', formStaff, config)
+}

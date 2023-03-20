@@ -6,7 +6,14 @@
           <TitlePage title="Tạo nhân viên" subTitle="Chào mừng bạn đến với trang tạo nhân viên!"></TitlePage>
         </template>
         <template #avatar>
-          <AvatarLayout @change-image="onImageChange" :url="url" />
+          <AvatarLayout @change-image="onImageChange" :url="url" border="border border-zinc-100 border-solid"
+                        round="rounded-lg" shadow="shadow" width="w-32" height="h-32" shape="rounded-lg"
+                        background="bg-white" widthBox="w-1/4"
+          >
+            <template #input-image>
+              <InputFile class="text-center ml-20 py-4" @change-image="onImageChange" />
+            </template>
+          </AvatarLayout>
         </template>
         <template #select>
           <SelectLayout name="Thông tin nhân viên" nameLabelStatus="Trạng thái" nameLabelRole="Vai trò">
@@ -74,6 +81,7 @@ import TitleFormField from "@/components/TitleFormField.vue";
 import { useStoreStaffApi } from "@/repositories/staff";
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import InputFile from "@/components/inputs/InputFile.vue";
 
 const router = useRouter();
 

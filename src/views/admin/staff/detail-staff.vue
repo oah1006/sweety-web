@@ -7,7 +7,7 @@
           <TitlePage title="Thông tin nhân viên" subTitle="Chào mừng bạn đến với trang thông tin nhân viên!"></TitlePage>
         </template>
         <template #box-image>
-          <BoxAvatarDetail class="" nameLabel="Họ và tên" :item="staff.full_name" :url="staff.attachment?.url" :role="staff.is_admin" width="w-28" height="h-28" />
+          <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.is_admin" width="w-28" height="h-28" />
         </template>
         <template #box-item>
           <BoxItem nameLabel="Mã nhân viên" :item="staff.code"/>
@@ -38,6 +38,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter();
 
+const url = ref('')
 
 const staff = ref({
   code: '',
@@ -47,8 +48,9 @@ const staff = ref({
   phone_number: '',
   is_active: '',
   is_admin: '',
-  src: ''
 })
+
+
 
 const isLoadingPage = ref(true)
 
@@ -56,6 +58,8 @@ function getInformationCustomer() {
   useGetStaffInformation()
       .then((response) => {
         staff.value = response.data
+        url.value = response.data.attachment?.url
+
         isLoadingPage.value = false
       })
 }

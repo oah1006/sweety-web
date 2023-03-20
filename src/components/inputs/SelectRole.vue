@@ -1,5 +1,5 @@
 <template>
-  <select v-model="role" class="form-select w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4 mt-1">
+  <select v-model="role" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
     <option disabled value="">Hãy chọn dưới đây</option>
     <option v-for="option in props.selectOptionRole" :value="option.value">{{ option.label }}</option>
   </select>
