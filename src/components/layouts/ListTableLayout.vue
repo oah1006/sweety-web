@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <NoDataTable v-else class="ml-64 grow z-0" namePage="Nhân viên" @click-redirect-create="useClickRedirectCreate">
+  <NoDataTable v-else class="ml-64 grow z-0" @click-redirect-create="useClickRedirectCreate">
   </NoDataTable>
 </template>
 

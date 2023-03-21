@@ -31,27 +31,27 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email">
+          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputEmail v-model:modelEmail="formStaff.email" />
             </template>
           </InputBox>
-          <InputBox name="Mật khẩu">
+          <InputBox name="Mật khẩu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPassword v-model:modelPassword="formStaff.password" />
             </template>
           </InputBox>
-          <InputBox name="Họ và tên">
+          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputFullName v-model:modelFullName="formStaff.full_name" />
             </template>
           </InputBox>
-          <InputBox name="Số điện thoại">
+          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
             </template>
           </InputBox>
-          <InputBox name="Địa chỉ">
+          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>

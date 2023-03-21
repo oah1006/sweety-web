@@ -6,7 +6,7 @@
     <div class="flex-none flex items-center px-4 ml-auto mr-10">
       <div class="flex items-center grow gap-2">
         <div class="relative">
-          <BoxImage :url="profileStore.profile.profile?.attachment?.url" :key="profileStore.profile.profile?.attachment?.id" width="w-12" height="h-12" :shape="rounded-full"/>
+          <BoxImage @click="showPopup" :url="profileStore.profile.profile?.attachment?.url" :key="profileStore.profile.profile?.attachment?.id" width="w-12" height="h-12" :shape="rounded-full"/>
           <div v-if="isPopup" class="absolute w-60 py-3 bg-white rounded-lg shadow top-20 right-0 px-4">
             <a @click="redirectProfile" class="flex items-center gap-2 hover:bg-zinc-100 hover:rounded-lg px-2 py-3 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -43,8 +43,6 @@ import { useRouter } from "vue-router";
 
 
 const profileStore = useProfileStore()
-
-console.log(profileStore.profile.profile.attachment)
 
 const isPopup = ref(false)
 

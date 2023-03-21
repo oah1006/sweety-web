@@ -19,33 +19,33 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email">
+          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputEmail v-model:modelEmail="formStaff.email" />
             </template>
           </InputBox>
-          <InputBox name="Họ và tên">
+          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputFullName v-model:modelFullName="formStaff.full_name" />
             </template>
           </InputBox>
-          <InputBox name="Số điện thoại">
+          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
             </template>
           </InputBox>
-          <InputBox name="Địa chỉ">
+          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>
           </InputBox>
-          <InputBox name="Vai trò">
+          <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole">
               </SelectRole>
             </template>
           </InputBox>
-          <InputBox name="Trạng thái">
+          <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
               </SelectStatus>

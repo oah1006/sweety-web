@@ -1,6 +1,6 @@
 <template>
-  <div class="border-b border-gray-100 border-solid py-6 flex items-center gap-4 px-10">
-    <p class="w-1/12">{{ props.name }}</p>
+  <div :class="`${props.padding} ${props.flex} ${props.border} ${props.margin}`">
+    <p :class="`${props.width}`">{{ props.name }}</p>
     <slot name="input"></slot>
   </div>
 </template>
@@ -8,7 +8,14 @@
 <script setup>
 
 const props = defineProps({
-  name: String
+  name: String,
+  border: String,
+  padding: String,
+  flex: String,
+  width: String,
+  margin: String
 })
+
+console.log(props.margin)
 
 </script>

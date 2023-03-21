@@ -3,28 +3,28 @@
     <template #form-create>
       <FormUpdateLayout v-if="!isLoadingPage" @redirect-index="useClickRedirectIndex" listName="Danh sách nhân viên">
         <template #title>
-          <TitlePage title="Tạo nhân viên" subTitle="Chào mừng bạn đến với trang tạo nhân viên!"></TitlePage>
+          <TitlePage title="Cập nhật nhân viên" subTitle="Chào mừng bạn đến với trang cập nhật nhân viên!"></TitlePage>
         </template>
         <template #title-box-input>
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email">
+          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputEmail v-model:modelEmail="customers.email" />
             </template>
           </InputBox>
-          <InputBox name="Họ và tên">
+          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputFullName v-model:modelFullName="customers.full_name" />
             </template>
           </InputBox>
-          <InputBox name="Số điện thoại">
+          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="customers.phone_number" />
             </template>
           </InputBox>
-          <InputBox name="Địa chỉ">
+          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputAddress v-model:modelAddress="customers.address" />
             </template>

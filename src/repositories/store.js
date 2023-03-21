@@ -2,7 +2,7 @@ import axios from "axios"
 import { useRoute } from 'vue-router'
 
 
-export function useIndexCustomerApi(page = null, keywords = '') {
+export function useIndexStoreApi(page = null, keywords = '') {
     const token = $cookies.get('token')
 
     const config = {
@@ -15,10 +15,10 @@ export function useIndexCustomerApi(page = null, keywords = '') {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/customers?', config)
+        .get('http://127.0.0.1:8000/private/stores?', config)
 }
 
-export function useStoreCustomerApi(formCusomter) {
+export function useCreateStoreApi(store) {
     const token = $cookies.get('token')
 
     const config = {
@@ -29,10 +29,10 @@ export function useStoreCustomerApi(formCusomter) {
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/customers', formCusomter, config)
+        .post('http://127.0.0.1:8000/private/stores', store, config)
 }
 
-export function useUpdateCustomer(formCusomter, id) {
+export function useDeleteStoreApi(id) {
     const token = $cookies.get('token')
 
     const config = {
@@ -43,10 +43,24 @@ export function useUpdateCustomer(formCusomter, id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/customers/' + id, formCusomter, config)
+        .delete('http://127.0.0.1:8000/private/stores/' + id, config)
 }
 
-export function useGetCustomerInformation() {
+export function useUpdateStoreApi(store, id) {
+    const token = $cookies.get('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+        },
+    }
+
+    return axios
+        .put('http://127.0.0.1:8000/private/stores/' + id, store, config)
+}
+
+export function useGetStoreInformationApi() {
     const token = $cookies.get('token')
 
     const route = useRoute();
@@ -59,20 +73,5 @@ export function useGetCustomerInformation() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/customers/' + id, config)
+        .get('http://127.0.0.1:8000/private/stores/' + id, config)
 }
-
-export function useDeleteCustomerApi(id) {
-    const token = $cookies.get('token')
-
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-        },
-    }
-
-    return axios
-        .delete('http://127.0.0.1:8000/private/customers/' + id, config)
-}
-

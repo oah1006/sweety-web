@@ -57,7 +57,7 @@ export function useDeleteStaffApi(id) {
         .delete('http://127.0.0.1:8000/private/staff/' + id, config)
 }
 
-export function useIndexStaff(page = null, status = '', role = '', keyword = '') {
+export function useIndexStaff(page = null, status = '', role = '', keywords = '') {
     const token = $cookies.get('token')
 
     const config = {
@@ -68,7 +68,7 @@ export function useIndexStaff(page = null, status = '', role = '', keyword = '')
             page,
             status,
             role,
-            keyword
+            keywords
         }
     }
 

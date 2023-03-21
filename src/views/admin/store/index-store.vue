@@ -2,11 +2,11 @@
   <IndexLayout>
     <template #list-table>
       <ListTableLayout v-if="!isLoadingPage" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
-                 v-model:modelBoolean="isLoadingListTable" @get-data="getData" :listName="customers"
-                 @click-redirect-create="useClickRedirectCreate" :name-page="namePage"
+                       v-model:modelBoolean="isLoadingListTable" @get-data="getData" :listName="stores"
+                       @click-redirect-create="useClickRedirectCreate" :name-page="namePage"
       >
         <template #title>
-          <TitlePage title="Khách hàng" subTitle="Chào mừng bạn đến với trang khách hàng của cửa hàng!">
+          <TitlePage title="Cửa hàng" subTitle="Chào mừng bạn đến với trang các chi nhánh của cửa hàng!">
             <template #button>
               <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
             </template>
@@ -24,22 +24,22 @@
           <ListTableRow>
             <template #table-column>
               <ListTableColumn text=""/>
-              <ListTableColumn text="MÃ KHÁCH HÀNG" />
-              <ListTableColumn text="Tên"/>
-              <ListTableColumn text="EMAIL"/>
+              <ListTableColumn text="TÊN CỬA HÀNG" />
               <ListTableColumn text="ĐỊA CHỈ"/>
+              <ListTableColumn text="GIỜ MỞ CỬA"/>
+              <ListTableColumn text="GIỜ ĐÓNG CỬA"/>
               <ListTableColumn />
             </template>
           </ListTableRow>
         </template>
         <template #list-table-row-body>
-          <ListTableRow v-for="item in customers" :key="item.id">
+          <ListTableRow v-for="item in stores" :key="item.id">
             <template #table-column>
               <ListTableColumnCheckbox />
-              <ListTableColumn class="text-orange-500" :text="item.code" />
-              <ListTableColumn :text="item.full_name" />
-              <ListTableColumn :text="item.user?.email" />
-              <ListTableColumn :text="item.user?.address" />
+              <ListTableColumn class="text-orange-500" :text="item.name" />
+              <ListTableColumn :text="item.address" />
+              <ListTableColumn :text="item.open_store" />
+              <ListTableColumn :text="item.close_store" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
                                        @show-modal="showModal" />
             </template>
@@ -49,43 +49,39 @@
       <LoadingPage v-else />
     </template>
     <template #modal-delete>
-      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :idCustomer="idCustomer" />
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :id="idStore" />
     </template>
   </IndexLayout>
-
 </template>
 
 <script setup>
-import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
+
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
-import LoadingPage from "@/components/loadings/LoadingPage.vue"
-import TitlePage from "@/components/TitlePage.vue"
+import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
+import TitlePage from "@/components/TitlePage.vue";
 import Button from "@/components/Button.vue"
-import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue";
 import ModalDelete from "@/components/ModalDelete.vue"
 import FilterLayout from "@/components/layouts/FilterLayout.vue";
 import InputSearch from "@/components/inputs/InputSearch.vue";
+import LoadingPage from "@/components/loadings/LoadingPage.vue"
 
-import {useDeleteCustomerApi, useIndexCustomerApi} from "@/repositories/customer";
-
-import { ref, onBeforeMount } from 'vue'
-
-import { useRouter } from 'vue-router'
-import { useToastStore } from "@/stores/toast";
-
-
+import {onBeforeMount, ref} from "vue";
+import ListTableColumn from "@/components/table/ListTableColumn.vue";
+import {useRouter} from "vue-router";
+import {useDeleteStoreApi, useIndexStoreApi} from "@/repositories/store";
+import {useToastStore} from "@/stores/toast";
 
 const isModal = ref(false)
-const idCustomer = ref(null)
+const idStore = ref(null)
 
 const router = useRouter()
 
-const customers = ref([])
+const stores = ref([])
 
-const namePage = "Khách hàng"
+const namePage = "Cửa hàng"
 
 const search = ref('')
 
@@ -103,12 +99,12 @@ const debounce = ref(0)
 
 function getData() {
   setTimeout(() => {
-    useIndexCustomerApi(page.value)
+    useIndexStoreApi(page.value)
         .then((response) => {
           pagination.value.lastPage = response.data.data.last_page
           pagination.value.total = response.data.data.total
 
-          customers.value = response.data.data.data
+          stores.value = response.data.data.data
 
           isLoadingPage.value = false
           isLoadingListTable.value = false
@@ -121,12 +117,12 @@ onBeforeMount(() => {
 })
 
 function useClickRedirectCreate() {
-  router.push({ name: 'create-customer' })
+  router.push({ name: 'create-store' })
 }
 
 function useClickRedirectUpdate(id) {
   router.push({
-    name: 'update-customer',
+    name: 'update-store',
     params: {
       id: id
     }
@@ -135,7 +131,7 @@ function useClickRedirectUpdate(id) {
 
 function useClickRedirectDetail(id) {
   router.push({
-    name: 'detail-customer',
+    name: 'detail-store',
     params: {
       id: id
     }
@@ -144,11 +140,13 @@ function useClickRedirectDetail(id) {
 
 function showModal(id) {
   isModal.value = true
-  idCustomer.value = id
+  idStore.value = id
+
+  console.log(idStore.value)
 }
 
 function useDeleteCustomer(id) {
-  useDeleteCustomerApi(id)
+  useDeleteStoreApi(id)
       .then((response) => {
         useToastStore().success('Xóa thành công', 3000)
         getData()
@@ -160,14 +158,15 @@ function filterData() {
   debounce.value = setTimeout(() => {
     isLoadingListTable.value = true
 
-    useIndexCustomerApi(page.value, search.value)
+    useIndexStoreApi(page.value, search.value)
         .then((response) => {
-          customers.value = response.data.data.data
+          stores.value = response.data.data.data
 
           isLoadingListTable.value = false
         })
   }, 400)
 }
+
 
 
 </script>

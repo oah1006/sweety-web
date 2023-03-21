@@ -100,8 +100,6 @@ const formStaff = ref({
   is_active: profileStore.profile.profile?.is_active
 })
 
-console.log(formStaff)
-
 const selectOptionRole = ref([
   {
     value: "1",
