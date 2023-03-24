@@ -41,7 +41,7 @@ import { computed } from 'vue'
 import Pagination from '@/components/table/Pagination.vue'
 import NoDataTable from '@/components/nodata/NoDataTable.vue'
 import LoadingTable from "@/components/loadings/LoadingTable.vue"
-import Button from "@/components/Button.vue"
+import Button from "@/components/Button/ButtonCreate.vue"
 import NoDataListTable from "@/components/nodata/NoDataListTable.vue";
 
 const props = defineProps({

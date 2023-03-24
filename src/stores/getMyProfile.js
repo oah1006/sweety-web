@@ -4,7 +4,8 @@ import axios from "axios";
 export const useProfileStore = defineStore('useProfileStore', {
     state: () => {
         return {
-            profile: {}
+            profile: {},
+            errors: {}
         }
     },
     actions: {

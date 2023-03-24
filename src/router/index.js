@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 
-import Login from '@/views/admin/auth/Login.vue'
-import Profile from '@/views/admin/auth/Profile.vue'
-import SendOtp from '@/views/admin/auth/otp/SendOtp.vue'
-import VerifyOtp from '@/views/admin/auth/otp/VerifyOtp.vue'
-import ForgotPassword from '@/views/admin/auth/ForgotPassword.vue'
+import Login from '@/views/admin/auth/login.vue'
+import Profile from '@/views/admin/auth/profile.vue'
+import SendOtp from '@/views/admin/auth/otp/send-opt.vue'
+import VerifyOtp from '@/views/admin/auth/otp/verify-otp.vue'
+import ForgotPassword from '@/views/admin/auth/forgot-password.vue'
+import ChangePassword from "@/views/admin/auth/change-password.vue";
 
 import Dashboard from '@/views/admin/Dashboard.vue'
 
@@ -60,6 +61,14 @@ const router = createRouter({
       component: ForgotPassword,
       meta: {
         guest: true
+      }
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      component: ChangePassword,
+      meta: {
+        requiresAuth: true
       }
     },
     {
@@ -175,7 +184,12 @@ router.beforeEach(async(to, from, next) => {
 
   if (to.meta.requiresAuth) {
     if (token) {
-      await useProfileStore().getMyProfile()
+      await useProfileStore().getMyProfile().catch(() => {
+        $cookies.remove('token')
+        next({
+          name: 'login'
+        })
+      })
       next()
     } else { 
       next({
@@ -191,6 +205,8 @@ router.beforeEach(async(to, from, next) => {
     } else {
       next();
     }
+  } else {
+    next()
   }
 })
 

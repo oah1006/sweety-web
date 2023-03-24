@@ -12,9 +12,9 @@
     textButton: String,
   });
 
-  const emits = defineEmits(['click-redirect-create'])
+  const emits = defineEmits(['click-redirect'])
 
   function clickRedirect() {
-    emits('click-redirect-create')
+    emits('click-redirect')
   }
 </script>

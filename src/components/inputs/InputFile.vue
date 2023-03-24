@@ -5,7 +5,7 @@
             file:rounded-lg file:border-0
             file:text-sm file:font-semibold
             file:bg-orange-400 file:text-white
-            hover:file:bg-orange-500 mx-auto"
+            hover:file:bg-orange-500"
          @change="onImageChange"
   />
 </template>

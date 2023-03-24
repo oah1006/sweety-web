@@ -8,7 +8,7 @@
         <template #title>
           <TitlePage title="Khách hàng" subTitle="Chào mừng bạn đến với trang khách hàng của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
@@ -49,7 +49,7 @@
       <LoadingPage v-else />
     </template>
     <template #modal-delete>
-      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :idCustomer="idCustomer" />
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :itemId="idCustomer" />
     </template>
   </IndexLayout>
 
@@ -60,7 +60,7 @@ import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import TitlePage from "@/components/TitlePage.vue"
-import Button from "@/components/Button.vue"
+import Button from "@/components/Button/ButtonCreate.vue"
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";

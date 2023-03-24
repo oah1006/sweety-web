@@ -1,6 +1,6 @@
 <template>
   <input type="text" name="otp" placeholder="OTP của bạn" v-model="otp"
-         class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
+         class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
 </template>
 
 <script setup>

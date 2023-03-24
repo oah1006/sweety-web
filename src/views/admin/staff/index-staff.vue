@@ -7,7 +7,7 @@
         <template #title>
           <TitlePage title="Nhân viên" subTitle="Chào mừng bạn đến với trang nhân viên của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
@@ -63,7 +63,7 @@
       <LoadingPage v-else />
     </template>
     <template #modal-delete>
-      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteStaff" :idCustomer="idCustomer" />
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteStaff" :itemId="idStaff" />
     </template>
   </IndexLayout>
 </template>
@@ -73,7 +73,7 @@ import ListTable from "@/components/layouts/ListTableLayout.vue"
 import IndexLayout from "@/components/layouts/IndexLayout.vue"
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import TitlePage from "@/components/TitlePage.vue"
-import Button from "@/components/Button.vue"
+import Button from "@/components/Button/ButtonCreate.vue"
 import ListTableColumn from "@/components/table/ListTableColumn.vue"
 import ListTableRow from "@/components/table/ListTableRow.vue"
 import ListTableColumnBoolean from "@/components/table/ListTableColumnBoolean.vue"
@@ -101,7 +101,7 @@ const staff = ref([])
 const page = ref(1);
 
 const isModal = ref(false)
-const idCustomer = ref(null)
+const idStaff = ref(null)
 
 const isLoadingPage = ref(true)
 const isLoadingListTable = ref(false)
@@ -194,7 +194,7 @@ function useClickRedirectDetail(id) {
 
 function showModal(id) {
   isModal.value = true
-  idCustomer.value = id
+  idStaff.value = id
 }
 
 function useDeleteStaff(id) {

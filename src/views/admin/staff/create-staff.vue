@@ -7,11 +7,11 @@
         </template>
         <template #avatar>
           <AvatarLayout @change-image="onImageChange" :url="url" border="border border-zinc-100 border-solid"
-                        round="rounded-lg" shadow="shadow" width="w-32" height="h-32" shape="rounded-lg"
+                        round="rounded-lg" shadow="shadow" width="w-32" height="h-32" shape="rounded-full"
                         background="bg-white" widthBox="w-1/4"
           >
             <template #input-image>
-              <InputFile class="text-center ml-20 py-4" @change-image="onImageChange" />
+              <InputFile class="text-center ml-4 py-4" @change-image="onImageChange" />
             </template>
           </AvatarLayout>
         </template>
@@ -82,6 +82,7 @@ import { useStoreStaffApi } from "@/repositories/staff";
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import InputFile from "@/components/inputs/InputFile.vue";
+import {useToastStore} from "@/stores/toast";
 
 const router = useRouter();
 
@@ -129,6 +130,7 @@ async function submit() {
   await useStoreStaffApi(file.value, formStaff.value.email, formStaff.value.password, formStaff.value.full_name,
   formStaff.value.phone_number, formStaff.value.address, formStaff.value.is_admin, formStaff.value.is_active)
     .then((response) => {
+      useToastStore().success('Tạo nhân viên thành công', 3000)
       router.push({ name: 'index-staff' })
     })
 }

@@ -9,7 +9,7 @@
       </div>
       <div class="bg-orange-100 w-full h-full flex justify-end items-center gap-8 px-8 py-4">
         <a @click="closeModal" class="cursor-pointer text-zinc-700 px-3 py-2">Hủy</a>
-        <button @click="deleteItem(props.id)" class="bg-orange-400 text-white px-6 py-2 rounded-md">Đồng ý</button>
+        <button @click="deleteItem(props.itemId)" class="bg-orange-400 text-white px-6 py-2 rounded-md">Đồng ý</button>
       </div>
     </div>
   </div>
@@ -20,10 +20,9 @@
 const emits = defineEmits(['close', 'delete-item'])
 
 const props = defineProps({
-  id: Number
+  itemId: Number
 })
 
-console.log(props.id)
 
 function closeModal() {
   emits('close')

@@ -2,7 +2,7 @@
   <div class="flex items-center mb-4">
     <div>
       <p class="text-3xl text-zinc-800">{{ props.title }}</p>
-      <p class="text-zinc-400 text-sm">{{ props.subTitle }}</p>
+      <p class="text-zinc-400 text-sm mt-1">{{ props.subTitle }}</p>
     </div>
     <slot name="button"></slot>
   </div>
@@ -10,7 +10,7 @@
 
 
 <script setup>
-import Button from "@/components/Button.vue"
+import Button from "@/components/Button/ButtonCreate.vue"
 
 const props = defineProps({
   title: {

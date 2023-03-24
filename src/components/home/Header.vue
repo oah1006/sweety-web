@@ -6,15 +6,21 @@
     <div class="flex-none flex items-center px-4 ml-auto mr-10">
       <div class="flex items-center grow gap-2">
         <div class="relative">
-          <BoxImage @click="showPopup" :url="profileStore.profile.profile?.attachment?.url" :key="profileStore.profile.profile?.attachment?.id" width="w-12" height="h-12" :shape="rounded-full"/>
+          <BoxImage @click="showPopup" :url="profileStore.profile.profile?.attachment?.url" :key="profileStore.profile.profile?.attachment?.id" width="w-12" height="h-12" shape="rounded-full"/>
           <div v-if="isPopup" class="absolute w-60 py-3 bg-white rounded-lg shadow top-20 right-0 px-4">
-            <a @click="redirectProfile" class="flex items-center gap-2 hover:bg-zinc-100 hover:rounded-lg px-2 py-3 cursor-pointer">
+            <a @click="redirectProfile" class="flex items-center gap-2 hover:bg-zinc-50 hover:text-orange-500 hover:rounded-lg px-2 py-3 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               <p class="font-medium text-lg">Thông tin cá nhân</p>
             </a>
-            <a @click="logout" class="flex items-center gap-2 hover:bg-zinc-100 hover:rounded-lg px-2 py-3 cursor-pointer">
+            <a @click="redirectChangePassword" class="flex items-center gap-2 hover:bg-zinc-50 hover:text-orange-500 hover:rounded-lg px-2 py-3 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              <p class="font-medium text-lg">Đổi mật khẩu</p>
+            </a>
+            <a @click="logout" class="flex items-center gap-2 hover:bg-zinc-50 hover:text-orange-500 hover:rounded-lg px-2 py-3 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -55,6 +61,12 @@ function showPopup() {
 function redirectProfile() {
   router.push({
     name: 'my-profile'
+  })
+}
+
+function redirectChangePassword() {
+  router.push({
+    name: 'change-password'
   })
 }
 

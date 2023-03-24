@@ -3,7 +3,11 @@
     <template #form-profile>
       <FormProfile @submit.prevent="submit" :isLoadingButton="isLoadingButton">
         <template #title>
-          <TitlePage title="Thông tin cá nhân" subTitle="Chào mừng bạn đến với trang thông nhân viên!"></TitlePage>
+          <TitlePage title="Thông tin cá nhân" subTitle="Chào mừng bạn đến với trang thông nhân viên!">
+            <template #button>
+              <ButtonChangePassword textButton="Mật khẩu" class="ml-auto" @click-redirect="useClickRedirectChangePassword" />
+            </template>
+          </TitlePage>
         </template>
         <template #avatar>
           <AvatarLayout :url="url" width="w-48" height="h-48" shape="rounded-full">
@@ -19,33 +23,33 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email">
+          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputEmail v-model:modelEmail="formStaff.email" />
             </template>
           </InputBox>
-          <InputBox name="Họ và tên">
+          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputFullName v-model:modelFullName="formStaff.full_name"/>
             </template>
           </InputBox>
-          <InputBox name="Số điện thoại">
+          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number"/>
             </template>
           </InputBox>
-          <InputBox name="Địa chỉ">
+          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>
           </InputBox>
-          <InputBox name="vai trò">
+          <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole">
               </SelectRole>
             </template>
           </InputBox>
-          <InputBox name="Trạng thái">
+          <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
               </SelectStatus>
@@ -71,18 +75,21 @@ import InputAddress from "@/components/inputs/InputAddress.vue";
 import InputBox from "@/components/layouts/BoxInputLayout.vue"
 import IconDetachImage from "@/components/IconDetachImage.vue";
 import InputFile from "@/components/inputs/InputFile.vue";
-import LoadingPage from "@/components/loadings/LoadingPage.vue"
 
 import { useProfileStore } from "@/stores/getMyProfile"
 import { ref } from "vue";
 import { detach, sync } from "@/repositories/attachment";
 import { useUpdateProfileApi } from "@/repositories/auth";
+import { useRouter } from "vue-router";
+import ButtonChangePassword from "@/components/Button/ButtonChangePassword.vue";
 
 const profileStore = useProfileStore()
 
 const file = ref('')
 
 const url = ref('')
+
+const router = useRouter();
 
 const isLoadingButton = ref(false)
 
@@ -151,7 +158,11 @@ async function submit() {
           isLoadingButton.value = false
         })
   }, 1000)
-
 }
+
+function useClickRedirectChangePassword() {
+  router.push({ path: 'change-password' })
+}
+
 
 </script>

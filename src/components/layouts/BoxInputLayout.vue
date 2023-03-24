@@ -16,6 +16,4 @@ const props = defineProps({
   margin: String
 })
 
-console.log(props.margin)
-
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <div :class="`${props.widthBox} ${props.shape} ${props.background} ${props.border} ${props.round} ${props.shadow}`">
+  <div :class="`${props.widthBox} ${props.background} ${props.border} ${props.shadow}`">
     <slot name="title-form-field"></slot>
     <div class="flex flex-col items-center justify-center">
       <div class="relative">
         <BoxImage :url="props.url" :border="props.border" :width="props.width" :height="props.height" :shape="props.shape" />
         <slot name="icon-detach-image"></slot>
       </div>
-      <div class="flex flex-col items-center justify-center">
+      <div>
         <slot name="input-image"></slot>
       </div>
     </div>
@@ -49,10 +49,6 @@ const props = defineProps({
     default: () => ''
   },
   border: {
-    type: String,
-    default: () => ''
-  },
-  round: {
     type: String,
     default: () => ''
   },

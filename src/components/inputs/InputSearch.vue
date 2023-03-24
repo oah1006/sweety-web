@@ -1,7 +1,7 @@
 <template>
   <p>{{ props.label }}</p>
-  <input v-model="search" type="text" placeholder="Tra cứu ..." class="block mt-2 border border-zinc-300 w-full py-2
-    rounded-2xl pl-4 text-slate-900" />
+  <input v-model="search" type="text" placeholder="Tra cứu ..."
+         class="form-input block mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900" />
 </template>
 
 <script setup>

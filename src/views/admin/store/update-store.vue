@@ -1,7 +1,7 @@
 <template>
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormUpdateLayout v-if="!isLoadingPage" @redirect-index="useClickRedirectIndex" listName="Danh sách nhân viên">
+      <FormUpdateLayout v-if="!isLoadingPage" @click-redirect="useClickRedirectIndex" listName="Danh sách nhân viên">
         <template #title>
           <TitlePage title="Cập nhật cửa hàng" subTitle="Chào mừng bạn đến với trang cập nhật thông tin cửa hàng!"></TitlePage>
         </template>

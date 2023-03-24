@@ -8,7 +8,7 @@
         <template #title>
           <TitlePage title="Cửa hàng" subTitle="Chào mừng bạn đến với trang các chi nhánh của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
@@ -49,7 +49,7 @@
       <LoadingPage v-else />
     </template>
     <template #modal-delete>
-      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :id="idStore" />
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :itemId="idStore" />
     </template>
   </IndexLayout>
 </template>
@@ -59,7 +59,7 @@
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
 import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
 import TitlePage from "@/components/TitlePage.vue";
-import Button from "@/components/Button.vue"
+import Button from "@/components/Button/ButtonCreate.vue"
 import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue";
@@ -141,8 +141,6 @@ function useClickRedirectDetail(id) {
 function showModal(id) {
   isModal.value = true
   idStore.value = id
-
-  console.log(idStore.value)
 }
 
 function useDeleteCustomer(id) {

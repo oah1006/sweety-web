@@ -1,16 +1,16 @@
 <template>
-  <ForgotLayout>
+  <ForgotLayout @submit.prevent="submit">
     <template #form-forgot-password>
       <FormForgotPasswordLayout textButton="Xác nhận OPT" title="Xác thực mã OTP" subTitle="Vui lòng nhập mã OTP 6 chữ số đã được gửi đến email của bạn. Mã OTP sẽ có hiệu lực trong 1 phút">
         <template #box-input>
           <InputBox margin="mt-4">
             <template #input>
-              <InputOtp v-model:modelOtp="otp" />
+              <InputOtp v-model:modelOtp="formVerifyOtp.otp" />
             </template>
           </InputBox>
           <InputBox>
             <template #input>
-              <InputEmail type="hidden" v-model:modelEmail="email" />
+              <InputEmail type="hidden" v-model:modelEmail="formVerifyOtp.email" />
             </template>
           </InputBox>
         </template>
@@ -28,8 +28,31 @@ import InputBox from "@/components/layouts/BoxInputLayout.vue";
 import InputOtp from "@/components/inputs/InputOtp.vue";
 
 import { ref } from "vue";
+import {useVerifyOtpApi} from "@/repositories/otp";
+import { useRoute, useRouter } from 'vue-router'
+import {useToastStore} from "@/stores/toast";
 
-const otp = ref('')
-const email = ref('')
+const route = useRoute()
+const router = useRouter()
+
+const formVerifyOtp = ref({
+  email: route.query.email,
+  otp: ''
+})
+
+function submit() {
+  useVerifyOtpApi(formVerifyOtp.value)
+      .then((response) => {
+        $cookies.set('tokenOtp', response.data.token, 60*60*24)
+
+        useToastStore().success('Mã OTP hợp lệ', 3000)
+
+        router.push(`forgot-password?email=${formVerifyOtp.value.email}`)
+      })
+      .catch((error) => {
+        useToastStore().error('Mã OTP của bạn đã hết hạn', 3000)
+        router.push('send-otp')
+      })
+}
 
 </script>

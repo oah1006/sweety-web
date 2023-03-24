@@ -23,7 +23,7 @@
                         <input type="password" name="password" placeholder="Mật khẩu" v-model="employee.password" class="outline-orange-500/[.55] mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
                     </div>
                     <div class="flex">
-                        <a class="ml-auto text-orange-500 font-medium mt-2">Quên mật khẩu</a>
+                        <router-link :to="{ path: 'send-otp' }" class="ml-auto text-orange-500 font-medium mt-2">Quên mật khẩu</router-link>
                     </div>
                     <button type="submit" class="px-4 py-2 bg-orange-400 w-full mt-4 rounded-md text-white font-bold">Đăng nhập</button>
                 </form>
