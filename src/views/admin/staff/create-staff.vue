@@ -6,26 +6,12 @@
           <TitlePage title="Tạo nhân viên" subTitle="Chào mừng bạn đến với trang tạo nhân viên!"></TitlePage>
         </template>
         <template #avatar>
-          <AvatarLayout @change-image="onImageChange" :url="url" border="border border-zinc-100 border-solid"
-                        round="rounded-lg" shadow="shadow" width="w-32" height="h-32" shape="rounded-full"
-                        background="bg-white" widthBox="w-1/4"
+          <AvatarLayout @change-image="onImageChange" :url="url" width="w-48" height="h-48" shape="rounded-full"
           >
             <template #input-image>
               <InputFile class="text-center ml-4 py-4" @change-image="onImageChange" />
             </template>
           </AvatarLayout>
-        </template>
-        <template #select>
-          <SelectLayout name="Thông tin nhân viên" nameLabelStatus="Trạng thái" nameLabelRole="Vai trò">
-            <template #role>
-              <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole" >
-              </SelectRole>
-            </template>
-            <template #status>
-              <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
-              </SelectStatus>
-            </template>
-          </SelectLayout>
         </template>
         <template #title-box-input>
           <TitleFormField name="Thông tin nhân viên" />
@@ -56,6 +42,24 @@
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>
           </InputBox>
+          <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
+              </SelectRole>
+            </template>
+          </InputBox>
+          <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
+              </SelectStatus>
+            </template>
+          </InputBox>
+          <InputBox name="Cửa hàng chi nhánh" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <SelectStore v-model:modalSelectStore="formStaff.store_id" :stores="stores">
+              </SelectStore>
+            </template>
+          </InputBox>
         </template>
       </FormCreateLayout>
     </template>
@@ -83,6 +87,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import InputFile from "@/components/inputs/InputFile.vue";
 import {useToastStore} from "@/stores/toast";
+import SelectStore from "@/components/inputs/SelectStore.vue";
+import {useIndexStoreApi} from "@/repositories/store";
 
 const router = useRouter();
 
@@ -95,17 +101,24 @@ const formStaff = ref({
   full_name: '',
   phone_number: '',
   address: '',
-  is_admin: '',
-  is_active: ''
+  role: '',
+  is_active: '',
+  store_id: ''
 });
+
+const stores = ref({});
 
 const selectOptionRole = ref([
   {
-    value: "1",
+    value: "administrator",
+    label: "Quản trị viên"
+  },
+  {
+    value: "manager",
     label: "Quản lý"
   },
   {
-    value: "0",
+    value: "employee",
     label: "Nhân viên"
   }
 ])
@@ -121,6 +134,16 @@ const selectOptionStatus = ref([
   }
 ])
 
+
+function getStore() {
+  useIndexStoreApi()
+      .then((response) => {
+        stores.value = response.data.data.data
+      })
+}
+
+getStore()
+
 function onImageChange(e) {
   file.value = e.target.files[0]
   url.value = URL.createObjectURL(file.value)
@@ -128,7 +151,7 @@ function onImageChange(e) {
 
 async function submit() {
   await useStoreStaffApi(file.value, formStaff.value.email, formStaff.value.password, formStaff.value.full_name,
-  formStaff.value.phone_number, formStaff.value.address, formStaff.value.is_admin, formStaff.value.is_active)
+  formStaff.value.phone_number, formStaff.value.address, formStaff.value.role, formStaff.value.is_active, formStaff.value.store_id)
     .then((response) => {
       useToastStore().success('Tạo nhân viên thành công', 3000)
       router.push({ name: 'index-staff' })

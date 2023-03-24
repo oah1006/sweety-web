@@ -1,9 +1,8 @@
 <template>
     <form>
       <slot name="title"></slot>
-      <div class="flex gap-10">
+      <div>
         <slot name="avatar"></slot>
-        <slot name="select"></slot>
       </div>
       <div class="bg-white w-full mt-5 rounded-lg shadow-md">
         <slot name="title-box-input"></slot>

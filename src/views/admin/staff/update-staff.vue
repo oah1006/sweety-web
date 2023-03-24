@@ -41,7 +41,7 @@
           </InputBox>
           <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole">
+              <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
               </SelectRole>
             </template>
           </InputBox>
@@ -106,7 +106,7 @@ const formStaff = ref({
     full_name: '',
     phone_number: '',
     address: '',
-    is_admin: '',
+    role: '',
     is_active: ''
 })
 
@@ -114,11 +114,15 @@ const isLoadingPage = ref(true)
 
 const selectOptionRole = ref([
   {
-    value: "1",
+    value: "administrator",
+    label: "Quản trị viên"
+  },
+  {
+    value: "manager",
     label: "Quản lý"
   },
   {
-    value: "0",
+    value: "employee",
     label: "Nhân viên"
   }
 ])
@@ -155,13 +159,14 @@ function detachAttachment() {
 function getStaffInformation() {
   useGetStaffInformation()
     .then((response) => {
+      console.log(response.data)
       formStaff.value.id = response.data.id
       formStaff.value.attachment_id = response.data.attachment?.id
       formStaff.value.email = response.data.user?.email
       formStaff.value.full_name = response.data.full_name
       formStaff.value.phone_number = response.data.user?.phone_number
       formStaff.value.address = response.data.user?.address
-      formStaff.value.is_admin = response.data.is_admin
+      formStaff.value.role = response.data.role
       formStaff.value.is_active = response.data.is_active
 
       if (response.data.attachment != null) {

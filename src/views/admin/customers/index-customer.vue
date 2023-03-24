@@ -23,7 +23,6 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn text=""/>
               <ListTableColumn text="MÃ KHÁCH HÀNG" />
               <ListTableColumn text="Tên"/>
               <ListTableColumn text="EMAIL"/>
@@ -35,7 +34,6 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in customers" :key="item.id">
             <template #table-column>
-              <ListTableColumnCheckbox />
               <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />

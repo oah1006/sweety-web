@@ -32,7 +32,6 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn text=""/>
               <ListTableColumn text="MÃ NHÂN VIÊN" />
               <ListTableColumn text="Tên"/>
               <ListTableColumn text="EMAIL"/>
@@ -46,13 +45,12 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in staff" :key="item.id">
             <template #table-column>
-              <ListTableColumnCheckbox />
               <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
-              <ListTableColumn text="Cửa hàng" />
-              <ListTableColumnBadge :is-admin="item.is_admin" />
-              <ListTableColumnBoolean :is-active="item.is_active" />
+              <ListTableColumnStore :nameStore="item.store?.name" :idStore="item.store?.id"/>
+              <ListTableColumnBadge :role="item.role" />
+              <ListTableColumnBoolean :isActive="item.is_active" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
                                        @click-redirect-detail="useClickRedirectDetail" @delete-item="deleteItem"
                                        @show-modal="showModal" :item-id="item.id" />
@@ -80,6 +78,7 @@ import ListTableColumnBoolean from "@/components/table/ListTableColumnBoolean.vu
 import ListTableColumnBadge from "@/components/table/ListTableColumnBadge.vue"
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue"
 import ListTableColumnCheckbox from "@/components/table/ListTableColumnCheckbox.vue"
+import ListTableColumnStore from "@/components/table/ListTableColumnStore.vue"
 import ModalDelete from "@/components/ModalDelete.vue";
 import FilterLayout from "@/components/layouts/FilterLayout.vue";
 
@@ -121,11 +120,15 @@ const debounce = ref(0)
 
 const selectOptionRole = ref([
   {
-    value: "1",
+    value: "administrator",
+    label: "Quản trị viên"
+  },
+  {
+    value: "manager",
     label: "Quản lý"
   },
   {
-    value: "0",
+    value: "employee",
     label: "Nhân viên"
   }
 ])
@@ -147,6 +150,7 @@ function getData() {
 
     useIndexStaff(page.value)
       .then((response) => {
+        console.log(response.data.data.data)
         pagination.value.lastPage = response.data.data.last_page
         pagination.value.total = response.data.data.total
 
@@ -218,6 +222,10 @@ function filterData() {
           isLoadingListTable.value = false
         })
   }, 400)
+}
+
+function resetFilter() {
+
 }
 
 </script>

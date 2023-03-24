@@ -4,7 +4,7 @@
     <slot name="box-filter"></slot>
     <div class="mt-6 shadow-md rounded-md bg-white">
       <div class="py-4 px-4">
-        <input type="checkbox" class="form-checkbox text-orange-500 border-zinc-300 rounded focus:ring-orange-400" />
+
       </div>
       <table class="w-full bg-white rounded-lg border-t">
         <thead class="uppercase rounded-lg bg-zinc-100">

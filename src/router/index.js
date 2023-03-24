@@ -23,6 +23,7 @@ import DetailCustomer from '@/views/admin/customers/detail-customer.vue'
 import IndexStore from '@/views/admin/store/index-store.vue'
 import CreateStore from '@/views/admin/store/create-store.vue'
 import UpdateStore from '@/views/admin/store/update-store.vue'
+import DetailStore from '@/views/admin/store/detail-store.vue'
 
 
 import { useProfileStore } from "@/stores/getMyProfile";
@@ -136,17 +137,17 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile',
-      name: 'my-profile',
-      component: Profile,
+      path: '/detail-customer/:id',
+      name: 'detail-customer',
+      component: DetailCustomer,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/detail-customer/:id',
-      name: 'detail-customer',
-      component: DetailCustomer,
+      path: '/profile',
+      name: 'my-profile',
+      component: Profile,
       meta: {
         requiresAuth: true
       }
@@ -171,6 +172,14 @@ const router = createRouter({
       path: '/update-store/:id',
       name: 'update-store',
       component: UpdateStore,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-store/:id',
+      name: 'detail-store',
+      component: DetailStore,
       meta: {
         requiresAuth: true
       }

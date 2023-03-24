@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useRoute } from 'vue-router'
 
-export function useStoreStaffApi(file, email, password, full_name, phone_number, address, is_admin, is_active) {
+export function useStoreStaffApi(file, email, password, full_name, phone_number, address, role, is_active, store_id) {
     const formData = new FormData();
 
     if (file != undefined) {
@@ -13,8 +13,10 @@ export function useStoreStaffApi(file, email, password, full_name, phone_number,
     formData.append('full_name', full_name)
     formData.append('phone_number', phone_number)
     formData.append('address', address)
-    formData.append('is_admin', is_admin)
+    formData.append('role', role)
     formData.append('is_active', is_active)
+    formData.append('store_id', store_id)
+
 
     const token = $cookies.get('token')
 
