@@ -20,13 +20,20 @@ import CreateCustomer from '@/views/admin/customers/create-customer.vue'
 import UpdateCustomer from '@/views/admin/customers/update-customer.vue'
 import DetailCustomer from '@/views/admin/customers/detail-customer.vue'
 
-import IndexStore from '@/views/admin/store/index-store.vue'
-import CreateStore from '@/views/admin/store/create-store.vue'
-import UpdateStore from '@/views/admin/store/update-store.vue'
-import DetailStore from '@/views/admin/store/detail-store.vue'
+import IndexStore from '@/views/admin/stores/index-store.vue'
+import CreateStore from '@/views/admin/stores/create-store.vue'
+import UpdateStore from '@/views/admin/stores/update-store.vue'
+import DetailStore from '@/views/admin/stores/detail-store.vue'
 
+import IndexCategory from '@/views/admin/categories/index-category.vue'
+import CreateCategory from '@/views/admin/categories/store-category.vue'
+import UpdateCategory from '@/views/admin/categories/update-category.vue'
+import DetailCategory from "@/views/admin/categories/detail-category.vue";
+
+import IndexProduct from '@/views/admin/products/index-product.vue'
 
 import { useProfileStore } from "@/stores/getMyProfile";
+
 
 
 const router = createRouter({
@@ -154,32 +161,72 @@ const router = createRouter({
     },
     {
       path: '/stores',
-      name: 'index-store',
+      name: 'index-stores',
       component: IndexStore,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/create-store',
-      name: 'create-store',
+      path: '/create-stores',
+      name: 'create-stores',
       component: CreateStore,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/update-store/:id',
-      name: 'update-store',
+      path: '/update-stores/:id',
+      name: 'update-stores',
       component: UpdateStore,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/detail-store/:id',
-      name: 'detail-store',
+      path: '/detail-stores/:id',
+      name: 'detail-stores',
       component: DetailStore,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/categories',
+      name: 'index-category',
+      component: IndexCategory,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create-category',
+      name: 'create-category',
+      component: CreateCategory,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/update-category/:id',
+      name: 'update-category',
+      component: UpdateCategory,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-category/:id',
+      name: 'detail-category',
+      component: DetailCategory,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/products',
+      name: 'index-product',
+      component: IndexProduct,
       meta: {
         requiresAuth: true
       }

@@ -19,7 +19,7 @@ const props = defineProps({
 
 function useClickRedirectDetail(id) {
   router.push({
-    name: 'detail-store',
+    name: 'detail-stores',
     params: {
       id: id
     }

@@ -11,7 +11,7 @@
         <template #box-input>
           <InputBox name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputName v-model:modelName="store.name" />
+              <InputName v-model:modelName="store.name" placeholder="Tên cửa hàng"/>
             </template>
           </InputBox>
           <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -73,7 +73,7 @@ async function submit() {
   useUpdateStoreApi(store.value, id)
       .then((response) => {
         useToastStore().success('Cập nhật thành công', 3000)
-        router.push({ name: 'index-store' })
+        router.push({ name: 'index-stores' })
       })
 }
 function getInformationStore() {
@@ -97,7 +97,7 @@ function format(time) {
 
 function useClickRedirectIndex() {
   router.push({
-    name: 'index-store',
+    name: 'index-stores',
   })
 }
 

@@ -11,6 +11,9 @@
         <div>
           <slot name="select-status"></slot>
         </div>
+        <div>
+          <slot name="select-category"></slot>
+        </div>
       </div>
     </div>
     <div class="flex mt-4 gap-4">

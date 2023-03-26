@@ -54,13 +54,13 @@ function getData() {
 
 function useClickRedirectIndex() {
   router.push({
-    name: 'index-store',
+    name: 'index-stores',
   })
 }
 
 function useClickRedirectUpdate(id) {
   router.push({
-    name: 'update-store',
+    name: 'update-stores',
     params: {
       id: id
     }

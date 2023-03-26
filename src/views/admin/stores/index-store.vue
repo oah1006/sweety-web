@@ -67,9 +67,10 @@ import ModalDelete from "@/components/ModalDelete.vue"
 import FilterLayout from "@/components/layouts/FilterLayout.vue";
 import InputSearch from "@/components/inputs/InputSearch.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
+import ListTableColumn from "@/components/table/ListTableColumn.vue";
+
 
 import {onBeforeMount, ref} from "vue";
-import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import {useRouter} from "vue-router";
 import {useDeleteStoreApi, useIndexStoreApi} from "@/repositories/store";
 import {useToastStore} from "@/stores/toast";
@@ -117,12 +118,12 @@ onBeforeMount(() => {
 })
 
 function useClickRedirectCreate() {
-  router.push({ name: 'create-store' })
+  router.push({ name: 'create-stores' })
 }
 
 function useClickRedirectUpdate(id) {
   router.push({
-    name: 'update-store',
+    name: 'update-stores',
     params: {
       id: id
     }
@@ -131,7 +132,7 @@ function useClickRedirectUpdate(id) {
 
 function useClickRedirectDetail(id) {
   router.push({
-    name: 'detail-store',
+    name: 'detail-stores',
     params: {
       id: id
     }
@@ -150,6 +151,7 @@ function useDeleteCustomer(id) {
         getData()
       })
 }
+
 function filterData() {
   clearTimeout(debounce.value)
 

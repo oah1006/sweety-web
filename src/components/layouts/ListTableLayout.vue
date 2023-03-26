@@ -2,7 +2,7 @@
   <div v-if="props.total > 0">
     <slot name="title"></slot>
     <slot name="box-filter"></slot>
-    <div class="mt-6 shadow-md rounded-md bg-white">
+    <div class="my-6 shadow-md rounded-md bg-white">
       <div class="py-4 px-4">
 
       </div>
