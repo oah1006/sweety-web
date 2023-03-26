@@ -1,9 +1,11 @@
 <template>
-  <p>{{ props.label }}</p>
-  <select name="filterStatus" v-model="filterStatus" class="form-select mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
-    <option value="">Tất cả</option>
-    <option v-for="option in props.selectOptionStatus" :value="option.value">{{ option.label }}</option>
-  </select>
+  <div>
+    <p>{{ props.label }}</p>
+    <select name="filterStatus" v-model="filterStatus" class="form-select mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+      <option value="">Tất cả</option>
+      <option v-for="option in props.selectOptionStatus" :value="option.value">{{ option.label }}</option>
+    </select>
+  </div>
 </template>
 
 <script setup>

@@ -1,34 +1,36 @@
 <template>
-  <p>{{ props.label }}</p>
-  <select name="filterRole" v-model="filterCategory" class="form-select mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
-    <option value="">Tất cả</option>
-    <option v-for="option in props.category" :value="option.id">{{ option.name }}</option>
-  </select>
+  <div>
+    <p>{{ props.label }}</p>
+    <select name="category_id" v-model="category_id" class="form-select mt-2 border border-zinc-300 w-full py-2 rounded-2xl pl-4 text-slate-900">
+      <option value="">Tất cả</option>
+      <option v-for="option in props.category" :value="option.id" :key="option.id">{{ option.name }}</option>
+    </select>
+  </div>
 </template>
 
 <script setup>
 
-import {computed, watch} from "vue";
+import { computed, watch } from "vue";
 
 const props = defineProps({
   category: Object,
   label: String,
-  modalFilterCategory: String,
+  modalCategoryId: String,
   isLoadingListTable: Boolean
 })
 
-const emits = defineEmits(['update:modalFilterCategory', 'filter-data'])
+const emits = defineEmits(['update:modalCategoryId', 'filter-data'])
 
-const filterCategory = computed({
-  get: () => props.modalFilterCategory,
-  set: (value) => emits('update:modalFilterCategory', value)
+const category_id = computed({
+  get: () => props.modalCategoryId,
+  set: (value) => emits('update:modalCategoryId', value)
 })
 
 function filterData() {
   emits('filter-data')
 }
 
-watch(filterCategory, () => {
+watch(category_id, () => {
   props.isLoadingListTable = true
 
   filterData()

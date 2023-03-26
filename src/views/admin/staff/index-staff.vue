@@ -1,5 +1,5 @@
 <template>
-  <IndexLayout>
+  <IndexLayout >
     <template #list-table>
       <ListTable v-if="!isLoadingPage" class="grow z-0" text="Nhân viên" :listName="staff" :total="pagination.total"
                  :last-page="pagination.lastPage" @click-redirect-create="useClickRedirectCreate"
@@ -12,17 +12,13 @@
           </TitlePage>
         </template>
         <template #box-filter>
-          <FilterLayout>
-            <template #input-search>
+          <FilterLayout grid="grid grid-cols-3 items-center gap-10">
+            <template #filter>
               <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                            v-model:modalSearch="filters.search" label="Tìm kiếm theo từ khóa" />
-            </template>
-            <template #select-role>
               <SelectFilterRole :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                                 v-model:modalFilterRole="filters.filterRole" label="Vai trò"
                                 :selectOptionRole="selectOptionRole"/>
-            </template>
-            <template #select-status>
               <SelectFilterStatus :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                                   v-model:modalFilterStatus="filters.filterStatus" label="Trạng thái"
                                   :selectOptionStatus="selectOptionStatus" />
@@ -102,6 +98,8 @@ const page = ref(1);
 const isModal = ref(false)
 const idStaff = ref(null)
 
+const isNavigation = ref(false)
+
 const isLoadingPage = ref(true)
 const isLoadingListTable = ref(false)
 
@@ -143,6 +141,10 @@ const selectOptionStatus = ref([
     label: "Không hoạt động"
   }
 ])
+
+function showNavigation() {
+  isNavigation.value = true
+}
 
 function getData() {
   setTimeout(() => {

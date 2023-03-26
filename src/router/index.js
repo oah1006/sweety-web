@@ -31,6 +31,8 @@ import UpdateCategory from '@/views/admin/categories/update-category.vue'
 import DetailCategory from "@/views/admin/categories/detail-category.vue";
 
 import IndexProduct from '@/views/admin/products/index-product.vue'
+import CreateProduct from '@/views/admin/products/create-product.vue'
+import UpdateProduct from "@/views/admin/products/update-product.vue";
 
 import { useProfileStore } from "@/stores/getMyProfile";
 
@@ -227,6 +229,22 @@ const router = createRouter({
       path: '/products',
       name: 'index-product',
       component: IndexProduct,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create-product',
+      name: 'create-product',
+      component: CreateProduct,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/update-product/:id',
+      name: 'update-product',
+      component: UpdateProduct,
       meta: {
         requiresAuth: true
       }

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 bg-white z-20 fixed bg-white h-full flex-none py-28">
+  <div class="lg:w-64 lg:block sm:hidden md:hidden lg:block bg-white z-20 fixed bg-white h-full flex-none py-28" >
       <div class="pb-6">
           <p class="text-base font-medium text-orange-600 px-4">Hệ thống</p>
           <div>
@@ -73,10 +73,12 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
 
-}
+const props = defineProps({
+  isNavigation: Boolean
+})
+
 </script>
 
 <style>

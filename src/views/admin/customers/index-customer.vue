@@ -14,7 +14,7 @@
         </template>
         <template #box-filter>
           <FilterLayout>
-            <template #input-search>
+            <template #filter>
               <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                            v-model:modalSearch="search" label="Tìm kiếm theo từ khóa" />
             </template>

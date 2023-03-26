@@ -1,7 +1,12 @@
 <template>
   <div class="flex items-center pl-20 border-b border-zinc-100 shadow w-full z-50 fixed top-0 bg-white">
     <div class="flex justify-between">
-      <img src="../../images/logo.png" class="w-20 h-20 object-cover mx-auto" />
+      <img src="../../images/logo.png" class="w-20 h-20 object-cover mx-auto sm:hidden md:hidden lg:block" />
+      <a @click="showNavigation" class="cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:block lg:hidden">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </a>
     </div>
     <div class="flex-none flex items-center px-4 ml-auto mr-10">
       <div class="flex items-center grow gap-2">
@@ -76,6 +81,13 @@ async function logout() {
       $cookies.remove('token')
       router.push('/')
     })
+}
+
+const emits = defineEmits(['show-navigation'])
+
+function showNavigation() {
+  console.log('hehe')
+  emits('show-navigation')
 }
 
 

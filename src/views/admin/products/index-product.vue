@@ -8,20 +8,21 @@
         <template #title>
           <TitlePage title="Sản phẩm" subTitle="Chào mừng bạn đến với trang các sản phẩm của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
         <template #box-filter>
-          <FilterLayout>
-            <template #input-search>
+          <FilterLayout grid="grid grid-cols-3 items-center gap-10">
+            <template #filter>
               <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                            v-model:modalSearch="search" label="Tìm kiếm theo từ khóa" />
-            </template>
-            <template #select-category>
               <SelectCategory :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
-                                v-model:modalFilterCategory="filterCategory" label="Danh mục sản phẩm"
-                                :category="category"/>
+                              v-model:modalFilterCategory="filterCategory" label="Danh mục sản phẩm"
+                              :category="category"/>
+              <SelectFilterPublished :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
+                                     v-model:modalFilterPublished="filterPublished" label="Trạng thái"
+                                     :selectOptionPublished="selectOptionPublished"></SelectFilterPublished>
             </template>
           </FilterLayout>
         </template>
@@ -45,7 +46,8 @@
               <ListTableColumn :text="item.stock" />
               <ListTableColumn :text="item.price" />
               <ListTableColumnPublished :published="item.published" />
-              <ListTableColumnFunction />
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
+                                       :item-id="item.id" />
             </template>
           </ListTableRow>
         </template>
@@ -81,6 +83,7 @@ import ListTableColumnPublished from "@/components/table/ListTableColumnPublishe
 import {useIndexStaff} from "@/repositories/staff";
 import {useIndexCategoryApi} from "@/repositories/category";
 import SelectCategory from "@/components/inputs/SelectFilterCategory.vue";
+import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue";
 
 const isModal = ref(false)
 const idProduct = ref(null)
@@ -94,6 +97,7 @@ const namePage = "Sản phẩm"
 
 const search = ref('')
 const filterCategory = ref('')
+const filterPublished = ref('')
 
 const page = ref(1);
 
@@ -105,7 +109,16 @@ const pagination = ref({
   lastPage: null
 });
 
-
+const selectOptionPublished = ref([
+  {
+    value: "1",
+    label: "Xuất bản"
+  },
+  {
+    value: "0",
+    label: "Ẩn"
+  }
+])
 
 const debounce = ref(0)
 
@@ -136,7 +149,7 @@ function filterData() {
   debounce.value = setTimeout(() => {
     isLoadingListTable.value = true
 
-    useIndexProductApi(page.value, filterCategory.value, search.value)
+    useIndexProductApi(page.value, filterCategory.value, filterPublished.value, search.value)
         .then((response) => {
           products.value = response.data.data.data
 
@@ -155,19 +168,19 @@ function getCategory() {
 getCategory()
 
 
-// function useClickRedirectCreate() {
-//   router.push({ name: 'create-stores' })
-// }
-//
-// function useClickRedirectUpdate(id) {
-//   router.push({
-//     name: 'update-stores',
-//     params: {
-//       id: id
-//     }
-//   })
-// }
-//
+function useClickRedirectCreate() {
+  router.push({ name: 'create-product' })
+}
+
+function useClickRedirectUpdate(id) {
+  router.push({
+    name: 'update-product',
+    params: {
+      id: id
+    }
+  })
+}
+
 // function useClickRedirectDetail(id) {
 //   router.push({
 //     name: 'detail-stores',
