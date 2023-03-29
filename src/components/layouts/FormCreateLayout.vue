@@ -1,7 +1,8 @@
 <template>
     <form>
       <slot name="title"></slot>
-      <div>
+      <div :class="`${props.setBackground}`">
+        <slot name="title-box-image"></slot>
         <slot name="avatar"></slot>
       </div>
       <div class="bg-white w-full mt-5 rounded-lg shadow-md">
@@ -32,7 +33,8 @@
 <script setup>
 
 const props = defineProps({
-  listName: String
+  listName: String,
+  setBackground: String,
 })
 
 const emits = defineEmits(['redirect-index'])

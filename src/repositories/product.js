@@ -20,11 +20,17 @@ export function useIndexProductApi(page = null,  category_id = '', published = '
         .get('http://127.0.0.1:8000/private/products?', config)
 }
 
-export function useStoreProductApi(file, name, description, stock, price, category_id, published) {
+export function useStoreProductApi(thumbnail, detailProduct, name, description, stock, price, category_id, published) {
     const formData = new FormData();
 
-    if (file != undefined) {
-        formData.append('thumbnail', file)
+    if (detailProduct != undefined) {
+        for (let i = 0; i < detailProduct.length; i++) {
+            formData.append('detail_products[]', detailProduct[i])
+        }
+    }
+
+    if (thumbnail != undefined) {
+        formData.append('thumbnail', thumbnail)
     }
 
     formData.append('name', name)

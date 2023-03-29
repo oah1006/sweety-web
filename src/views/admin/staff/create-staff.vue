@@ -6,7 +6,7 @@
           <TitlePage title="Tạo nhân viên" subTitle="Chào mừng bạn đến với trang tạo nhân viên!"></TitlePage>
         </template>
         <template #avatar>
-          <AvatarLayout @change-image="onImageChange" :url="url" width="w-48" height="h-48" shape="rounded-full"
+          <AvatarLayout :url="url" width="w-48" height="h-48" shape="rounded-full"
           >
             <template #input-image>
               <InputFile class="text-center ml-4 py-4" @change-image="onImageChange" />
@@ -68,19 +68,18 @@
 
 <script setup>
 import TitlePage from '@/components/TitlePage.vue'
-import CreateLayout from "@/components/layouts/CreateLayout.vue";
-import AvatarLayout from "@/components/layouts/AvatarLayout.vue";
-import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue";
-import SelectLayout from "@/components/layouts/SelectLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue";
-import InputEmail from "@/components/inputs/InputEmail.vue";
-import InputPassword from "@/components/inputs/InputPassword.vue";
-import InputFullName from "@/components/inputs/InputFullName.vue";
-import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
-import InputAddress from "@/components/inputs/InputAddress.vue";
-import SelectRole from "@/components/inputs/SelectRole.vue";
-import SelectStatus from "@/components/inputs/SelectStatus.vue";
-import TitleFormField from "@/components/TitleFormField.vue";
+import CreateLayout from "@/components/layouts/CreateLayout.vue"
+import AvatarLayout from "@/components/layouts/AvatarLayout.vue"
+import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue"
+import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import InputEmail from "@/components/inputs/InputEmail.vue"
+import InputPassword from "@/components/inputs/InputPassword.vue"
+import InputFullName from "@/components/inputs/InputFullName.vue"
+import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue"
+import InputAddress from "@/components/inputs/InputAddress.vue"
+import SelectRole from "@/components/inputs/SelectRole.vue"
+import SelectStatus from "@/components/inputs/SelectStatus.vue"
+import TitleFormField from "@/components/TitleFormField.vue"
 
 import { useStoreStaffApi } from "@/repositories/staff";
 import { ref } from 'vue'

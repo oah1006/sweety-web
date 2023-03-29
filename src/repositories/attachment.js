@@ -13,7 +13,8 @@ export function detach(id) {
         .delete('http://127.0.0.1:8000/private/attachments/' + id, config)
 }
 
-export function sync(attachmentable, attachmentableId, file, type) {
+
+export function store(attachmentable, attachmentableId, file, type) {
     const formData = new FormData()
 
     const token = $cookies.get('token')
@@ -25,9 +26,14 @@ export function sync(attachmentable, attachmentableId, file, type) {
         }
     }
 
-    formData.append('file', file)
+
+    for (let i = 0; i < file.length; i++) {
+        formData.append('file[]', file[i])
+    }
+
     formData.append('type', type)
 
     return axios
         .postForm('http://127.0.0.1:8000/private/attachments/' + attachmentable + '/' + attachmentableId, formData, config)
 }
+

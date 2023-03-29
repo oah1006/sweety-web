@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:w-64 lg:block sm:hidden md:hidden lg:block bg-white z-20 fixed bg-white h-full flex-none py-28" >
+  <div class="lg:w-64 lg:translate-x-0 -translate-x-full  duration-300 lg:ease-in-out lg:duration-300 bg-white z-20 fixed bg-white h-full flex-none py-28">
       <div class="pb-6">
           <p class="text-base font-medium text-orange-600 px-4">Hệ thống</p>
           <div>
@@ -74,10 +74,7 @@
 </template>
 
 <script setup>
-
-const props = defineProps({
-  isNavigation: Boolean
-})
+import { useNavigationBarStore } from "@/stores/navigationBar";
 
 </script>
 

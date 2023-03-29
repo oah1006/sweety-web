@@ -1,17 +1,23 @@
 <template>
   <CreateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormCreateLayout listName="Danh sách sản phẩm" @redirect-index="redirectIndex">
+      <FormCreateLayout setBackground="bg-white w-full mt-5 rounded-lg shadow-md" listName="Danh sách sản phẩm" @redirect-index="redirectIndex">
         <template #title>
           <TitlePage title="Tạo sản phẩm" subTitle="Chào mừng bạn đến với trang tạo sản phẩm!"></TitlePage>
         </template>
+        <template #title-box-image>
+          <TitleFormField name="Ảnh sản phẩm" />
+        </template>
         <template #avatar>
-          <AvatarLayout @change-image="onImageChange" :url="url" width="w-96" height="h-62" shape=""
+          <ImageProductLayout @detach-one-image-in-multiple="clickDeleteItemImage" v-model:modelDetailProducts="detailProducts" :url="url" widthBox="w-96" heightBox="h-56" width="w-96" height="h-62" shape=""
           >
-            <template #input-image>
-              <InputFile class="text-center ml-4 py-4" @change-image="onImageChange" />
+            <template #input-image-thumbnail>
+              <InputFile class="text-center ml-4 pb-4" @change-image="onImageChangeThumbnail" />
             </template>
-          </AvatarLayout>
+            <template #input-multiple-image>
+              <InputMultipleFile class="text-center ml-4 pb-4" @change-multiple-image="onImageChangeDetailProducts" />
+            </template>
+          </ImageProductLayout>
         </template>
         <template #title-box-input>
           <TitleFormField name="Thông tin sản phẩm" />
@@ -57,7 +63,6 @@
 <script setup>
 import TitlePage from '@/components/TitlePage.vue'
 import CreateLayout from "@/components/layouts/CreateLayout.vue";
-import AvatarLayout from "@/components/layouts/AvatarLayout.vue";
 import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue";
 import InputName from "@/components/inputs/InputName.vue";
 import InputDescription from "@/components/inputs/InputDescription.vue";
@@ -75,10 +80,17 @@ import InputFile from "@/components/inputs/InputFile.vue";
 import { useToastStore } from "@/stores/toast";
 import { useIndexCategoryApi } from "@/repositories/category";
 import {useStoreProductApi} from "@/repositories/product";
+import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
+import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
+import IconDetachImage from "@/components/IconDetachImage.vue";
+import {detach} from "@/repositories/attachment";
 
 const router = useRouter();
 
-const file = ref();
+const thumbnail = ref();
+
+const detailProducts = ref([])
+
 const url = ref('');
 
 const formProduct = ref({
@@ -103,13 +115,31 @@ const selectOptionPublished = ref([
   }
 ])
 
-function onImageChange(e) {
-  file.value = e.target.files[0]
-  url.value = URL.createObjectURL(file.value)
+function onImageChangeThumbnail(e) {
+  thumbnail.value = e.target.files[0]
+  url.value = URL.createObjectURL(thumbnail.value)
+}
+
+function onImageChangeDetailProducts(e) {
+  detailProducts.value = []
+
+  const selectedFiles = e.target.files
+
+  if (!selectedFiles.length) {
+    return
+  }
+
+  for (let i = 0; i < selectedFiles.length; i++) {
+    detailProducts.value.push(selectedFiles[i])
+  }
+}
+
+function clickDeleteItemImage(id, attachment_id = null) {
+  detailProducts.value.splice(id, 1)
 }
 
 async function submit() {
-  await useStoreProductApi(file.value, formProduct.value.name, formProduct.value.description, formProduct.value.stock,
+  await useStoreProductApi(thumbnail.value, detailProducts.value, formProduct.value.name, formProduct.value.description, formProduct.value.stock,
       formProduct.value.price, formProduct.value.category_id, formProduct.value.published)
       .then((response) => {
         useToastStore().success('Tạo sản phẩm thành công', 3000)

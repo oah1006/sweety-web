@@ -5,15 +5,19 @@
         <template #title>
           <TitlePage title="Cập nhật nhân viên" subTitle="Chào mừng bạn đến với trang cập nhật nhân viên!"></TitlePage>
         </template>
+        <template #title-box-image>
+          <TitleFormField name="Ảnh sản phẩm" />
+        </template>
         <template #avatar>
-          <AvatarLayout :url="url" width="w-48" height="h-48" shape="rounded-full">
-            <template #icon-detach-image>
-              <IconDetachImage :url="url"  @detach-image="detachAttachment" top="top-0" right="right-0"/>
+          <ImageProductLayout :idAttachment="idAttachment" @detach-thumbnail="detachThumbnail" @detach-one-image-in-multiple="detachAndDeleteDetailProduct" v-model:modelDetailProducts="detailProducts" :url="url" widthBox="w-96" heightBox="h-56" width="w-96" height="h-62" shape=""
+          >
+            <template #input-image-thumbnail>
+              <InputFile v-model:modalInput="input" class="text-center ml-4 pb-4" @change-image="onImageChangeThumbnail" />
             </template>
-            <template #input-image>
-              <InputFile v-model:modalInput="input" class="text-center ml-20 py-4" @change-image="onImageChange" />
+            <template #input-multiple-image>
+              <InputMultipleFile class="text-center ml-4 pb-4" @change-multiple-image="onImageChangeDetailProducts" />
             </template>
-          </AvatarLayout>
+          </ImageProductLayout>
         </template>
         <template #title-box-input>
           <TitleFormField name="Thông tin nhân viên" />
@@ -68,16 +72,13 @@ import SelectCategory from "@/components/inputs/SelectCategory.vue";
 import SelectPublished from "@/components/inputs/SelectPublished.vue";
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
-import AvatarLayout from "@/components/layouts/AvatarLayout.vue";
 import InputBox from "@/components/layouts/BoxInputLayout.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import InputFile from "@/components/inputs/InputFile.vue";
-import IconDetachImage from "@/components/IconDetachImage.vue";
 
-import { sync, detach } from '@/repositories/attachment'
+import { detach, store } from '@/repositories/attachment'
 import { useToastStore } from "@/stores/toast";
-
 
 import {useRoute, useRouter} from 'vue-router'
 import { ref } from 'vue'
@@ -86,12 +87,15 @@ import { ref } from 'vue'
 
 import {useGetProductInformation, useUpdateProductApi} from "@/repositories/product";
 import {useIndexCategoryApi} from "@/repositories/category";
+import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
+import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
 
 const router = useRouter()
 
-const file = ref('')
-
 const input = ref('')
+const thumbnail = ref('');
+const detailProducts = ref([])
+const idAttachment = ref('')
 
 const url = ref('')
 
@@ -100,7 +104,6 @@ const route = useRoute();
 const id = route.params.id
 
 const product = ref({
-  attachment_id: '',
   id: '',
   name: '',
   description: '',
@@ -125,19 +128,43 @@ const selectOptionPublished = ref([
 
 const category = ref({})
 
-function onImageChange(e) {
-  file.value = e.target.files[0]
-  url.value = URL.createObjectURL(file.value)
+function onImageChangeThumbnail(e) {
+  thumbnail.value = e.target.files[0]
+  url.value = URL.createObjectURL(thumbnail.value)
 
-  sync('product', product.value.id, file.value, 'thumbnails')
+  store('product', product.value.id, thumbnail.value, 'thumbnails')
       .then((response) => {
-        product.value.attachment_id = response.data[0][0].id
-        input.value.value = ''
       })
 }
 
-function detachAttachment() {
-  detach(product.value.attachment_id)
+function onImageChangeDetailProducts(e) {
+  const files = e.target.files
+
+  if (!files.length) {
+    return
+  }
+
+  store('product', product.value.id, files, 'detail_products')
+    .then((response) => {
+      const detail_products = response.data.data
+
+      console.log(detail_products.length)
+
+      for (let i = 0; i < detail_products.length; i++) {
+        detailProducts.value.push(detail_products[i])
+      }
+    })
+}
+
+function detachAndDeleteDetailProduct(id, attachment_id) {
+  detailProducts.value.splice(id, 1)
+  detach(attachment_id)
+    .then((response) => {
+    })
+}
+
+function detachThumbnail(attachment_id) {
+  detach(attachment_id)
       .then((response) => {
         url.value = ''
       })
@@ -146,9 +173,6 @@ function detachAttachment() {
 function getProductInformation() {
   useGetProductInformation()
       .then((response) => {
-
-        product.value.attachment_id = response.data.data.attachment?.id
-
         product.value.id = response.data.data.id
         product.value.name = response.data.data.name
         product.value.description = response.data.data.description
@@ -158,9 +182,21 @@ function getProductInformation() {
         product.value.published = response.data.data.published
 
 
-        if (response.data.data.attachment != null) {
-          url.value = response.data.data.attachment?.url
+        if (response.data.data.attachment.length > 0) {
+          const attachments = response.data.data.attachment
+
+          const thumbnail = attachments.find(image => image['type'] === 'thumbnails')
+
+          const detail_products = attachments.filter(image => image['type'] === 'detail_products')
+
+          url.value = thumbnail.url
+          idAttachment.value = thumbnail.id
+
+          for (let i = 0; i < detail_products.length; i++) {
+            detailProducts.value.push(detail_products[i])
+          }
         }
+
 
         isLoadingPage.value = false
       })

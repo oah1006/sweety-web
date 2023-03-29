@@ -2,6 +2,7 @@
   <form>
     <slot name="title"></slot>
     <div>
+      <slot name="title-box-avatar"></slot>
       <slot name="avatar"></slot>
     </div>
     <div class="bg-white w-full mt-5 rounded-lg shadow-md">

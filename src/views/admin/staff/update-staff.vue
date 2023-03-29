@@ -64,7 +64,7 @@ import TitlePage from '@/components/TitlePage.vue'
 
 import {useGetStaffInformation, useUpdateStaffApi} from "@/repositories/staff"
 
-import { sync, detach } from '@/repositories/attachment'
+import { store, detach } from '@/repositories/attachment'
 import { useToastStore } from "@/stores/toast";
 
 
@@ -142,7 +142,7 @@ function onImageChange(e) {
     file.value = e.target.files[0]
     url.value = URL.createObjectURL(file.value)
 
-    sync('staff', formStaff.value.id, file.value, 'avatars') 
+    store('staff', formStaff.value.id, file.value, 'avatars')
       .then((response) => {
         formStaff.value.attachment_id = response.data[0][0].id
         input.value.value = ''
@@ -159,7 +159,6 @@ function detachAttachment() {
 function getStaffInformation() {
   useGetStaffInformation()
     .then((response) => {
-      console.log(response.data)
       formStaff.value.id = response.data.id
       formStaff.value.attachment_id = response.data.attachment?.id
       formStaff.value.email = response.data.user?.email

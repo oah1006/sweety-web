@@ -15,6 +15,4 @@ const props = defineProps({
   border: String,
 })
 
-console.log(props.shape)
-
 </script>

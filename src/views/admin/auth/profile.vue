@@ -78,7 +78,7 @@ import InputFile from "@/components/inputs/InputFile.vue";
 
 import { useProfileStore } from "@/stores/getMyProfile"
 import { ref } from "vue";
-import { detach, sync } from "@/repositories/attachment";
+import { detach, store } from "@/repositories/attachment";
 import { useUpdateProfileApi } from "@/repositories/auth";
 import { useRouter } from "vue-router";
 import ButtonChangePassword from "@/components/Button/ButtonChangePassword.vue";
@@ -141,7 +141,7 @@ function detachAttachment() {
 function onImageChange(e) {
   file.value = e.target.files[0]
 
-  sync('staff', formStaff.value.id, file.value, 'avatars')
+  store('staff', formStaff.value.id, file.value, 'avatars')
       .then((response) => {
         profileStore.getMyProfile()
         url.value = URL.createObjectURL(file.value)

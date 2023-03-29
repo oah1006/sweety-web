@@ -152,7 +152,6 @@ function getData() {
 
     useIndexStaff(page.value)
       .then((response) => {
-        console.log(response.data.data.data)
         pagination.value.lastPage = response.data.data.last_page
         pagination.value.total = response.data.data.total
 
