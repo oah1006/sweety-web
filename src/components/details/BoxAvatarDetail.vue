@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white w-1/3 rounded-lg shadow-md mt-8 flex flex-col items-center justify-center px-10 py-4">
+  <div class="mt-8 flex flex-col items-center justify-center px-10 py-4">
     <img v-if="props.url" :src="props.url" class="w-32 h-32 object-cover rounded-full text-center"/>
     <img v-else src="../../images/no-avatar.jpg" class="w-32 h-32 object-cover rounded-full text-center"/>
     <p class="text-zinc-500 font-bold mt-3 text-lg">{{ props.item }}</p>

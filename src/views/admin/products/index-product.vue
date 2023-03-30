@@ -17,8 +17,8 @@
             <template #filter>
               <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                            v-model:modalSearch="search" label="Tìm kiếm theo từ khóa" />
-              <SelectCategory :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
-                              v-model:modalFilterCategory="filterCategory" label="Danh mục sản phẩm"
+              <SelectFilterCategory :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
+                              v-model:modalFilterCategory="category_id" label="Danh mục sản phẩm"
                               :category="category"/>
               <SelectFilterPublished :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                                      v-model:modalFilterPublished="filterPublished" label="Trạng thái"
@@ -46,7 +46,7 @@
               <ListTableColumn :text="item.stock" />
               <ListTableColumn :text="item.price" />
               <ListTableColumnPublished :published="item.published" />
-              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
                                        :item-id="item.id" />
             </template>
           </ListTableRow>
@@ -84,6 +84,7 @@ import {useIndexStaff} from "@/repositories/staff";
 import {useIndexCategoryApi} from "@/repositories/category";
 import SelectCategory from "@/components/inputs/SelectFilterCategory.vue";
 import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue";
+import SelectFilterCategory from "@/components/inputs/SelectFilterCategory.vue";
 
 const isModal = ref(false)
 const idProduct = ref(null)
@@ -96,7 +97,7 @@ const category = ref({})
 const namePage = "Sản phẩm"
 
 const search = ref('')
-const filterCategory = ref('')
+const category_id = ref('')
 const filterPublished = ref('')
 
 const page = ref(1);
@@ -147,7 +148,7 @@ function filterData() {
   debounce.value = setTimeout(() => {
     isLoadingListTable.value = true
 
-    useIndexProductApi(page.value, filterCategory.value, filterPublished.value, search.value)
+    useIndexProductApi(page.value, category_id.value, filterPublished.value, search.value)
         .then((response) => {
           products.value = response.data.data.data
 
@@ -179,14 +180,14 @@ function useClickRedirectUpdate(id) {
   })
 }
 
-// function useClickRedirectDetail(id) {
-//   router.push({
-//     name: 'detail-stores',
-//     params: {
-//       id: id
-//     }
-//   })
-// }
+function useClickRedirectDetail(id) {
+  router.push({
+    name: 'detail-product',
+    params: {
+      id: id
+    }
+  })
+}
 
 // function showModal(id) {
 //   isModal.value = true

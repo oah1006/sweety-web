@@ -2,7 +2,7 @@
   <div class="bg-white w-full rounded-lg shadow-md flex">
     <div>
       <div class="relative">
-        <BoxThumbnailProduct :idAttachment="idAttachment" @detach-thumbnail="detachThumbnail" :url="props.url"  :border="props.border" :shape="props.shape" />
+        <BoxThumbnailProduct :isShowDetach="props.isShowDetach" :idAttachment="idAttachment" @detach-thumbnail="detachThumbnail" :url="props.url"  :border="props.border" :shape="props.shape" />
         <slot name="icon-detach-image"></slot>
       </div>
       <div>
@@ -11,7 +11,7 @@
     </div>
     <div>
       <div class="relative">
-        <BoxDetailProduct @detach-one-image-in-multiple="detachAndDeleteDetailProduct" v-model:modelDetailProducts="detailProducts" :border="props.border" :shape="props.shape" />
+        <BoxDetailProduct :isShowDetach="props.isShowDetach" @detach-one-image-in-multiple="detachAndDeleteDetailProduct" v-model:modelDetailProducts="detailProducts" :border="props.border" :shape="props.shape" />
       </div>
       <div>
         <slot name="input-multiple-image"></slot>
@@ -28,6 +28,7 @@ import {computed} from "vue";
 
 const props = defineProps({
   idAttachment: String,
+  isShowDetach: Boolean,
   url: String,
   modelDetailProducts: Array,
   detailProducts: Array,

@@ -45,7 +45,7 @@
           </InputBox>
           <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <SelectRole v-model:modalSelectRole="formStaff.is_admin" :selectOptionRole="selectOptionRole">
+              <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
               </SelectRole>
             </template>
           </InputBox>
@@ -85,6 +85,8 @@ import ButtonChangePassword from "@/components/Button/ButtonChangePassword.vue";
 
 const profileStore = useProfileStore()
 
+console.log(profileStore.profile.profile.role)
+
 const file = ref('')
 
 const url = ref('')
@@ -103,17 +105,21 @@ const formStaff = ref({
   full_name: profileStore.profile.profile?.full_name,
   phone_number: profileStore.profile.phone_number,
   address: profileStore.profile.address,
-  is_admin: profileStore.profile.profile?.is_admin,
+  role: profileStore.profile.profile.role,
   is_active: profileStore.profile.profile?.is_active
 })
 
 const selectOptionRole = ref([
   {
-    value: "1",
+    value: "administrator",
+    label: "Quản trị viên"
+  },
+  {
+    value: "manager",
     label: "Quản lý"
   },
   {
-    value: "0",
+    value: "employee",
     label: "Nhân viên"
   }
 ])

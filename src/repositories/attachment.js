@@ -26,9 +26,16 @@ export function store(attachmentable, attachmentableId, file, type) {
         }
     }
 
+    const files = [];
 
-    for (let i = 0; i < file.length; i++) {
-        formData.append('file[]', file[i])
+    console.log(file)
+
+    if (!(file instanceof FileList)) {
+        formData.append('file[]', file)
+    } else {
+        for (let i = 0; i < file.length; i++) {
+            formData.append('file[]', file[i])
+        }
     }
 
     formData.append('type', type)

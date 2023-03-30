@@ -1,9 +1,9 @@
 <template>
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormUpdateLayout v-if="!isLoadingPage" listName="Danh sách nhân viên" @click-redirect="redirectIndex">
+      <FormUpdateLayout v-if="!isLoadingPage" listName="Danh sách sản phẩm" @click-redirect="redirectIndex">
         <template #title>
-          <TitlePage title="Cập nhật nhân viên" subTitle="Chào mừng bạn đến với trang cập nhật nhân viên!"></TitlePage>
+          <TitlePage title="Cập nhật sản phẩm" subTitle="Chào mừng bạn đến với trang cập nhật sản phẩm!"></TitlePage>
         </template>
         <template #title-box-image>
           <TitleFormField name="Ảnh sản phẩm" />
@@ -130,6 +130,7 @@ const category = ref({})
 
 function onImageChangeThumbnail(e) {
   thumbnail.value = e.target.files[0]
+
   url.value = URL.createObjectURL(thumbnail.value)
 
   store('product', product.value.id, thumbnail.value, 'thumbnails')

@@ -15,15 +15,15 @@ import { computed, watch } from "vue";
 const props = defineProps({
   category: Object,
   label: String,
-  modalCategoryId: String,
+  modalFilterCategory: String,
   isLoadingListTable: Boolean
 })
 
-const emits = defineEmits(['update:modalCategoryId', 'filter-data'])
+const emits = defineEmits(['update:modalFilterCategory', 'filter-data'])
 
 const category_id = computed({
-  get: () => props.modalCategoryId,
-  set: (value) => emits('update:modalCategoryId', value)
+  get: () => props.modalFilterCategory,
+  set: (value) => emits('update:modalFilterCategory', value)
 })
 
 function filterData() {

@@ -6,7 +6,7 @@
         <template #title>
           <TitlePage title="Thông tin nhân viên" subTitle="Chào mừng bạn đến với trang thông tin nhân viên!"></TitlePage>
         </template>
-        <template #box-image>
+        <template #avatar>
           <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.is_admin" width="w-28" height="h-28" />
         </template>
         <template #box-item>

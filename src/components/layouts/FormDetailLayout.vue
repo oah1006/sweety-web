@@ -17,13 +17,14 @@
         </a>
       </div>
     </div>
-
-    <div class="flex gap-10">
-      <slot name="box-image"></slot>
-
-      <div class="bg-white w-full rounded-lg shadow-md mt-8">
-        <slot name="box-item"></slot>
-      </div>
+    <div>
+      <slot name="title-box-avatar"></slot>
+      <slot name="avatar"></slot>
+    </div>
+    <div class="bg-white w-full mt-5 rounded-lg shadow-md">
+      <slot name="title-box-input"></slot>
+      <slot name="box-item"></slot>
+      <slot name="select"></slot>
     </div>
 
     <button @click="redirectIndex" class="font-medium text-lg inline-flex mt-3 items-center rounded-md bg-white text-black px-4 py-2 shadow-lg hover:bg-zinc-50 gap-3">
