@@ -2,7 +2,12 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
+
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 import VueCookies from 'vue-cookies'
+
 import router from './router'
 
 import './style.css'
@@ -17,3 +22,4 @@ app.use(router)
 
 app.use(pinia)
 app.mount('#app')
+app.component('VueDatePicker', VueDatePicker);

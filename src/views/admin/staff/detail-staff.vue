@@ -7,7 +7,7 @@
           <TitlePage title="Thông tin nhân viên" subTitle="Chào mừng bạn đến với trang thông tin nhân viên!"></TitlePage>
         </template>
         <template #avatar>
-          <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.is_admin" width="w-28" height="h-28" />
+          <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.role" width="w-28" height="h-28" />
         </template>
         <template #box-item>
           <BoxItem nameLabel="Mã nhân viên" :item="staff.code"/>
@@ -47,7 +47,7 @@ const staff = ref({
   address: '',
   phone_number: '',
   is_active: '',
-  is_admin: '',
+  role: '',
 })
 
 

@@ -1,5 +1,5 @@
 <template>
-  <input type="number" name="stock" v-model="stock"
+  <input type="text" name="stock" v-model="min_order_total"
          class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
 </template>
 
@@ -10,13 +10,13 @@ import { computed } from 'vue'
 const emits = defineEmits(['update:modelStock'])
 
 const props = defineProps({
-  modelStock: Number
+  modelMinOrderTotal: String
 })
 
-const stock = computed({
-  get: () => props.modelStock,
+const min_order_total = computed({
+  get: () => props.modelMinOrderTotal,
 
-  set: (value) => emits('update:modelStock', value)
+  set: (value) => emits('update:modelMinOrderTotal', value)
 })
 
 </script>

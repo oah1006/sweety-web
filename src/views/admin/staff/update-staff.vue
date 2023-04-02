@@ -124,7 +124,11 @@ const selectOptionRole = ref([
   {
     value: "employee",
     label: "Nhân viên"
-  }
+  },
+  {
+    value: "shipper",
+    label: "Shipper"
+  },
 ])
 
 const selectOptionStatus = ref([

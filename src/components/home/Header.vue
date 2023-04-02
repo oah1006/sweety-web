@@ -35,7 +35,9 @@
         </div>
         <div>
           <p class="text-orange-500 text-lg font-medium">{{ profileStore.profile.profile?.full_name }}</p>
-          <p v-if="profileStore.profile.profile?.is_admin == 1" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+          <p v-if="profileStore.profile.profile?.role === 'administrator'" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-black rounded-lg">Quản trị viên</p>
+          <p v-else-if="profileStore.profile.profile?.role === 'manager'" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-red-400 rounded-lg">Quản lý</p>
+          <p v-else-if="profileStore.profile.profile?.role === 'shipper'" class="inline-block text-center text-xs text-white px-2 py-0.5 bg-green-400 rounded-lg">Shipper</p>
           <p v-else class="inline-block text-center text-xs text-white px-2 py-0.5 bg-blue-400 rounded-lg">Nhân viên</p>
         </div>
       </div>

@@ -10,7 +10,7 @@
 import { computed } from "vue";
 
 const props = defineProps({
-  modalSelectStatus: Number,
+  modalSelectStatus: Object,
   selectOptionStatus: Array
 })
 

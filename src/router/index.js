@@ -35,6 +35,11 @@ import CreateProduct from '@/views/admin/products/create-product.vue'
 import UpdateProduct from "@/views/admin/products/update-product.vue";
 import DetailProduct from "@/views/admin/products/detail-product.vue";
 
+import IndexCoupon from "@/views/admin/coupons/index-coupon.vue";
+import CreateCoupon from "@/views/admin/coupons/create-coupon.vue";
+import UpdateCoupon from "@/views/admin/coupons/update-coupon.vue";
+
+
 import { useProfileStore } from "@/stores/getMyProfile";
 
 
@@ -254,6 +259,30 @@ const router = createRouter({
       path: '/detail-product/:id',
       name: 'detail-product',
       component: DetailProduct,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/coupons',
+      name: 'index-coupon',
+      component: IndexCoupon,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create-coupon',
+      name: 'create-coupon',
+      component: CreateCoupon,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/update-coupon/:id',
+      name: 'update-coupon',
+      component: UpdateCoupon,
       meta: {
         requiresAuth: true
       }
