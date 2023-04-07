@@ -75,6 +75,7 @@ import {useRouter} from "vue-router";
 import {useDeleteStoreApi, useIndexStoreApi} from "@/repositories/store";
 import {useToastStore} from "@/stores/toast";
 
+
 const isModal = ref(false)
 const idStore = ref(null)
 

@@ -75,6 +75,9 @@ async function submit() {
         useToastStore().success('Cập nhật thành công', 3000)
         router.push({ name: 'index-stores' })
       })
+      .catch((error) => {
+        console.log(error)
+      })
 }
 function getInformationStore() {
   useGetStoreInformationApi()

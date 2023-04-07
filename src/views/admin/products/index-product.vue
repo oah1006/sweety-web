@@ -113,7 +113,7 @@ const pagination = ref({
 const selectOptionPublished = ref([
   {
     value: "1",
-    label: "Xuất bản"
+    label: "Hiển thị"
   },
   {
     value: "0",

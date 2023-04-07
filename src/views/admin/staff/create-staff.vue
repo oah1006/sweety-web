@@ -159,6 +159,11 @@ async function submit() {
       useToastStore().success('Tạo nhân viên thành công', 3000)
       router.push({ name: 'index-staff' })
     })
+    .catch((error) => {
+      if (error.response.status === 403) {
+        throw new Error('Access denied')
+      }
+    })
 }
 
 function redirectIndex() {

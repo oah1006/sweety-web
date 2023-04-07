@@ -19,6 +19,5 @@ const started_at = computed({
   set: (value) => emits('update:modelStartedAt', value)
 })
 
-console.log(started_at.value)
 
 </script>

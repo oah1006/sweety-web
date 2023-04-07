@@ -8,7 +8,7 @@
         <template #box-input>
           <InputBox name="Tên mã giảm giá" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputName v-model:modelName="coupon.name" />
+              <InputName placeholder="Tên mã giảm giá" v-model:modelName="coupon.name" />
             </template>
           </InputBox>
           <InputBox name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -23,12 +23,18 @@
           </InputBox>
           <InputBox name="Phần trăm giảm giá" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputPercentValue v-model:modelPercentValue="coupon.is_percent_value" />
+              <div class="w-full">
+                <InputPercentValue v-model:modelPercentValue="coupon.is_percent_value" />
+                <p class="mt-2 text-zinc-500">Đơn vị: {{ coupon.is_percent_value }} %</p>
+              </div>
             </template>
           </InputBox>
           <InputBox name="Tổng yêu cầu tối thiểu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputMinOrderTotal v-model:modelMinOrderTotal="coupon.min_order_total" />
+              <div class="w-full">
+                <InputMinOrderTotal v-model:modelMinOrderTotal="coupon.min_order_total" />
+                <p class="mt-2 text-zinc-500">Đơn vị: {{ coupon.min_order_total }} VND</p>
+              </div>
             </template>
           </InputBox>
           <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">

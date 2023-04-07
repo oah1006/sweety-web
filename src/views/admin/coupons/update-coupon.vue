@@ -136,10 +136,9 @@ function getInformationCustomer() {
         coupon.value.started_at = response.data.data.started_at
         coupon.value.expired_at = response.data.data.expired_at
 
-        coupon.value.started_at = new Date(formatDate(response.data.data.started_at)).toLocaleDateString("en-US");
-        coupon.value.expired_at = new Date(formatDate(response.data.data.expired_at)).toLocaleDateString("en-US");
+        coupon.value.started_at = formatDate(response.data.data.started_at)
+        coupon.value.expired_at = formatDate(response.data.data.expired_at)
 
-        console.log(coupon.value)
 
         isLoadingPage.value = false
       })
@@ -152,8 +151,15 @@ function useClickRedirectIndex() {
 }
 
 function formatDate(date) {
-  const dateParts = date.split("-");
-  const formattedDate = dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2];
+  const dateString = date;
+
+  const [day, month, year] = dateString.split("-");
+
+  const dateObj = new Date(`${year}-${month}-${day}`);
+
+  const formattedDate = dateObj.toISOString().slice(0, 10)
+
+  console.log(formattedDate)
 
   return formattedDate
 }
