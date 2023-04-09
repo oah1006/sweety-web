@@ -42,6 +42,7 @@ import UpdateCoupon from "@/views/admin/coupons/update-coupon.vue";
 
 import { useProfileStore } from "@/stores/getMyProfile";
 import Unauthorized from "@/components/Unauthorized.vue";
+import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
 
 
 
@@ -284,6 +285,14 @@ const router = createRouter({
       path: '/update-coupon/:id',
       name: 'update-coupon',
       component: UpdateCoupon,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-coupon/:id',
+      name: 'detail-coupon',
+      component: DetailCoupon,
       meta: {
         requiresAuth: true
       }

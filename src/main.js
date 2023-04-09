@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import Unauthorized from "@/components/Unauthorized.vue";
+
 
 import App from './App.vue'
 
@@ -16,11 +16,6 @@ import './style.css'
 const pinia = createPinia()
 const app = createApp(App)
 
-app.config.errorHandler = (err, vm, info) => {
-    if (err.response.status === 403) {
-        router.push({ name: Unauthorized })
-    }
-}
 
 app.use(VueCookies, {
 })
