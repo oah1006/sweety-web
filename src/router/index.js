@@ -43,6 +43,7 @@ import UpdateCoupon from "@/views/admin/coupons/update-coupon.vue";
 import { useProfileStore } from "@/stores/getMyProfile";
 import Unauthorized from "@/components/Unauthorized.vue";
 import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
+import IndexOrder from "@/views/admin/orders/index-order.vue";
 
 
 
@@ -293,6 +294,14 @@ const router = createRouter({
       path: '/detail-coupon/:id',
       name: 'detail-coupon',
       component: DetailCoupon,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/orders',
+      name: 'index-order',
+      component: IndexOrder,
       meta: {
         requiresAuth: true
       }
