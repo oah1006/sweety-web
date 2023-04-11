@@ -43,6 +43,9 @@
               <ListTableColumn :text="item.delivery_address.name" />
               <ListTableColumn :text="item.sub_total" />
               <ListTableColumn :text="item.total" />
+              <ListTableColumnStatusOrder :status="item.status" />
+              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
+                                       :item-id="item.id" />
             </template>
           </ListTableRow>
         </template>
@@ -81,6 +84,7 @@ import SelectCategory from "@/components/inputs/SelectFilterCategory.vue";
 import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue";
 import SelectFilterCategory from "@/components/inputs/SelectFilterCategory.vue";
 import {useIndexOrderApi} from "@/repositories/order";
+import ListTableColumnStatusOrder from "@/components/table/ListTableColumnStatusOrder.vue";
 
 const isModal = ref(false)
 const idOrder = ref(null)
@@ -144,7 +148,7 @@ function filterData() {
   debounce.value = setTimeout(() => {
     isLoadingListTable.value = true
 
-    useIndexProductApi(page.value, category_id.value, filterPublished.value, search.value)
+    useIndexProductApi(page.value, search.value)
         .then((response) => {
           products.value = response.data.data.data
 
@@ -178,7 +182,7 @@ function useClickRedirectUpdate(id) {
 
 function useClickRedirectDetail(id) {
   router.push({
-    name: 'detail-product',
+    name: 'detail-order',
     params: {
       id: id
     }

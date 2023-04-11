@@ -11,19 +11,19 @@
           <slot name="list-table-row-head"></slot>
         </thead>
         <tbody>
-        <template v-if="!isShowLoadingListTable && props.listName.length > 0">
-          <slot name="list-table-row-body"></slot>
-        </template>
-        <tr v-else-if="isShowLoadingListTable">
-          <td colspan="8">
-            <LoadingTable />
-          </td>
-        </tr>
-        <tr v-else-if="!isShowLoadingListTable && props.listName.length == 0">
-          <td colspan="8">
-            <NoDataListTable namePage="lọc theo ý bạn" />
-          </td>
-        </tr>
+          <template v-if="!isShowLoadingListTable && props.listName.length > 0">
+            <slot name="list-table-row-body"></slot>
+          </template>
+          <tr v-else-if="isShowLoadingListTable">
+            <td colspan="8">
+              <LoadingTable />
+            </td>
+          </tr>
+          <tr v-else-if="!isShowLoadingListTable && props.listName.length == 0">
+            <td colspan="8">
+              <NoDataListTable namePage="lọc theo ý bạn" />
+            </td>
+          </tr>
         </tbody>
       </table>
       <Pagination v-model:modelValue="page" v-model:modelBoolean="isShowLoadingListTable" :total="props.total"

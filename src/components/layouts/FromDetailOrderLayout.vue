@@ -9,23 +9,26 @@
           </svg>
         </button>
         <a method="post" class="flex items-center text-xl bg-white py-3 px-3 rounded-lg text-red-500">
-            <button type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-            </button>
+          <button type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
         </a>
       </div>
     </div>
-    <div>
+
+    <div class="flex gap-8">
       <slot name="list-product"></slot>
-      <slot name="title-box-avatar"></slot>
-      <slot name="avatar"></slot>
+      <slot name="order-summary"></slot>
     </div>
-    <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-      <slot name="title-box-input"></slot>
-      <slot name="box-item"></slot>
-      <slot name="select"></slot>
+    <div class="flex gap-4">
+      <div class="bg-white w-full mt-5 rounded-lg shadow-md w-2/3">
+        <slot name="information-order"></slot>
+      </div>
+      <div class="bg-white w-full mt-5 rounded-lg shadow-md h-56 w-1/3">
+        <slot name="address"></slot>
+      </div>
     </div>
 
     <div>

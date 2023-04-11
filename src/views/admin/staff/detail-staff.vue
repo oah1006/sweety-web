@@ -10,10 +10,10 @@
           <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.role" width="w-28" height="h-28" />
         </template>
         <template #box-item>
-          <BoxItem nameLabel="Mã nhân viên" :item="staff.code"/>
-          <BoxItem nameLabel="Email" :item="staff.user?.email"/>
-          <BoxItem nameLabel="địa chỉ" :item="staff.user?.address"/>
-          <BoxItem nameLabel="Số điện thoại" :item="staff.user?.phone_number"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Mã nhân viên" :item="staff.code"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Email" :item="staff.user?.email"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="địa chỉ" :item="staff.user?.address"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Số điện thoại" :item="staff.user?.phone_number"/>
           <BoxItemStatus class="py-4 px-10" nameLabel="Trạng thái" :item="staff.is_active"/>
         </template>
       </FormDetailLayout>

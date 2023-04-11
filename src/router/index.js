@@ -44,6 +44,7 @@ import { useProfileStore } from "@/stores/getMyProfile";
 import Unauthorized from "@/components/Unauthorized.vue";
 import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
 import IndexOrder from "@/views/admin/orders/index-order.vue";
+import DetailOrder from "@/views/admin/orders/detail-order.vue";
 
 
 
@@ -302,6 +303,14 @@ const router = createRouter({
       path: '/orders',
       name: 'index-order',
       component: IndexOrder,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-order/:id',
+      name: 'detail-order',
+      component: DetailOrder,
       meta: {
         requiresAuth: true
       }

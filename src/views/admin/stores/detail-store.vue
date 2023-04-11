@@ -7,10 +7,10 @@
           <TitlePage title="Thông tin khách hàng" subTitle="Chào mừng bạn đến với trang thông tin khách hàng!"></TitlePage>
         </template>
         <template #box-item>
-          <BoxItem nameLabel="Tên cửa hàng" :item="store.name"/>
-          <BoxItem nameLabel="Địa chỉ" :item="store.address"/>
-          <BoxItem nameLabel="Giờ mở cửa" :item="store.open_store"/>
-          <BoxItem nameLabel="Giờ đóng cửa" :item="store.close_store"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Tên cửa hàng" :item="store.name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Địa chỉ" :item="store.address"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Giờ mở cửa" :item="store.open_store"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Giờ đóng cửa" :item="store.close_store"/>
         </template>
       </FormDetailLayout>
       <LoadingPage v-else />

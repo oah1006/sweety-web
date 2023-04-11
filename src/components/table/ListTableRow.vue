@@ -1,9 +1,15 @@
 <template>
-  <tr class="text-zinc-600 border-b text-sm">
+  <tr :class="`${props.color} ${props.border} ${props.fontSize}`">
     <slot name="table-column"></slot>
   </tr>
 </template>
 
-<script>
+<script setup>
+
+const props = defineProps({
+  color: String,
+  border: String,
+  fontSize: String,
+})
 
 </script>

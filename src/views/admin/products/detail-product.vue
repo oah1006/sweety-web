@@ -16,11 +16,11 @@
           </ImageProductLayout>
         </template>
         <template #box-item>
-          <BoxItem nameLabel="Tên sản phẩm" :item="product.name"/>
-          <BoxItem nameLabel="Mô tả" :item="product.description"/>
-          <BoxItem nameLabel="Số lượng" :item="product.stock"/>
-          <BoxItem nameLabel="Giá tiền" :item="product.price"/>
-          <BoxItem nameLabel="Loại sản phẩm" :item="product.category?.name" />
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Tên sản phẩm" :item="product.name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Mô tả" :item="product.description"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Số lượng" :item="product.stock"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Giá tiền" :item="product.price"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Loại sản phẩm" :item="product.category?.name" />
           <BoxItemPublished class="" nameLabel="Xuất bản" :item="product.published" />
         </template>
       </FormDetailLayout>
