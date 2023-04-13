@@ -47,9 +47,16 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import { useToastStore } from "@/stores/toast";
 import {useCreateStoreApi} from "@/repositories/store";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 
 const router = useRouter();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 const store = ref({
   name: '',

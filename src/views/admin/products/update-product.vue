@@ -89,8 +89,15 @@ import {useGetProductInformation, useUpdateProductApi} from "@/repositories/prod
 import {useIndexCategoryApi} from "@/repositories/category";
 import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
 import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter()
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 const input = ref('')
 const thumbnail = ref('');

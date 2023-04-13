@@ -81,7 +81,7 @@ import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import {onBeforeMount, ref} from "vue";
 import {useRouter} from "vue-router";
 import {useToastStore} from "@/stores/toast";
-import {useIndexCouponApi} from "@/repositories/coupon";
+import {useDeleteCouponApi, useIndexCouponApi} from "@/repositories/coupon";
 import ListTableColumnStatusCoupon from "@/components/table/ListTableColumnStatusCoupon.vue";
 import SelectFilterStatus from "@/components/inputs/SelectFilterStatus.vue";
 

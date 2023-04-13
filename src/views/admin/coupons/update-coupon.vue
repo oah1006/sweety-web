@@ -76,14 +76,19 @@ import InputExpiredAt from "@/components/inputs/InputExpiredAt.vue";
 
 import { useRouter, useRoute } from 'vue-router'
 import { useToastStore } from '@/stores/toast'
+import { ref } from "vue"
 
+import {useGetCouponInformationApi, useUpdateCouponApi} from "@/repositories/coupon";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter();
 const route = useRoute();
 
-import { ref } from "vue"
+const profileStore = useProfileStore()
 
-import {useGetCouponInformationApi, useUpdateCouponApi} from "@/repositories/coupon";
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 
 const coupon = ref({

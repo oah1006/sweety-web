@@ -53,12 +53,19 @@ import LoadingPage from "@/components/loadings/LoadingPage.vue";
 import {useGetCustomerInformation, useUpdateCustomer} from "@/repositories/customer"
 import { useRouter, useRoute } from 'vue-router'
 import { useToastStore } from '@/stores/toast'
-
+import { ref } from "vue"
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter();
 const route = useRoute();
 
-import { ref } from "vue"
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
+
+
 
 
 const customers = ref({

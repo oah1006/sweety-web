@@ -47,16 +47,16 @@
               <ListTableColumn :text="item.price" />
               <ListTableColumnPublished :published="item.published" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
-                                       :item-id="item.id" />
+                                       :item-id="item.id" @show-modal="showModal"/>
             </template>
           </ListTableRow>
         </template>
       </ListTableLayout>
       <LoadingPage v-else />
     </template>
-<!--    <template #modal-delete>-->
-<!--      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :itemId="idProduct" />-->
-<!--    </template>-->
+    <template #modal-delete>
+      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :itemId="idProduct" />
+    </template>
   </IndexLayout>
 </template>
 
@@ -78,7 +78,7 @@ import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import {onBeforeMount, ref} from "vue";
 import {useRouter} from "vue-router";
 import {useToastStore} from "@/stores/toast";
-import { useIndexProductApi } from "@/repositories/product";
+import {useDeleteProductApi, useIndexProductApi} from "@/repositories/product";
 import ListTableColumnPublished from "@/components/table/ListTableColumnPublished.vue";
 import {useIndexStaff} from "@/repositories/staff";
 import {useIndexCategoryApi} from "@/repositories/category";
@@ -189,18 +189,18 @@ function useClickRedirectDetail(id) {
   })
 }
 
-// function showModal(id) {
-//   isModal.value = true
-//   idProduct.value = id
-// }
+function showModal(id) {
+  isModal.value = true
+  idProduct.value = id
+}
 
-// function useDeleteCustomer(id) {
-//   useDeleteStoreApi(id)
-//       .then((response) => {
-//         useToastStore().success('Xóa thành công', 3000)
-//         getData()
-//       })
-// }
+function useDeleteCustomer(id) {
+  useDeleteProductApi(id)
+      .then((response) => {
+        useToastStore().success('Xóa thành công', 3000)
+        getData()
+      })
+}
 
 
 

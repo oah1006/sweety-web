@@ -21,7 +21,7 @@
             <template #list-table-row-body>
               <ListTableRow color="text-zinc-600" border="border-b" fontSize="text-sm" v-for="item in order.items" :key="item.id">
                 <template #table-column>
-                  <ListTableColumnProductImage :text="item.product?.name" :attachment="item.product.attachment" />
+                  <ListTableColumnProductImage :id="item.product.id" :text="item.product?.name" :attachment="item.product.attachment" />
                   <ListTableColumn :text="item.quantity" />
                   <ListTableColumn :text="item.product?.price" />
                   <ListTableColumnTotalProduct :price="item.product?.price" :quantity="item.quantity" />
@@ -31,23 +31,18 @@
           </BoxListProduct>
         </template>
         <template #order-summary>
-          <BoxOrderSummary :items="items"></BoxOrderSummary>
-        </template>
-        <template #information-order>
-          <BoxTitle text="Thông tin hóa đơn" />
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/2" nameLabel="Mã hóa đơn"
-                   color="text-orange-500" :item="order.code"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 py-4" width="w-1/2" nameLabel="Tên nhân viên" :item="order.staff.full_name"/>
-          <BoxItemHasUnit border="border-b border-solid border-gray-100" padding="px-10 py-4" width="w-1/2" unit="đồng"
-                          nameLabel="Giá tạm tính" :item="order.sub_total"/>
-          <BoxItemHasUnit border="border-b border-solid border-gray-100" padding="px-10 py-4" width="w-1/2" unit="đồng" nameLabel="Tổng tiền" :item="order.total"/>
-          <BoxItemStatusOrder padding="px-10 py-4" width="w-1/2" nameLabel="Trạng thái" :status="order.status" />
+          <BoxOrderSummary :createdAt="order.created_at" :status="order.status" :code="order.code" :subTotal="order.sub_total"
+                           :id="order.staff.id" :total="order.total" :items="items" :staff="order.staff.full_name"
+                           :isPercentValue="order.coupon.is_percent_value"
+          >
+
+          </BoxOrderSummary>
         </template>
         <template #address>
           <BoxTitle text="Thông tin khách hàng" />
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 py-4" width="w-1/2" nameLabel="Tên khách hàng" :item="order.delivery_address.name"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 py-4" width="w-1/2" nameLabel="Địa chỉ" :item="order.delivery_address?.address"/>
-          <BoxItem padding="px-10 py-4" width="w-1/2" nameLabel="Số điện thoại" :item="order.delivery_address?.phone_number"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Tên khách hàng" :item="order.delivery_address.name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Địa chỉ" :item="order.delivery_address?.address"/>
+          <BoxItem padding="px-4 py-4" width="w-1/2" nameLabel="Số điện thoại" :item="order.delivery_address?.phone_number"/>
         </template>
       </FromDetailOrderLayout>
       <LoadingPage v-else />

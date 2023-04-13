@@ -36,10 +36,19 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { useToastStore } from "@/stores/toast";
 import {useStoreCategoryApi} from "@/repositories/category";
-
-
+import {useProfileStore} from "@/stores/getMyProfile";
+import LoadingPage from "@/App.vue";
 
 const router = useRouter();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
+
+
+
 
 const category = ref({
   name: '',

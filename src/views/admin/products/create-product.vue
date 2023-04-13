@@ -84,8 +84,15 @@ import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
 import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
 import IconDetachImage from "@/components/IconDetachImage.vue";
 import {detach} from "@/repositories/attachment";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 const thumbnail = ref();
 

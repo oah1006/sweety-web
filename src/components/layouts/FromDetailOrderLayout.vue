@@ -18,18 +18,22 @@
       </div>
     </div>
 
-    <div class="flex gap-8">
-      <slot name="list-product"></slot>
-      <slot name="order-summary"></slot>
-    </div>
-    <div class="flex gap-4">
-      <div class="bg-white w-full mt-5 rounded-lg shadow-md w-2/3">
-        <slot name="information-order"></slot>
+    <div class="flex gap-4 items-start  ">
+      <slot class="flex-none" name="list-product"></slot>
+      <div class="flex-none w-1/3 my-6 flex flex-col justify-between">
+        <div>
+          <slot name="order-summary"></slot>
+        </div>
+        <div class="bg-white w-full rounded-lg shadow-md mt-2">
+          <slot name="address"></slot>
+        </div>
       </div>
-      <div class="bg-white w-full mt-5 rounded-lg shadow-md h-56 w-1/3">
-        <slot name="address"></slot>
-      </div>
     </div>
+
+    <div class="bg-white w-full mt-5 rounded-lg shadow-md w-2/3">
+      <slot name="information-order"></slot>
+    </div>
+
 
     <div>
       <slot name="list-address"></slot>

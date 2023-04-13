@@ -54,8 +54,15 @@ import { useStoreCustomerApi } from "@/repositories/customer"
 import { useRouter } from 'vue-router'
 
 import { ref } from "vue"
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 const customers = ref({
   email: '',

@@ -86,6 +86,7 @@ import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import InputFile from "@/components/inputs/InputFile.vue";
 import IconDetachImage from "@/components/IconDetachImage.vue";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter()
 
@@ -96,6 +97,12 @@ const input = ref('')
 const url = ref('')
 
 const route = useRoute();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 const id = route.params.id
 

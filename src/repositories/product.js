@@ -84,3 +84,17 @@ export function useGetProductInformation() {
     return axios
         .get('http://127.0.0.1:8000/private/products/' + id, config)
 }
+
+export function useDeleteProductApi(id) {
+    const token = $cookies.get('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+        },
+    }
+
+    return axios
+        .delete('http://127.0.0.1:8000/private/products/' + id, config)
+}

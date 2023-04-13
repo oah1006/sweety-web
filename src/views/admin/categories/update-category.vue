@@ -1,5 +1,4 @@
 <template>
-
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
       <FormUpdateLayout v-if="!isLoadingPage" @click-redirect="useClickRedirectIndex" listName="Danh sách loại sản phẩm">
@@ -39,10 +38,18 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useToastStore } from "@/stores/toast";
 import { useGetCategoryInformationApi, useUpdateCategoryApi } from "@/repositories/category";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 
 const router = useRouter();
 const route = useRoute();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
+
 
 const category = ref({
   name: '',

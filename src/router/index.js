@@ -317,7 +317,7 @@ const router = createRouter({
     },
     {
       path: '/unauth',
-      name: 'unauth',
+      name: '403',
       component: Unauthorized,
       meta: {
         requiresAuth: true

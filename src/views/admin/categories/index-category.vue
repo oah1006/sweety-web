@@ -161,11 +161,4 @@ function filterData() {
   }, 400)
 }
 
-
-function shortenText(text) {
-  const shortText = text.slice(0, 100);
-  return `${shortText}`
-}
-
-
 </script>

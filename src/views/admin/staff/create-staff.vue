@@ -88,8 +88,15 @@ import InputFile from "@/components/inputs/InputFile.vue";
 import {useToastStore} from "@/stores/toast";
 import SelectStore from "@/components/inputs/SelectStore.vue";
 import {useIndexStoreApi} from "@/repositories/store";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 const router = useRouter();
+
+const profileStore = useProfileStore()
+
+if (profileStore.profile.profile?.role !== 'administrator') {
+  router.push({ name: '403' })
+}
 
 const file = ref();
 const url = ref('');
