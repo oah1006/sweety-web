@@ -34,11 +34,6 @@
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
             </template>
           </InputBox>
-          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
-            <template #input>
-              <InputAddress v-model:modelAddress="formStaff.address" />
-            </template>
-          </InputBox>
           <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
@@ -51,6 +46,46 @@
               </SelectStatus>
             </template>
           </InputBox>
+          <InputBox name="Cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <SelectStore v-model:modalSelectStore="formStaff.store_id" :stores="stores">
+              </SelectStore>
+            </template>
+          </InputBox>
+        </template>
+        <template #title-box-input-address>
+          <TitleFormField name="Địa chỉ" />
+        </template>
+        <template #box-input-address>
+          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+            <template #address>
+              <BoxInputAddress name="Số nhà" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="formStaff.house_number" placeholder="Số nhà" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Đường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="formStaff.street" placeholder="Đường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Phường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="formStaff.ward" placeholder="Phường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Quận" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="formStaff.district" placeholder="Quận" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Thành phố" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="formStaff.city" placeholder="Thành phố" />
+                </template>
+              </BoxInputAddress>
+            </template>
+          </BoxInputAddressLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -87,6 +122,10 @@ import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import InputFile from "@/components/inputs/InputFile.vue";
 import IconDetachImage from "@/components/IconDetachImage.vue";
 import {useProfileStore} from "@/stores/getMyProfile";
+import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
+import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
+import SelectStore from "@/components/inputs/SelectStore.vue";
+import {useIndexStoreApi} from "@/repositories/store";
 
 const router = useRouter()
 
@@ -106,15 +145,22 @@ if (profileStore.profile.profile?.role !== 'administrator') {
 
 const id = route.params.id
 
+const stores = ref({});
+
 const formStaff = ref({
     id: '',
     attachment_id: '',
     email: '',
     full_name: '',
     phone_number: '',
-    address: '',
     role: '',
-    is_active: ''
+    is_active: '',
+    store_id: '',
+    house_number: '',
+    street: '',
+    ward: '',
+    district: '',
+    city: '',
 })
 
 const isLoadingPage = ref(true)
@@ -174,10 +220,15 @@ function getStaffInformation() {
       formStaff.value.attachment_id = response.data.attachment?.id
       formStaff.value.email = response.data.user?.email
       formStaff.value.full_name = response.data.full_name
-      formStaff.value.phone_number = response.data.user?.phone_number
-      formStaff.value.address = response.data.user?.address
+      formStaff.value.phone_number = response.data.address.phone_number
       formStaff.value.role = response.data.role
       formStaff.value.is_active = response.data.is_active
+      formStaff.value.store_id = response.data.store.id
+      formStaff.value.house_number = response.data.address.house_number
+      formStaff.value.street = response.data.address.street
+      formStaff.value.ward = response.data.address.ward
+      formStaff.value.district = response.data.address.district
+      formStaff.value.city = response.data.address.city
 
       if (response.data.attachment != null) {
           url.value = response.data.attachment.url
@@ -186,6 +237,15 @@ function getStaffInformation() {
       isLoadingPage.value = false
     })
 }
+
+function getStore() {
+  useIndexStoreApi()
+      .then((response) => {
+        stores.value = response.data.data.data
+      })
+}
+
+getStore();
 async function submit() {
   useUpdateStaffApi(formStaff.value, id)
     .then((response) => {

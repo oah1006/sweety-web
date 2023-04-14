@@ -10,6 +10,10 @@
       <slot name="box-input"></slot>
       <slot name="select"></slot>
     </div>
+    <div class="bg-white w-full mt-5 rounded-lg shadow-md">
+      <slot name="title-box-input-address"></slot>
+      <slot name="box-input-address"></slot>
+    </div>
     <div class="flex my-8">
       <div class="flex items-center gap-3">
         <a type="button" @click="redirect" class="cursor-pointer font-medium text-lg inline-flex items-center rounded-md bg-white text-black px-4 py-2 shadow-lg hover:bg-zinc-50 gap-3">

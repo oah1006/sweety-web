@@ -2,7 +2,8 @@
   <div class="bg-white w-full rounded-lg shadow-md flex">
     <div>
       <div class="relative">
-        <BoxThumbnailProduct :isShowDetach="props.isShowDetach" :idAttachment="idAttachment" @detach-thumbnail="detachThumbnail" :url="props.url"  :border="props.border" :shape="props.shape" />
+        <BoxThumbnailProduct :isShowDetach="props.isShowDetach" :idAttachment="idAttachment" @detach-thumbnail="detachThumbnail"
+                             :url="props.url" :border="props.border" :shape="props.shape" />
         <slot name="icon-detach-image"></slot>
       </div>
       <div>
@@ -11,7 +12,8 @@
     </div>
     <div>
       <div class="relative">
-        <BoxDetailProduct :isShowDetach="props.isShowDetach" @detach-one-image-in-multiple="detachAndDeleteDetailProduct" v-model:modelDetailProducts="detailProducts" :border="props.border" :shape="props.shape" />
+        <BoxDetailProduct :isShowDetach="props.isShowDetach" @detach-one-image-in-multiple="detachAndDeleteDetailProduct"
+                          v-model:modelDetailProducts="detailProducts" :border="props.border" :shape="props.shape" />
       </div>
       <div>
         <slot name="input-multiple-image"></slot>
@@ -67,11 +69,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['detach-image', 'update:modelDetailProducts', 'detach-one-image-in-multiple', 'detach-thumbnail'])
-
-function detachImage() {
-  emits('detach-image')
-}
+const emits = defineEmits(['update:modelDetailProducts', 'detach-one-image-in-multiple', 'detach-thumbnail'])
 
 const detailProducts = computed({
   get: () => props.modelDetailProducts,

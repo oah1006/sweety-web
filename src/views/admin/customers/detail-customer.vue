@@ -10,26 +10,32 @@
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   color="text-orange-500" nameLabel="Mã khách hàng" :item="customers.code"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Email" :item="customers.user?.email"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Họ và tên" :item="customers.full_name"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Địa chỉ" :item="customers.user?.address"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Số điện thoại" :item="customers.user?.phone_number"/>
         </template>
         <template #list-address>
-          <TableListAddress :lengthListAddress="customers.delivery_addresses.length">
+          <TableListAddress :lengthListAddress="customers.address.length">
             <template #list-table-row-head>
               <ListTableRow>
                 <template #table-column>
                   <ListTableColumn text="Tên"/>
-                  <ListTableColumn text="ĐỊA CHỈ"/>
-                  <ListTableColumn text="Số điện thoại"/>
+                  <ListTableColumn text="SỐ ĐIỆN THOẠI"/>
+                  <ListTableColumn text="SỐ NHÀ"/>
+                  <ListTableColumn text="ĐƯỜNG"/>
+                  <ListTableColumn text="Phường"/>
+                  <ListTableColumn text="Quận"/>
+                  <ListTableColumn text="Thành phố"/>
                 </template>
               </ListTableRow>
             </template>
             <template #list-table-row-body>
-              <ListTableRow v-for="item in customers.delivery_addresses" :key="item.id">
+              <ListTableRow v-for="item in customers.address" :key="item.id">
                 <template #table-column>
                   <ListTableColumn :text="item.name" />
-                  <ListTableColumn :text="item.address" />
                   <ListTableColumn :text="item.phone_number" />
+                  <ListTableColumn :text="item.house_number" />
+                  <ListTableColumn :text="item.street" />
+                  <ListTableColumn :text="item.ward" />
+                  <ListTableColumn :text="item.district" />
+                  <ListTableColumn :text="item.city" />
                 </template>
               </ListTableRow>
             </template>

@@ -26,7 +26,6 @@
               <ListTableColumn text="MÃ KHÁCH HÀNG" />
               <ListTableColumn text="Tên"/>
               <ListTableColumn text="EMAIL"/>
-              <ListTableColumn text="ĐỊA CHỈ"/>
               <ListTableColumn />
             </template>
           </ListTableRow>
@@ -37,7 +36,6 @@
               <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
-              <ListTableColumn :text="item.user?.address" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
                                        @show-modal="showModal" />
             </template>

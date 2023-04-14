@@ -10,10 +10,15 @@
           <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.role" width="w-28" height="h-28" />
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Mã nhân viên" :item="staff.code"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Email" :item="staff.user?.email"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="địa chỉ" :item="staff.user?.address"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Số điện thoại" :item="staff.user?.phone_number"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" color="text-orange-500"  nameLabel="Mã nhân viên" :item="staff.code"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Email" :item="staff.user?.email"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Số nhà" :item="staff.address.house_number"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Đường" :item="staff.address.street"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Phường" :item="staff.address.ward"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Quận" :item="staff.address.district"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Thành phố" :item="staff.address.city"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Số điện thoại" :item="staff.address.phone_number"/>
+          <BoxItemLink border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Làm việc tại chi nhánh" :id="staff.store.id" :item="staff.store.store_name"/>
           <BoxItemStatus class="py-4 px-10" nameLabel="Trạng thái" :item="staff.is_active"/>
         </template>
       </FormDetailLayout>
@@ -35,20 +40,13 @@ import BoxItemStatus from "@/components/details/BoxItemStatus.vue";
 import { useGetStaffInformation } from "@/repositories/staff"
 import { ref } from "vue";
 import { useRouter } from 'vue-router'
+import BoxItemLink from "@/components/details/BoxItemLink.vue";
 
 const router = useRouter();
 
 const url = ref('')
 
-const staff = ref({
-  code: '',
-  email: '',
-  full_name: '',
-  address: '',
-  phone_number: '',
-  is_active: '',
-  role: '',
-})
+const staff = ref({})
 
 
 
@@ -57,6 +55,8 @@ const isLoadingPage = ref(true)
 function getInformationCustomer() {
   useGetStaffInformation()
       .then((response) => {
+        console.log(response.data)
+
         staff.value = response.data
         url.value = response.data.attachment?.url
 

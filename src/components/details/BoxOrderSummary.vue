@@ -8,11 +8,11 @@
           <BoxItemStatusOrder :status="props.status" />
         </div>
       </div>
-      <div class="flex justify-between mt-3">
+      <div class="flex justify-between mt-4">
         <p>Ngày tạo</p>
         <p>{{ props.createdAt }}</p>
       </div>
-      <div class="flex justify-between mt-1">
+      <div class="flex justify-between mt-2">
         <p>Nhân viên tạo đơn</p>
         <router-link :to="{
           name: 'detail-staff',
@@ -21,15 +21,15 @@
           }
         }" class="underline text-cyan-500">{{ props.staff }}</router-link>
       </div>
-      <div class="flex justify-between mt-1">
+      <div class="flex justify-between mt-2">
         <p>Tạm tính</p>
         <p>{{ props.subTotal }} đồng</p>
       </div>
-      <div class="flex justify-between mt-1">
+      <div class="flex justify-between mt-2">
         <p>Phí vận chuyển</p>
         <p>+ 20000 đồng</p>
       </div>
-      <div class="flex justify-between mt-1">
+      <div class="flex justify-between mt-2">
         <p>Áp dụng mã giảm giá</p>
         <p>- {{ props.isPercentValue }} %</p>
       </div>

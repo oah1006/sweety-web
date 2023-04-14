@@ -11,7 +11,7 @@ const emits = defineEmits(['update:modelName'])
 
 const props = defineProps({
   modelName: String,
-  placeholder: String
+  placeholder: String,
 })
 
 const name = computed({

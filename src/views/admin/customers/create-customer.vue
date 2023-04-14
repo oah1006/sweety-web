@@ -5,6 +5,9 @@
         <template #title>
           <TitlePage title="Tạo khách hàng" subTitle="Chào mừng bạn đến với trang tạo khách hàng!"></TitlePage>
         </template>
+        <template #title-box-input>
+          <TitleFormField name="Thông tin Khách hàng" />
+        </template>
         <template #box-input>
           <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
@@ -26,11 +29,40 @@
               <InputPhoneNumber v-model:modelPhoneNumber="customers.phone_number" />
             </template>
           </InputBox>
-          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
-            <template #input>
-              <InputAddress v-model:modelAddress="customers.address" />
+        </template>
+        <template #title-box-input-address>
+          <TitleFormField name="Địa chỉ" />
+        </template>
+        <template #box-input-address>
+          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+            <template #address>
+              <BoxInputAddress name="Số nhà" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.house_number" placeholder="Số nhà" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Đường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.street" placeholder="Đường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Phường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.ward" placeholder="Phường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Quận" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.district" placeholder="Quận" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Thành phố" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.city" placeholder="Thành phố" />
+                </template>
+              </BoxInputAddress>
             </template>
-          </InputBox>
+          </BoxInputAddressLayout>
         </template>
       </FormCreateLayout>
     </template>
@@ -55,6 +87,9 @@ import { useRouter } from 'vue-router'
 
 import { ref } from "vue"
 import {useProfileStore} from "@/stores/getMyProfile";
+import TitleFormField from "@/components/TitleFormField.vue";
+import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
+import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
 
 const router = useRouter();
 
@@ -68,7 +103,12 @@ const customers = ref({
   email: '',
   full_name: '',
   phone_number: '',
-  address: ''
+  address: '',
+  house_number: '',
+  street: '',
+  ward: '',
+  district: '',
+  city: ''
 })
 
 async function submit() {

@@ -5,15 +5,13 @@
         <template #title>
           <TitlePage title="Tạo cửa hàng" subTitle="Chào mừng bạn đến với trang tạo cửa hàng!"></TitlePage>
         </template>
+        <template #title-box-input>
+          <TitleFormField name="Thông tin cửa hàng" />
+        </template>
         <template #box-input>
           <InputBox name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputName v-model:modelName="store.name" placeholder="Tên cửa hàng"/>
-            </template>
-          </InputBox>
-          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
-            <template #input>
-              <InputAddress v-model:modelAddress="store.address" />
+              <InputName v-model:modelName="store.store_name" placeholder="Tên cửa hàng" color="text-orange-500" />
             </template>
           </InputBox>
           <InputBox name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -26,6 +24,40 @@
               <InputCloseStore v-model:modelCloseStore="store.close_store" />
             </template>
           </InputBox>
+        </template>
+        <template #title-box-input-address>
+          <TitleFormField name="Địa chỉ" />
+        </template>
+        <template #box-input-address>
+          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+            <template #address>
+              <BoxInputAddress name="Số nhà" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.house_number" placeholder="Số nhà" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Đường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Phường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.ward" placeholder="Phường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Quận" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.district" placeholder="Quận" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Thành phố" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.city" placeholder="Thành phố" />
+                </template>
+              </BoxInputAddress>
+            </template>
+          </BoxInputAddressLayout>
         </template>
       </FormCreateLayout>
     </template>
@@ -48,6 +80,9 @@ import {ref} from "vue";
 import { useToastStore } from "@/stores/toast";
 import {useCreateStoreApi} from "@/repositories/store";
 import {useProfileStore} from "@/stores/getMyProfile";
+import TitleFormField from "@/components/TitleFormField.vue";
+import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
+import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
 
 
 const router = useRouter();
@@ -59,10 +94,14 @@ if (profileStore.profile.profile?.role !== 'administrator') {
 }
 
 const store = ref({
-  name: '',
-  address: '',
+  store_name: '',
   open_store: '',
-  close_store: ''
+  close_store: '',
+  house_number: '',
+  street: '',
+  ward: '',
+  district: '',
+  city: ''
 })
 
 async function submit() {

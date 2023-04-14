@@ -7,9 +7,6 @@
       >
         <template #title>
           <TitlePage title="Đơn hàng" subTitle="Chào mừng bạn đến với trang các đơn hàng của cửa hàng!">
-            <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
-            </template>
           </TitlePage>
         </template>
         <template #box-filter>
@@ -24,7 +21,6 @@
           <ListTableRow>
             <template #table-column>
               <ListTableColumn text="MÃ HÓA ĐƠN" />
-              <ListTableColumn text="ĐỊA CHỈ GIAO HÀNG" />
               <ListTableColumn text="NHÂN VIÊN" />
               <ListTableColumn text="KHÁCH HÀNG" />
               <ListTableColumn text="TẠM TÍNH"/>
@@ -38,9 +34,8 @@
           <ListTableRow v-for="item in orders" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.code" />
-              <ListTableColumn :text="item.delivery_address?.address" />
-              <ListTableColumn :text="item.staff.full_name" />
-              <ListTableColumn :text="item.delivery_address.name" />
+              <ListTableColumnLink :id="item.staff.id" :text="item.staff.full_name" />
+              <ListTableColumn :text="item.address.name" />
               <ListTableColumn :text="item.sub_total" />
               <ListTableColumn :text="item.total" />
               <ListTableColumnStatusOrder :status="item.status" />
@@ -85,6 +80,7 @@ import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue
 import SelectFilterCategory from "@/components/inputs/SelectFilterCategory.vue";
 import {useIndexOrderApi} from "@/repositories/order";
 import ListTableColumnStatusOrder from "@/components/table/ListTableColumnStatusOrder.vue";
+import ListTableColumnLink from "@/components/table/ListTableColumnLink.vue";
 
 const isModal = ref(false)
 const idOrder = ref(null)
@@ -156,16 +152,6 @@ function filterData() {
         })
   }, 400)
 }
-
-function getCategory() {
-  useIndexCategoryApi()
-      .then((response) => {
-        category.value = response.data.data.data
-      })
-}
-
-getCategory()
-
 
 function useClickRedirectCreate() {
   router.push({ name: 'create-product' })

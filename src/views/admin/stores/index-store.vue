@@ -23,9 +23,7 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn text=""/>
               <ListTableColumn text="TÊN CỬA HÀNG" />
-              <ListTableColumn text="ĐỊA CHỈ"/>
               <ListTableColumn text="GIỜ MỞ CỬA"/>
               <ListTableColumn text="GIỜ ĐÓNG CỬA"/>
               <ListTableColumn />
@@ -35,9 +33,7 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in stores" :key="item.id">
             <template #table-column>
-              <ListTableColumnCheckbox />
-              <ListTableColumn class="text-orange-500" :text="item.name" />
-              <ListTableColumn :text="item.address" />
+              <ListTableColumn class="text-orange-500" :text="item.store_name" />
               <ListTableColumn :text="item.open_store" />
               <ListTableColumn :text="item.close_store" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
@@ -103,6 +99,8 @@ function getData() {
   setTimeout(() => {
     useIndexStoreApi(page.value)
         .then((response) => {
+          console.log(response.data.data.data)
+
           pagination.value.lastPage = response.data.data.last_page
           pagination.value.total = response.data.data.total
 

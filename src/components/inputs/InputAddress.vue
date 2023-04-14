@@ -1,5 +1,5 @@
 <template>
-  <input type="text" name="address" placeholder="Địa chỉ" v-model="address"
+  <input type="text" name="address" :placeholder="`${props.placeholder}`" v-model="address"
          class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
 </template>
 
@@ -8,7 +8,8 @@
 import {computed} from "vue";
 
 const props = defineProps({
-  modelAddress: String
+  modelAddress: String,
+  placeholder: String,
 })
 
 const emits = defineEmits(['update:modelAddress'])

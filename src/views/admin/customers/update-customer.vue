@@ -1,9 +1,9 @@
 <template>
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormUpdateLayout v-if="!isLoadingPage" @click-redirect="useClickRedirectIndex" listName="Danh sách nhân viên">
+      <FormUpdateLayout v-if="!isLoadingPage" @click-redirect="useClickRedirectIndex" listName="Danh sách khách hàng">
         <template #title>
-          <TitlePage title="Cập nhật nhân viên" subTitle="Chào mừng bạn đến với trang cập nhật nhân viên!"></TitlePage>
+          <TitlePage title="Cập nhật khách hàng" subTitle="Chào mừng bạn đến với trang cập nhật khách hàng!"></TitlePage>
         </template>
         <template #title-box-input>
           <TitleFormField name="Thông tin nhân viên" />
@@ -30,6 +30,40 @@
             </template>
           </InputBox>
         </template>
+        <template #title-box-input-address>
+          <TitleFormField name="Địa chỉ" />
+        </template>
+        <template #box-input-address>
+          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+            <template #address>
+              <BoxInputAddress name="Số nhà" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.house_number" placeholder="Số nhà" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Đường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.street" placeholder="Đường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Phường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.ward" placeholder="Phường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Quận" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.district" placeholder="Quận" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Thành phố" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="customers.city" placeholder="Thành phố" />
+                </template>
+              </BoxInputAddress>
+            </template>
+          </BoxInputAddressLayout>
+        </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
     </template>
@@ -55,6 +89,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { useToastStore } from '@/stores/toast'
 import { ref } from "vue"
 import {useProfileStore} from "@/stores/getMyProfile";
+import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
+import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -90,10 +126,17 @@ async function submit() {
 function getInformationCustomer() {
   useGetCustomerInformation()
       .then((response) => {
+        console.log(response.data.data)
+
         customers.value.email = response.data.data.user?.email
         customers.value.full_name = response.data.data.full_name
         customers.value.phone_number = response.data.data.user?.phone_number
         customers.value.address = response.data.data.user?.address
+        customers.value.house_number = response.data.data.address.house_number
+        customers.value.street = response.data.data.address.street
+        customers.value.ward = response.data.data.address.ward
+        customers.value.district = response.data.data.address.district
+        customers.value.city = response.data.data.address.city
 
         isLoadingPage.value = false
       })

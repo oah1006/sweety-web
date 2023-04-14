@@ -1,4 +1,4 @@
-<template>
+ <template>
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
       <FormUpdateLayout v-if="!isLoadingPage" @click-redirect="useClickRedirectIndex" listName="Danh sách nhân viên">
@@ -11,12 +11,7 @@
         <template #box-input>
           <InputBox name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputName v-model:modelName="store.name" placeholder="Tên cửa hàng"/>
-            </template>
-          </InputBox>
-          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
-            <template #input>
-              <InputAddress v-model:modelAddress="store.address" />
+              <InputName v-model:modelName="store.store_name" placeholder="Tên cửa hàng"/>
             </template>
           </InputBox>
           <InputBox name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -29,6 +24,40 @@
               <InputCloseStore v-model:modelCloseStore="store.close_store" />
             </template>
           </InputBox>
+        </template>
+        <template #title-box-input-address>
+          <TitleFormField name="Địa chỉ" />
+        </template>
+        <template #box-input-address>
+          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+            <template #address>
+              <BoxInputAddress name="Số nhà" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.house_number" placeholder="Số nhà" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Đường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Phường" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.ward" placeholder="Phường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Tên Quận" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.district" placeholder="Quận" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Thành phố" >
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.city" placeholder="Thành phố" />
+                </template>
+              </BoxInputAddress>
+            </template>
+          </BoxInputAddressLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -54,6 +83,8 @@ import { useRoute, useRouter } from "vue-router";
 import { useToastStore } from "@/stores/toast";
 import { useGetStoreInformationApi, useUpdateStoreApi } from "@/repositories/store";
 import {useProfileStore} from "@/stores/getMyProfile";
+import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
+import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
 
 
 const router = useRouter();
@@ -66,10 +97,14 @@ if (profileStore.profile.profile?.role !== 'administrator') {
 }
 
 const store = ref({
-  name: '',
-  address: '',
+  store_name: '',
   open_store: '',
-  close_store: ''
+  close_store: '',
+  house_number: '',
+  street: '',
+  ward: '',
+  district: '',
+  city: ''
 })
 
 const id = route.params.id
@@ -89,8 +124,13 @@ async function submit() {
 function getInformationStore() {
   useGetStoreInformationApi()
       .then((response) => {
-        store.value.name = response.data.data.name
-        store.value.address = response.data.data.address
+        store.value.store_name = response.data.data.store_name
+        store.value.house_number = response.data.data.address.house_number
+        store.value.street = response.data.data.address.street
+        store.value.ward = response.data.data.address.ward
+        store.value.district = response.data.data.address.district
+        store.value.city = response.data.data.address.city
+
         const openStore = format(response.data.data.open_store)
         const closeStore = format(response.data.data.close_store)
         store.value.open_store = openStore
