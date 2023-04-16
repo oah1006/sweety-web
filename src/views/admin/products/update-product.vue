@@ -135,49 +135,6 @@ const selectOptionPublished = ref([
 
 const category = ref({})
 
-function onImageChangeThumbnail(e) {
-  thumbnail.value = e.target.files[0]
-
-  url.value = URL.createObjectURL(thumbnail.value)
-
-  store('product', product.value.id, thumbnail.value, 'thumbnails')
-      .then((response) => {
-      })
-}
-
-function onImageChangeDetailProducts(e) {
-  const files = e.target.files
-
-  if (!files.length) {
-    return
-  }
-
-  store('product', product.value.id, files, 'detail_products')
-    .then((response) => {
-      const detail_products = response.data.data
-
-      console.log(detail_products.length)
-
-      for (let i = 0; i < detail_products.length; i++) {
-        detailProducts.value.push(detail_products[i])
-      }
-    })
-}
-
-function detachAndDeleteDetailProduct(id, attachment_id) {
-  detailProducts.value.splice(id, 1)
-  detach(attachment_id)
-    .then((response) => {
-    })
-}
-
-function detachThumbnail(attachment_id) {
-  detach(attachment_id)
-      .then((response) => {
-        url.value = ''
-      })
-}
-
 function getProductInformation() {
   useGetProductInformation()
       .then((response) => {
@@ -189,6 +146,8 @@ function getProductInformation() {
         product.value.category_id = response.data.data.category_id
         product.value.published = response.data.data.published
 
+        console.log(response.data.data.attachment.length)
+
 
         if (response.data.data.attachment.length > 0) {
           const attachments = response.data.data.attachment
@@ -197,8 +156,12 @@ function getProductInformation() {
 
           const detail_products = attachments.filter(image => image['type'] === 'detail_products')
 
-          url.value = thumbnail.url
-          idAttachment.value = thumbnail.id
+          console.log(thumbnail)
+
+          if (thumbnail !== undefined) {
+            url.value = thumbnail.url
+            idAttachment.value = thumbnail.id
+          }
 
           for (let i = 0; i < detail_products.length; i++) {
             detailProducts.value.push(detail_products[i])
@@ -227,6 +190,54 @@ function getCategory() {
 getCategory()
 
 getProductInformation()
+
+function onImageChangeThumbnail(e) {
+  thumbnail.value = e.target.files[0]
+
+  url.value = URL.createObjectURL(thumbnail.value)
+
+  store('product', product.value.id, thumbnail.value, 'thumbnails')
+      .then((response) => {
+        idAttachment.value = response.data.data[0].id
+
+        input.value.value = ''
+      })
+}
+
+function onImageChangeDetailProducts(e) {
+  const files = e.target.files
+
+  if (!files.length) {
+    return
+  }
+
+  store('product', product.value.id, files, 'detail_products')
+      .then((response) => {
+        console.log(response.data.data)
+
+        const detail_products = response.data.data
+
+
+        for (let i = 0; i < detail_products.length; i++) {
+          detailProducts.value.push(detail_products[i])
+        }
+      })
+}
+
+function detachAndDeleteDetailProduct(id, attachment_id) {
+  detailProducts.value.splice(id, 1)
+  detach(attachment_id)
+      .then((response) => {
+      })
+}
+
+function detachThumbnail(attachment_id) {
+  detach(attachment_id)
+      .then((response) => {
+        idAttachment.value = null
+        url.value = ''
+      })
+}
 
 function redirectIndex() {
   router.push({

@@ -1,7 +1,17 @@
 <template>
   <td class="lg:px-4 py-4">
-    <div class="flex items-center" v-if="props.attachment[0].url">
+    <div class="flex items-center" v-if="props.attachment.length > 0">
       <BoxThumbnailProductOrder :url="props.attachment[0].url" />
+      <router-link class="text-cyan-500 underline" :to="{
+          name: 'detail-product',
+          params: {
+            id: props.id
+          }
+        }">
+        {{ props.text }}
+      </router-link>
+    </div>
+    <div v-else>
       <router-link class="text-cyan-500 underline" :to="{
           name: 'detail-product',
           params: {
@@ -26,5 +36,7 @@ const props = defineProps({
   attachment: Object,
   id: Number
 })
+
+console.log(props.attachment)
 
 </script>

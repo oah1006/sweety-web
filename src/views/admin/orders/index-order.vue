@@ -21,7 +21,8 @@
           <ListTableRow>
             <template #table-column>
               <ListTableColumn text="MÃ HÓA ĐƠN" />
-              <ListTableColumn text="NHÂN VIÊN" />
+              <ListTableColumn text="NHÂN VIÊN BÁN HÀNG" />
+              <ListTableColumn text="NHÂN VIÊN GIAO HÀNG" />
               <ListTableColumn text="KHÁCH HÀNG" />
               <ListTableColumn text="TẠM TÍNH"/>
               <ListTableColumn text="TỔNG TIỀN"/>
@@ -34,12 +35,13 @@
           <ListTableRow v-for="item in orders" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.code" />
-              <ListTableColumnLink :id="item.staff.id" :text="item.staff.full_name" />
+              <ListTableColumnLink :id="item.sale_staff?.id" :text="item.sale_staff?.full_name" />
+              <ListTableColumnLink :id="item.delivery_staff?.id" :text="item.delivery_staff?.full_name" />
               <ListTableColumn :text="item.address.name" />
               <ListTableColumn :text="item.sub_total" />
               <ListTableColumn :text="item.total" />
               <ListTableColumnStatusOrder :status="item.status" />
-              <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
+              <ListTableColumnFunctionOrder @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
                                        :item-id="item.id" />
             </template>
           </ListTableRow>
@@ -47,9 +49,7 @@
       </ListTableLayout>
       <LoadingPage v-else />
     </template>
-    <!--    <template #modal-delete>-->
-    <!--      <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :itemId="idProduct" />-->
-    <!--    </template>-->
+
   </IndexLayout>
 </template>
 
@@ -58,32 +58,23 @@
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
 import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
 import TitlePage from "@/components/TitlePage.vue";
-import Button from "@/components/Button/ButtonCreate.vue"
 import ListTableRow from "@/components/table/ListTableRow.vue";
-import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
-import ModalDelete from "@/components/ModalDelete.vue"
 import FilterLayout from "@/components/layouts/FilterLayout.vue";
 import InputSearch from "@/components/inputs/InputSearch.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
-
+import ListTableColumnStatusOrder from "@/components/table/ListTableColumnStatusOrder.vue";
+import ListTableColumnLink from "@/components/table/ListTableColumnLink.vue";
+import ListTableColumnFunctionOrder from "@/components/table/ListTableColumnFunctionOrder.vue";
 
 import {onBeforeMount, ref} from "vue";
 import {useRouter} from "vue-router";
-import {useToastStore} from "@/stores/toast";
-import { useIndexProductApi } from "@/repositories/product";
-import ListTableColumnPublished from "@/components/table/ListTableColumnPublished.vue";
-import {useIndexStaff} from "@/repositories/staff";
-import {useIndexCategoryApi} from "@/repositories/category";
-import SelectCategory from "@/components/inputs/SelectFilterCategory.vue";
-import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue";
-import SelectFilterCategory from "@/components/inputs/SelectFilterCategory.vue";
-import {useIndexOrderApi} from "@/repositories/order";
-import ListTableColumnStatusOrder from "@/components/table/ListTableColumnStatusOrder.vue";
-import ListTableColumnLink from "@/components/table/ListTableColumnLink.vue";
 
-const isModal = ref(false)
-const idOrder = ref(null)
+import { useIndexProductApi } from "@/repositories/product";
+import {useIndexOrderApi} from "@/repositories/order";
+
+
+
 
 const router = useRouter()
 
@@ -121,7 +112,7 @@ function getData() {
   setTimeout(() => {
     useIndexOrderApi(page.value)
         .then((response) => {
-          console.log(response.data.data)
+          console.log(response.data.data.data)
 
           pagination.value.lastPage = response.data.data.last_page
           pagination.value.total = response.data.data.total
@@ -153,19 +144,6 @@ function filterData() {
   }, 400)
 }
 
-function useClickRedirectCreate() {
-  router.push({ name: 'create-product' })
-}
-
-function useClickRedirectUpdate(id) {
-  router.push({
-    name: 'update-product',
-    params: {
-      id: id
-    }
-  })
-}
-
 function useClickRedirectDetail(id) {
   router.push({
     name: 'detail-order',
@@ -174,19 +152,6 @@ function useClickRedirectDetail(id) {
     }
   })
 }
-
-// function showModal(id) {
-//   isModal.value = true
-//   idProduct.value = id
-// }
-
-// function useDeleteCustomer(id) {
-//   useDeleteStoreApi(id)
-//       .then((response) => {
-//         useToastStore().success('Xóa thành công', 3000)
-//         getData()
-//       })
-// }
 
 
 

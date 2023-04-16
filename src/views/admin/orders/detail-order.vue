@@ -5,6 +5,14 @@
                         listName="Danh sách đơn hàng" :item-id="order.id">
         <template #title>
           <TitlePage title="Thông tin đơn hàng" subTitle="Chào mừng bạn đến với trang thông tin dơn hàng!"></TitlePage>
+          <ButtonStatusAcceptedOrder :id="id" v-if="order.status === 'pending'" />
+          <ButtonStatusPreparingOrder :id="id" v-else-if="order.status === 'accepted'" />
+          <ButtonStatusPreparedOrder :id="id" v-else-if="order.status === 'preparing'" />
+          <ButtonStatusDeliveringOrder :id="id" v-else-if="order.status === 'prepared'" />
+          <div class="flex gap-4 items-center" v-else="order.status === 'delivering'" >
+            <ButtonStatusSucceedOrder :id="id" />
+            <ButtonStatusFailedOrder :id="id" />
+          </div>
         </template>
         <template #list-product>
           <BoxListProduct>
@@ -31,9 +39,10 @@
           </BoxListProduct>
         </template>
         <template #order-summary>
-          <BoxOrderSummary :createdAt="order.created_at" :status="order.status" :code="order.code" :subTotal="order.sub_total"
-                           :id="order.staff.id" :total="order.total" :items="items" :staff="order.staff.full_name"
-                           :isPercentValue="order.coupon.is_percent_value"
+          <BoxOrderSummary :createdAt="order.created_at" :status="order.status" :code="order.code"
+                           :subTotal="order.sub_total" :idSaleStaff="order.sale_staff?.id"
+                           :idDeliveryStaff="order.delivery_staff?.id" :total="order.total" :items="items"
+                           :nameDeliveryStaff="order.delivery_staff?.full_name" :isPercentValue="order.coupon.is_percent_value"
           >
 
           </BoxOrderSummary>
@@ -58,8 +67,15 @@ import DetailLayout from "@/components/layouts/DetailLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import BoxItem from "@/components/details/BoxItem.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
-import BoxItemStatusOrder from "@/components/details/BoxItemStatusOrder.vue";
-import BoxItemHasUnit from "@/components/details/BoxItemHasUnit.vue";
+import FromDetailOrderLayout from "@/components/layouts/FromDetailOrderLayout.vue";
+import ListTableColumnProductImage from "@/components/table/ListTableColumnProductImage.vue";
+import ListTableColumnTotalProduct from "@/components/table/ListTableColumnTotalProduct.vue";
+import BoxTitle from "@/components/details/BoxTitle.vue";
+import ButtonStatusAcceptedOrder from "@/components/Button/ButtonStatusAcceptedOrder.vue";
+import ButtonStatusPreparingOrder from "@/components/Button/ButtonStatusPreparingOrder.vue";
+import ButtonStatusPreparedOrder from "@/components/Button/ButtonStatusPreparedOrder.vue";
+import ButtonStatusDeliveringOrder from "@/components/Button/ButtonStatusDeliveringOrder.vue";
+import ButtonStatusSucceedOrder from "@/components/Button/ButtonStatusSucceedOrder.vue";
 import BoxListProduct from "@/components/details/BoxListProduct.vue"
 import ListTableRow from "@/components/table/ListTableRow.vue"
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
@@ -68,10 +84,8 @@ import BoxOrderSummary from "@/components/details/BoxOrderSummary.vue"
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import {useGetOrderInformationApi} from "@/repositories/order";
-import FromDetailOrderLayout from "@/components/layouts/FromDetailOrderLayout.vue";
-import ListTableColumnProductImage from "@/components/table/ListTableColumnProductImage.vue";
-import ListTableColumnTotalProduct from "@/components/table/ListTableColumnTotalProduct.vue";
-import BoxTitle from "@/components/details/BoxTitle.vue";
+import ButtonStatusFailedOrder from "@/components/Button/ButtonStatusFailedOrder.vue";
+
 
 
 
@@ -84,7 +98,7 @@ const isLoadingPage = ref(true)
 
 
 const order = ref({
-
+  status: '',
 })
 
 const items = ref()
@@ -103,15 +117,6 @@ function getInformationOrder() {
 function useClickRedirectIndex() {
   router.push({
     name: 'index-order',
-  })
-}
-
-function useClickRedirectUpdate(id) {
-  router.push({
-    name: 'update-order',
-    params: {
-      id: id
-    }
   })
 }
 

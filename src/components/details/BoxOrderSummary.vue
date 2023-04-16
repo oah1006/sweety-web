@@ -14,12 +14,11 @@
       </div>
       <div class="flex justify-between mt-2">
         <p>Nhân viên tạo đơn</p>
-        <router-link :to="{
-          name: 'detail-staff',
-          params: {
-            id: props.id
-          }
-        }" class="underline text-cyan-500">{{ props.staff }}</router-link>
+        <p class="underline text-cyan-500">{{ props.nameDeliveryStaff }}</p>
+      </div>
+      <div class="flex justify-between mt-2">
+        <p>Nhân viên vận chuyển</p>
+        <p class="underline text-cyan-500">{{ props.nameDeliveryStaff }}</p>
       </div>
       <div class="flex justify-between mt-2">
         <p>Tạm tính</p>
@@ -52,8 +51,18 @@ const props = defineProps({
   subTotal: String,
   status: String,
   createdAt: String,
-  staff: String,
-  id: Number,
+  nameDeliveryStaff: {
+    type: String,
+    default: () => null
+  },
+  idSaleStaff: {
+    type: Number,
+    default: () => null
+  },
+  idDeliveryStaff: {
+    type: Number,
+    default: () => null
+  },
   isPercentValue: String,
 })
 

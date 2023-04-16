@@ -1,14 +1,8 @@
 <template>
   <td class="lg:px-4 py-4 underline text-cyan-500">
-    <router-link
-        :to="{
-        name: 'detail-staff',
-        params: {
-          id: props.id
-        }
-    }">
+    <p>
       {{ props.text }}
-    </router-link>
+    </p>
   </td>
 </template>
 
@@ -19,7 +13,12 @@ const props = defineProps({
     type: String,
     default: () => ''
   },
-  id: String
+  id: {
+    type: Number,
+    default: () => null
+  }
 })
+
+console.log(props.id)
 
 </script>
