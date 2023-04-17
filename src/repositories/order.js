@@ -37,8 +37,6 @@ export function useGetOrderInformationApi() {
 export function useUpdateStatusAcceptedOrderApi(id) {
     const token = $cookies.get('token')
 
-    console.log(token)
-
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,

@@ -79,8 +79,6 @@ const customers = ref({
 function getInformationCustomer() {
   useGetCustomerInformation()
       .then((response) => {
-        console.log(response.data.data.delivery_addresses)
-
         customers.value = response.data.data
         isLoadingPage.value = false
       })

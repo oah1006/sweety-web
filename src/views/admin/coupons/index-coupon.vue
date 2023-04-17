@@ -144,7 +144,6 @@ const selectOptionStatus = ref([
 ])
 
 function useClickRedirectCreate() {
-  console.log('hi')
   router.push({ name: 'create-coupon' })
 }
 

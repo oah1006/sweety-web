@@ -34,6 +34,4 @@ function detachThumbnail(attachment_id) {
   emits('detach-thumbnail', attachment_id)
 }
 
-console.log(props.url)
-
 </script>

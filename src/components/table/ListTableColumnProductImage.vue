@@ -37,6 +37,5 @@ const props = defineProps({
   id: Number
 })
 
-console.log(props.attachment)
 
 </script>

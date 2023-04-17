@@ -46,7 +46,6 @@ const store = ref({})
 function getData() {
   useGetStoreInformationApi()
       .then((response) => {
-        console.log(response.data.data)
         store.value = response.data.data
         isLoadingPage.value = false
       })

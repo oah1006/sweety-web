@@ -55,8 +55,6 @@ const isLoadingPage = ref(true)
 function getInformationCustomer() {
   useGetStaffInformation()
       .then((response) => {
-        console.log(response.data)
-
         staff.value = response.data
         url.value = response.data.attachment?.url
 

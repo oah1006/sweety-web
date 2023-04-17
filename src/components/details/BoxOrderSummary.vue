@@ -66,6 +66,6 @@ const props = defineProps({
   isPercentValue: String,
 })
 
-console.log(props.items)
+
 
 </script>

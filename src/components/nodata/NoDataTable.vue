@@ -19,7 +19,6 @@ const props = defineProps({
 })
 
 function clickRedirect() {
-  console.log('2')
   emits('click-redirect-create')
 }
 

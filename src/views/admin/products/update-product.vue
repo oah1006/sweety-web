@@ -146,17 +146,12 @@ function getProductInformation() {
         product.value.category_id = response.data.data.category_id
         product.value.published = response.data.data.published
 
-        console.log(response.data.data.attachment.length)
-
-
         if (response.data.data.attachment.length > 0) {
           const attachments = response.data.data.attachment
 
           const thumbnail = attachments.find(image => image['type'] === 'thumbnails')
 
           const detail_products = attachments.filter(image => image['type'] === 'detail_products')
-
-          console.log(thumbnail)
 
           if (thumbnail !== undefined) {
             url.value = thumbnail.url
@@ -213,10 +208,7 @@ function onImageChangeDetailProducts(e) {
 
   store('product', product.value.id, files, 'detail_products')
       .then((response) => {
-        console.log(response.data.data)
-
         const detail_products = response.data.data
-
 
         for (let i = 0; i < detail_products.length; i++) {
           detailProducts.value.push(detail_products[i])

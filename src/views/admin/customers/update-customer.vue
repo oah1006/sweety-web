@@ -126,8 +126,6 @@ async function submit() {
 function getInformationCustomer() {
   useGetCustomerInformation()
       .then((response) => {
-        console.log(response.data.data)
-
         customers.value.email = response.data.data.user?.email
         customers.value.full_name = response.data.data.full_name
         customers.value.phone_number = response.data.data.user?.phone_number

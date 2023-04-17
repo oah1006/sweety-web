@@ -26,6 +26,10 @@ function changeStatusDeliveringOrder() {
         useToastStore().success('Cập nhật trạng thái thành công', 3000)
         router.push({ name: 'index-order' })
       })
+      .catch((error) => {
+        useToastStore().error('Bạn không có quyền cập nhật trạng thái', 3000)
+        router.push({ name: 'index-order' })
+      })
 }
 
 </script>

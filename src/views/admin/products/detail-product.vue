@@ -64,7 +64,6 @@ const isLoadingPage = ref(true)
 function getInformationProduct() {
   useGetProductInformation()
       .then((response) => {
-        console.log(response.data.data)
         product.value = response.data.data
         isLoadingPage.value = false
 

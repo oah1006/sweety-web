@@ -28,8 +28,6 @@ export function store(attachmentable, attachmentableId, file, type) {
 
     const files = [];
 
-    console.log(file)
-
     if (!(file instanceof FileList)) {
         formData.append('file[]', file)
     } else {

@@ -164,8 +164,6 @@ function formatDate(date) {
 
   const formattedDate = dateObj.toISOString().slice(0, 10)
 
-  console.log(formattedDate)
-
   return formattedDate
 }
 

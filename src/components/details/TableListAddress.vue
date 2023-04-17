@@ -29,6 +29,5 @@ const props = defineProps({
   lengthListAddress: Number
 })
 
-console.log(props.lengthListAddress)
 
 </script>

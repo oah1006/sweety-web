@@ -85,8 +85,6 @@ import ButtonChangePassword from "@/components/Button/ButtonChangePassword.vue";
 
 const profileStore = useProfileStore()
 
-console.log(profileStore.profile.profile.role)
-
 const file = ref('')
 
 const url = ref('')

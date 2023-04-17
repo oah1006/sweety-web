@@ -106,7 +106,6 @@ const items = ref()
 function getInformationOrder() {
   useGetOrderInformationApi()
       .then((response) => {
-        console.log(response.data.data)
         order.value = response.data.data
         isLoadingPage.value = false
 
