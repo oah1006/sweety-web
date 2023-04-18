@@ -44,7 +44,7 @@
               <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
-              <ListTableColumnStore :nameStore="item.store?.name" :idStore="item.store?.id"/>
+              <ListTableColumnStore :nameStore="item.store?.store_name" :idStore="item.store?.id"/>
               <ListTableColumnBadge :role="item.role" />
               <ListTableColumnBoolean :isActive="item.is_active" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"

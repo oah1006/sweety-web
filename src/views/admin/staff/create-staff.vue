@@ -32,6 +32,11 @@
               <InputFullName v-model:modelFullName="formStaff.full_name" />
             </template>
           </InputBox>
+          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <InputAddress v-model:modelAddress="formStaff.address" placeholder="Địa chỉ" />
+            </template>
+          </InputBox>
           <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
@@ -55,40 +60,6 @@
               </SelectStore>
             </template>
           </InputBox>
-        </template>
-        <template #title-box-input-address>
-          <TitleFormField name="Địa chỉ" />
-        </template>
-        <template #box-input-address>
-          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
-            <template #address>
-              <BoxInputAddress name="Số nhà" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="formStaff.house_number" placeholder="Số nhà" />
-                </template>
-              </BoxInputAddress>
-              <BoxInputAddress name="Đường" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="formStaff.street" placeholder="Đường" />
-                </template>
-              </BoxInputAddress>
-              <BoxInputAddress name="Tên Phường" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="formStaff.ward" placeholder="Phường" />
-                </template>
-              </BoxInputAddress>
-              <BoxInputAddress name="Tên Quận" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="formStaff.district" placeholder="Quận" />
-                </template>
-              </BoxInputAddress>
-              <BoxInputAddress name="Thành phố" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="formStaff.city" placeholder="Thành phố" />
-                </template>
-              </BoxInputAddress>
-            </template>
-          </BoxInputAddressLayout>
         </template>
       </FormCreateLayout>
     </template>
@@ -136,15 +107,11 @@ const formStaff = ref({
   email: '',
   password: '',
   full_name: '',
+  address: '',
   phone_number: '',
   role: '',
   is_active: '',
   store_id: '',
-  house_number: '',
-  street: '',
-  ward: '',
-  district: '',
-  city: ''
 });
 
 const stores = ref({});
@@ -196,8 +163,7 @@ function onImageChange(e) {
 
 async function submit() {
   await useStoreStaffApi(file.value, formStaff.value.email, formStaff.value.password, formStaff.value.full_name,
-      formStaff.value.phone_number, formStaff.value.house_number, formStaff.value.street, formStaff.value.ward, formStaff.value.district,
-      formStaff.value.city, formStaff.value.role, formStaff.value.is_active, formStaff.value.store_id)
+      formStaff.value.phone_number, formStaff.value.address, formStaff.value.role, formStaff.value.is_active, formStaff.value.store_id)
         .then((response) => {
           useToastStore().success('Tạo nhân viên thành công', 3000)
           router.push({ name: 'index-staff' })

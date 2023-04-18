@@ -1,6 +1,6 @@
 <template>
   <td class="lg:px-4 py-4">
-    <a @click="useClickRedirectDetail(props.idStore)" class="cursor-pointer hover:text-sky-500 hover:underline">
+    <a @click="useClickRedirectDetail(props.idStore)" class="cursor-pointer text-sky-500 underline">
       {{ props.nameStore }}
     </a>
   </td>

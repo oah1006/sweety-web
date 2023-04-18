@@ -33,12 +33,12 @@
             <template #address>
               <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <SelectFilterCity v-model:modelCity="store.city" placeholder="Thành phố" />
+                  <SelectFilterProvice v-model:modelProvice="store.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelCity="store.city.code" placeholder="Quận" />
+                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelCity="store.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -53,7 +53,7 @@
               </BoxInputAddress>
               <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="store.house_number" placeholder="Số nhà" />
+                  <InputAddress v-model:modelAddress="store.street_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
             </template>
@@ -67,7 +67,7 @@
                 </template>
                 <template #button-coordinates>
                   <ButtonLoadCoordinates :streetNumber="store.house_number" :street="store.street"
-                                         :district="store.district.full_name" :province="store.city.full_name"
+                                         :district="store.district.full_name" :province="store.province.full_name"
                                          v-model:modelPosition="store" />
 
                 </template>
@@ -93,19 +93,20 @@ import InputAddress from "@/components/inputs/InputAddress.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
 import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
-import SelectFilterCity from "@/components/inputs/SelectFilterCity.vue";
+import SelectFilterProvice from "@/components/inputs/SelectFilterProvince.vue";
 import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
 import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
-
-import {useRouter} from "vue-router";
-import {ref} from "vue";
-import { useToastStore } from "@/stores/toast";
-import {useCreateStoreApi} from "@/repositories/store";
-import {useProfileStore} from "@/stores/getMyProfile";
 import BoxGetCoordinates from "@/components/inputs/BoxGetCoordinates.vue";
 import InputLong from "@/components/inputs/InputLong.vue";
 import InputLat from "@/components/inputs/InputLat.vue";
 import ButtonLoadCoordinates from "@/components/Button/ButtonLoadCoordinates.vue";
+
+import {useRouter} from "vue-router";
+import {ref} from "vue";
+import { useToastStore } from "@/stores/toast";
+import { useCreateStoreApi } from "@/repositories/store";
+import { useProfileStore } from "@/stores/getMyProfile";
+
 
 const router = useRouter();
 
@@ -119,7 +120,7 @@ const store = ref({
   store_name: '',
   open_store: '',
   close_store: '',
-  house_number: '',
+  street_number: '',
   street: '',
   ward: {
     code: '',
@@ -129,7 +130,7 @@ const store = ref({
     code: '',
     full_name: ''
   },
-  city: {
+  province: {
     code: '',
     full_name: ''
   },
@@ -145,8 +146,8 @@ const position = ref({
 const cities = ref({});
 
 async function submit() {
-  useCreateStoreApi(store.value.store_name, store.value.open_store, store.value.close_store, store.value.house_number,
-  store.value.street, store.value.ward.full_name, store.value.district.full_name, store.value.city.full_name,
+  useCreateStoreApi(store.value.store_name, store.value.open_store, store.value.close_store, store.value.street_number,
+  store.value.street, store.value.ward.code, store.value.district.code, store.value.province.code,
   store.value.long, store.value.lat)
       .then((response) => {
         useToastStore().success('Tạo thành công', 3000)

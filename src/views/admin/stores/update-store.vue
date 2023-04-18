@@ -107,7 +107,7 @@ import InputLat from "@/components/inputs/InputLat.vue";
 import ButtonLoadCoordinates from "@/components/Button/ButtonLoadCoordinates.vue";
 import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
 import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
-import SelectFilterCity from "@/components/inputs/SelectFilterCity.vue";
+import SelectFilterCity from "@/components/inputs/SelectFilterProvince.vue";
 
 
 const router = useRouter();

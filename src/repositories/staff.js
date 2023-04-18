@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useRoute } from 'vue-router'
 
-export function useStoreStaffApi(file, email, password, full_name, phone_number, house_number, street, ward, district, city, role, is_active, store_id) {
+export function useStoreStaffApi(file, email, password, full_name, phone_number, address, role, is_active, store_id) {
     const formData = new FormData();
 
     if (file != undefined) {
@@ -11,14 +11,10 @@ export function useStoreStaffApi(file, email, password, full_name, phone_number,
     formData.append('email', email)
     formData.append('password', password)
     formData.append('full_name', full_name)
+    formData.append('address', address)
     formData.append('phone_number', phone_number)
     formData.append('role', role)
     formData.append('is_active', is_active)
-    formData.append('house_number', house_number)
-    formData.append('street', street)
-    formData.append('ward', ward)
-    formData.append('district', district)
-    formData.append('city', city)
     formData.append('store_id', store_id)
 
 
