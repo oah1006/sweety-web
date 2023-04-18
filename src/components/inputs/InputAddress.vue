@@ -5,19 +5,27 @@
 
 <script setup>
 
-import {computed} from "vue";
+import {computed, watch} from "vue";
 
 const props = defineProps({
   modelAddress: String,
   placeholder: String,
 })
 
-const emits = defineEmits(['update:modelAddress'])
+const emits = defineEmits(['update:modelAddress', 'filter-city'])
 
 const address = computed({
   get: () => props.modelAddress,
 
   set: (value) => emits('update:modelAddress', value)
+})
+
+function filterCity() {
+  emits('filter-city')
+}
+
+watch(address, () => {
+  filterCity()
 })
 
 </script>

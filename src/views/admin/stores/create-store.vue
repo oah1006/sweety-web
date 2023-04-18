@@ -29,31 +29,34 @@
           <TitleFormField name="Địa chỉ" />
         </template>
         <template #box-input-address>
-          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+          <BoxInputAddressLayout>
             <template #address>
-              <BoxInputAddress name="Số nhà" >
+              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="store.house_number" placeholder="Số nhà" />
+                  <InputAddress v-model:modelAddress="store.city" placeholder="Thành phố" @filter-city="filterCity"/>
+                </template>
+                <template #select-filter>
+                  <SelectFilterCity absolute="absolute" v-model:modalFilterCity="store.city" :city="city" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Đường" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
-                </template>
-              </BoxInputAddress>
-              <BoxInputAddress name="Tên Phường" >
-                <template #input>
-                  <InputAddress v-model:modelAddress="store.ward" placeholder="Phường" />
-                </template>
-              </BoxInputAddress>
-              <BoxInputAddress name="Tên Quận" >
+              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.district" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Thành phố" >
+              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="store.city" placeholder="Thành phố" />
+                  <InputAddress v-model:modelAddress="store.ward" placeholder="Phường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
+                </template>
+              </BoxInputAddress>
+              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+                <template #input>
+                  <InputAddress v-model:modelAddress="store.house_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
             </template>
@@ -78,11 +81,13 @@ import InputAddress from "@/components/inputs/InputAddress.vue";
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 import { useToastStore } from "@/stores/toast";
-import {useCreateStoreApi} from "@/repositories/store";
+import {useCreateStoreApi, useIndexStoreApi} from "@/repositories/store";
 import {useProfileStore} from "@/stores/getMyProfile";
 import TitleFormField from "@/components/TitleFormField.vue";
 import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
 import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
+import SelectFilterCity from "@/components/inputs/SelectFilterCity.vue";
+import {useIndexProvinceApi} from "@/repositories/province";
 
 
 const router = useRouter();
@@ -104,6 +109,8 @@ const store = ref({
   city: ''
 })
 
+const city = ref({});
+
 async function submit() {
   useCreateStoreApi(store.value)
       .then((response) => {
@@ -116,6 +123,19 @@ function redirectIndex() {
   router.push({
     name: 'index-stores'
   })
+}
+
+const debounce = ref(0)
+
+function filterCity() {
+  clearTimeout(debounce.value)
+
+  debounce.value = setTimeout(() => {
+    useIndexProvinceApi(store.value.city)
+        .then((response) => {
+          city.value = response.data.data
+        })
+  }, 400)
 }
 
 </script>
