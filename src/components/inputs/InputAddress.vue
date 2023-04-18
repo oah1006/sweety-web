@@ -12,7 +12,7 @@ const props = defineProps({
   placeholder: String,
 })
 
-const emits = defineEmits(['update:modelAddress', 'filter-city'])
+const emits = defineEmits(['update:modelAddress'])
 
 const address = computed({
   get: () => props.modelAddress,
@@ -20,12 +20,8 @@ const address = computed({
   set: (value) => emits('update:modelAddress', value)
 })
 
-function filterCity() {
-  emits('filter-city')
-}
-
 watch(address, () => {
-  filterCity()
+  console.log(address.value)
 })
 
 </script>

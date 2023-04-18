@@ -33,20 +33,17 @@
             <template #address>
               <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="store.city" placeholder="Thành phố" @filter-city="filterCity"/>
-                </template>
-                <template #select-filter>
-                  <SelectFilterCity absolute="absolute" v-model:modalFilterCity="store.city" :city="city" />
+                  <SelectFilterCity v-model:modelCity="store.city" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="store.district" placeholder="Quận" />
+                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelCity="store.city.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="store.ward" placeholder="Phường" />
+                  <SelectFilterWard v-model:modelWard="store.ward" v-model:modelDistrict="store.district.code" placeholder="Phường" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -59,6 +56,22 @@
                   <InputAddress v-model:modelAddress="store.house_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
+            </template>
+            <template #get-coordinates>
+              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+                <template #input-long>
+                  <InputLong placeholder="Kinh độ" :placeholder="store.long" v-model:modelLong="store.long" />
+                </template>
+                <template #input-lat>
+                  <InputLat placeholder="Vĩ độ" :placeholder="store.lat" v-model:modelLat="store.lat"/>
+                </template>
+                <template #button-coordinates>
+                  <ButtonLoadCoordinates :streetNumber="store.house_number" :street="store.street"
+                                         :district="store.district.full_name" :province="store.city.full_name"
+                                         v-model:modelPosition="store" />
+
+                </template>
+              </BoxGetCoordinates>
             </template>
           </BoxInputAddressLayout>
         </template>
@@ -77,18 +90,22 @@ import InputName from "@/components/inputs/InputName.vue";
 import InputOpenStore from "@/components/inputs/InputOpenStore.vue";
 import InputCloseStore from "@/components/inputs/InputCloseStore.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
-
-import {useRouter} from "vue-router";
-import {ref} from "vue";
-import { useToastStore } from "@/stores/toast";
-import {useCreateStoreApi, useIndexStoreApi} from "@/repositories/store";
-import {useProfileStore} from "@/stores/getMyProfile";
 import TitleFormField from "@/components/TitleFormField.vue";
 import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
 import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
 import SelectFilterCity from "@/components/inputs/SelectFilterCity.vue";
-import {useIndexProvinceApi} from "@/repositories/province";
+import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
+import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
 
+import {useRouter} from "vue-router";
+import {ref} from "vue";
+import { useToastStore } from "@/stores/toast";
+import {useCreateStoreApi} from "@/repositories/store";
+import {useProfileStore} from "@/stores/getMyProfile";
+import BoxGetCoordinates from "@/components/inputs/BoxGetCoordinates.vue";
+import InputLong from "@/components/inputs/InputLong.vue";
+import InputLat from "@/components/inputs/InputLat.vue";
+import ButtonLoadCoordinates from "@/components/Button/ButtonLoadCoordinates.vue";
 
 const router = useRouter();
 
@@ -104,15 +121,33 @@ const store = ref({
   close_store: '',
   house_number: '',
   street: '',
-  ward: '',
-  district: '',
-  city: ''
+  ward: {
+    code: '',
+    full_name: ''
+  },
+  district: {
+    code: '',
+    full_name: ''
+  },
+  city: {
+    code: '',
+    full_name: ''
+  },
+  long: '',
+  lat: ''
 })
 
-const city = ref({});
+const position = ref({
+  lat: '',
+  long: '',
+})
+
+const cities = ref({});
 
 async function submit() {
-  useCreateStoreApi(store.value)
+  useCreateStoreApi(store.value.store_name, store.value.open_store, store.value.close_store, store.value.house_number,
+  store.value.street, store.value.ward.full_name, store.value.district.full_name, store.value.city.full_name,
+  store.value.long, store.value.lat)
       .then((response) => {
         useToastStore().success('Tạo thành công', 3000)
         router.push({ name: 'index-stores' })
@@ -125,17 +160,5 @@ function redirectIndex() {
   })
 }
 
-const debounce = ref(0)
-
-function filterCity() {
-  clearTimeout(debounce.value)
-
-  debounce.value = setTimeout(() => {
-    useIndexProvinceApi(store.value.city)
-        .then((response) => {
-          city.value = response.data.data
-        })
-  }, 400)
-}
 
 </script>

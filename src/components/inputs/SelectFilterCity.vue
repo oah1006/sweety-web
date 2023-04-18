@@ -1,35 +1,45 @@
 <template>
-  <select :class="`${props.absolute}`" name="category_id" v-model="city"
-          class="form-select left-7 top-8 mt-2 border border-zinc-300 w-1/4 py-2 rounded-2xl pl-4 text-slate-900">
-    <option v-for="option in props.city" :value="option.id" :key="option.id">{{ option.full_name }}</option>
+  <select name="cities" v-model="city.full_name"
+          class="form-select left-0 top-10 mt-2 border border-zinc-300 w-full py-2 pl-4 text-slate-900">
+    <option disabled value="">Vui lòng chọn dưới đây!</option>
+    <option v-for="option in cities" :value="option.code" :key="option.id">{{ option.full_name }}</option>
   </select>
 </template>
 
 <script setup>
+import {useIndexProvinceApi} from "@/repositories/province";
 
-import { computed, watch } from "vue";
+import {computed, ref, watch} from "vue";
 
 const props = defineProps({
-  modalFilterCity: String,
-  isLoadingListTable: Boolean,
-  city: Object,
-  absolute: String,
+  modelCity: Object,
 })
 
-const emits = defineEmits(['update:modalFilterCity', 'filter-data'])
+const emits = defineEmits(['update:modelCity'])
 
 const city = computed({
-  get: () => props.modalFilterCity,
-  set: (value) => emits('update:modalFilterCity', value)
+  get: () => props.modelCity,
+
+  set: (value) => emits('update:modelCity', value)
 })
 
+const cities = ref('')
+
 function filterData() {
-  emits('filter-data')
+  useIndexProvinceApi()
+      .then((response) => {
+        cities.value = response.data.data
+      })
 }
 
 watch(city, () => {
-  filterData()
-})
+  const cityFind = cities.value.find((item) =>
+    item.code === city.value.code
+  )
 
+  city.value.full_name = cityFind.full_name
+}, { deep: true })
+
+filterData()
 
 </script>

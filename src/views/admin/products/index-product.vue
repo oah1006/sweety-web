@@ -43,8 +43,8 @@
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.name" />
               <ListTableColumn :text="item.category?.name" />
-              <ListTableColumn :text="item.stock" />
-              <ListTableColumn :text="item.price" />
+              <ListTableColumn :text="item.stock"/>
+              <ListTableColumn :text="formatPrice(item.price)" unit="đồng" />
               <ListTableColumnPublished :published="item.published" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
                                        :item-id="item.id" @show-modal="showModal"/>
@@ -166,6 +166,9 @@ function getCategory() {
 
 getCategory()
 
+function formatPrice(price) {
+  return price.toLocaleString("vi-VN")
+}
 
 function useClickRedirectCreate() {
   router.push({ name: 'create-product' })

@@ -1,7 +1,7 @@
 <template>
   <select v-model="store_id" class="form-select mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4">
     <option disabled value="">Hãy chọn dưới đây</option>
-    <option v-for="option in props.stores" :value="option.id" :key="option.id">{{ option.name }}</option>
+    <option v-for="option in props.stores" :value="option.id" :key="option.id">{{ option.store_name }}</option>
   </select>
 </template>
 

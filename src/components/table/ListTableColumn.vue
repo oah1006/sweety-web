@@ -1,6 +1,6 @@
 <template>
   <td class="lg:px-4 py-4">
-    {{ props.text }}
+    {{ props.text }} {{ props.unit }}
   </td>
 </template>
 
@@ -10,7 +10,11 @@ const props = defineProps({
   text: {
     type: String,
     default: () => ''
-  }
+  },
+  unit: {
+    type: String,
+    default: () => ''
+  },
 })
 
 </script>

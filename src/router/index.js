@@ -45,6 +45,7 @@ import Unauthorized from "@/components/Unauthorized.vue";
 import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
 import IndexOrder from "@/views/admin/orders/index-order.vue";
 import DetailOrder from "@/views/admin/orders/detail-order.vue";
+import ButtonClickListProvince from "@/components/Button/ButtonClickListProvince.vue";
 
 
 
@@ -319,6 +320,14 @@ const router = createRouter({
       path: '/unauth',
       name: '403',
       component: Unauthorized,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/button',
+      name: 'button',
+      component: ButtonClickListProvince,
       meta: {
         requiresAuth: true
       }

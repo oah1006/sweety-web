@@ -18,8 +18,21 @@ export function useIndexStoreApi(page = null, keywords = '') {
         .get('http://127.0.0.1:8000/private/stores?', config)
 }
 
-export function useCreateStoreApi(store) {
+export function useCreateStoreApi(store_name, open_store, close_store, house_number, street, ward, district, city, long, lat) {
     const token = $cookies.get('token')
+
+    const store = {
+        store_name: store_name,
+        open_store: open_store,
+        close_store: close_store,
+        house_number: house_number,
+        street: street,
+        ward: ward,
+        district: district,
+        city: city,
+        long: long,
+        lat: lat,
+    }
 
     const config = {
         headers: {
