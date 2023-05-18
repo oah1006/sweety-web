@@ -18,7 +18,22 @@ export function useIndexCustomerApi(page = null, keywords = '') {
         .get('http://127.0.0.1:8000/private/customers?', config)
 }
 
-export function useStoreCustomerApi(formCusomter) {
+export function useStoreCustomerApi(email, password, full_name, phone_number, street_number, street, ward_code,
+                                    district_code, province_code, long, lat) {
+    const customer = {
+        email: email,
+        password: password,
+        full_name: full_name,
+        phone_number: phone_number,
+        street_number: street_number,
+        street: street,
+        ward_code: ward_code,
+        district_code: district_code,
+        province_code: province_code,
+        long: long,
+        lat: lat,
+    }
+
     const token = $cookies.get('token')
 
     const config = {
@@ -29,7 +44,7 @@ export function useStoreCustomerApi(formCusomter) {
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/customers', formCusomter, config)
+        .post('http://127.0.0.1:8000/private/customers', customer, config)
 }
 
 export function useUpdateCustomer(formCusomter, id) {

@@ -2,9 +2,9 @@
   <DetailLayout>
     <template #form-detail>
       <FormDetailLayout v-if="!isLoadingPage" @use-click-index="redirectIndex" @use-click-update="useClickRedirectUpdate"
-                        listName="Danh sách nhân viên" :item-id="product.id">
+                        listName="Danh sách sản phẩm" :item-id="product.id">
         <template #title>
-          <TitlePage title="Thông tin nhân viên" subTitle="Chào mừng bạn đến với trang thông tin nhân viên!"></TitlePage>
+          <TitlePage title="Thông tin sản phẩm" subTitle="Chào mừng bạn đến với trang thông tin sản phẩm!"></TitlePage>
         </template>
         <template #title-box-image>
           <TitleFormField name="Ảnh sản phẩm" />
@@ -56,8 +56,6 @@ const thumbnail = ref('');
 const detailProducts = ref([])
 
 const isShowDetach = ref(true)
-
-
 
 const isLoadingPage = ref(true)
 

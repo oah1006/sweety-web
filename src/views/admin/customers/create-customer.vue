@@ -11,22 +11,22 @@
         <template #box-input>
           <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputEmail v-model:modelEmail="customers.email" />
+              <InputEmail v-model:modelEmail="customer.email" />
             </template>
           </InputBox>
           <InputBox name="Mật khẩu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputPassword v-model:modelPassword="customers.password" />
+              <InputPassword v-model:modelPassword="customer.password" />
             </template>
           </InputBox>
           <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputFullName v-model:modelFullName="customers.full_name" />
+              <InputFullName v-model:modelFullName="customer.full_name" />
             </template>
           </InputBox>
           <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputPhoneNumber v-model:modelPhoneNumber="customers.phone_number" />
+              <InputPhoneNumber v-model:modelPhoneNumber="customer.phone_number" />
             </template>
           </InputBox>
         </template>
@@ -34,33 +34,48 @@
           <TitleFormField name="Địa chỉ" />
         </template>
         <template #box-input-address>
-          <BoxInputAddressLayout border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center justify-between gap-4" width="w-1/12">
+          <BoxInputAddressLayout>
             <template #address>
-              <BoxInputAddress name="Số nhà" >
+              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="customers.house_number" placeholder="Số nhà" />
+                  <SelectFilterProvince v-model:modelProvince="customer.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Đường" >
+              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="customers.street" placeholder="Đường" />
+                  <SelectFilterDistrict v-model:modelDistrict="customer.district" v-model:modelProvince="customer.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Phường" >
+              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="customers.ward" placeholder="Phường" />
+                  <SelectFilterWard v-model:modelWard="customer.ward" v-model:modelDistrict="customer.district.code" placeholder="Phường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Quận" >
+              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="customers.district" placeholder="Quận" />
+                  <InputAddress v-model:modelAddress="customer.street" placeholder="Đường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Thành phố" >
+              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <InputAddress v-model:modelAddress="customers.city" placeholder="Thành phố" />
+                  <InputAddress v-model:modelAddress="customer.street_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
+            </template>
+            <template #get-coordinates>
+              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+                <template #input-long>
+                  <InputLong placeholder="Kinh độ" :placeholder="customer.long" v-model:modelLong="customer.long" />
+                </template>
+                <template #input-lat>
+                  <InputLat placeholder="Vĩ độ" :placeholder="customer.lat" v-model:modelLat="customer.lat"/>
+                </template>
+                <template #button-coordinates>
+                  <ButtonLoadCoordinates :streetNumber="customer.house_number" :street="customer.street"
+                                         :district="customer.district.full_name" :province="customer.province.full_name"
+                                         v-model:modelPosition="customer" />
+                </template>
+              </BoxGetCoordinates>
             </template>
           </BoxInputAddressLayout>
         </template>
@@ -80,16 +95,23 @@ import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
 import InputPassword from "@/components/inputs/InputPassword.vue";
-
-import { useToastStore } from '@/stores/toast'
-import { useStoreCustomerApi } from "@/repositories/customer"
-import { useRouter } from 'vue-router'
-
-import { ref } from "vue"
-import {useProfileStore} from "@/stores/getMyProfile";
 import TitleFormField from "@/components/TitleFormField.vue";
 import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
 import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
+import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
+import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
+import SelectFilterProvince from "@/components/inputs/SelectFilterProvince.vue";
+import BoxGetCoordinates from "@/components/inputs/BoxGetCoordinates.vue";
+import InputLong from "@/components/inputs/InputLong.vue";
+import InputLat from "@/components/inputs/InputLat.vue";
+import ButtonLoadCoordinates from "@/components/Button/ButtonLoadCoordinates.vue";
+
+import { useToastStore } from '@/stores/toast'
+import { useProfileStore } from "@/stores/getMyProfile";
+import { useStoreCustomerApi } from "@/repositories/customer"
+import { useRouter } from 'vue-router'
+import { ref } from "vue"
+
 
 const router = useRouter();
 
@@ -99,20 +121,33 @@ if (profileStore.profile.profile?.role !== 'administrator') {
   router.push({ name: '403' })
 }
 
-const customers = ref({
+const customer = ref({
   email: '',
+  password: '',
   full_name: '',
   phone_number: '',
-  address: '',
-  house_number: '',
+  street_number: '',
   street: '',
-  ward: '',
-  district: '',
-  city: ''
+  ward: {
+    code: '',
+    full_name: ''
+  },
+  district: {
+    code: '',
+    full_name: ''
+  },
+  province: {
+    code: '',
+    full_name: ''
+  },
+  long: '',
+  lat: ''
 })
 
 async function submit() {
-  useStoreCustomerApi(customers.value)
+  useStoreCustomerApi(customer.value.email, customer.value.password, customer.value.full_name,
+      customer.value.phone_number, customer.value.street_number, customer.value.street, customer.value.ward.code,
+      customer.value.district.code, customer.value.province.code, customer.value.long, customer.value.lat)
     .then((response) => {
       useToastStore().success('Tạo thành công', 3000)
       router.push({ name: 'index-customer' })

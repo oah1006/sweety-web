@@ -2,17 +2,17 @@
   <DetailLayout>
     <template #form-detail>
       <FormDetailLayout v-if="!isLoadingPage" @use-click-index="useClickRedirectIndex" @use-click-update="useClickRedirectUpdate"
-                        listName="Danh sách khách hàng" :item-id="customers.id">
+                        listName="Danh sách khách hàng" :item-id="customer.id">
         <template #title>
           <TitlePage title="Thông tin khách hàng" subTitle="Chào mừng bạn đến với trang thông tin khách hàng!"></TitlePage>
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   color="text-orange-500" nameLabel="Mã khách hàng" :item="customers.code"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Email" :item="customers.user?.email"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Họ và tên" :item="customers.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   color="text-orange-500" nameLabel="Mã khách hàng" :item="customer.code"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Email" :item="customer.user?.email"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Họ và tên" :item="customer.full_name"/>
         </template>
         <template #list-address>
-          <TableListAddress :lengthListAddress="customers.address.length">
+          <TableListAddress :lengthListAddress="customer.address.length">
             <template #list-table-row-head>
               <ListTableRow>
                 <template #table-column>
@@ -27,15 +27,15 @@
               </ListTableRow>
             </template>
             <template #list-table-row-body>
-              <ListTableRow v-for="item in customers.address" :key="item.id">
+              <ListTableRow v-for="item in customer.address" :key="item.id">
                 <template #table-column>
                   <ListTableColumn :text="item.name" />
                   <ListTableColumn :text="item.phone_number" />
-                  <ListTableColumn :text="item.house_number" />
+                  <ListTableColumn :text="item.street_number" />
                   <ListTableColumn :text="item.street" />
-                  <ListTableColumn :text="item.ward" />
-                  <ListTableColumn :text="item.district" />
-                  <ListTableColumn :text="item.city" />
+                  <ListTableColumn :text="item.ward.full_name" />
+                  <ListTableColumn :text="item.district.full_name" />
+                  <ListTableColumn :text="item.province.full_name" />
                 </template>
               </ListTableRow>
             </template>
@@ -69,17 +69,14 @@ const id = route.params.id
 const isLoadingPage = ref(true)
 
 
-const customers = ref({
-  email: '',
-  full_name: '',
-  phone_number: '',
-  address: '',
-})
+const customer = ref()
 
 function getInformationCustomer() {
   useGetCustomerInformation()
       .then((response) => {
-        customers.value = response.data.data
+        console.log(response.data.data)
+
+        customer.value = response.data.data
         isLoadingPage.value = false
       })
 }

@@ -8,7 +8,7 @@
 import {computed} from "vue";
 
 const props = defineProps({
-  modelLong: String,
+  modelLong: Number,
   placeholder: String,
 })
 

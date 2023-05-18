@@ -178,7 +178,9 @@ async function submit() {
 function getCategory() {
   useIndexCategoryApi()
       .then((response) => {
+        console.log(response.data.data)
         category.value = response.data.data.data
+        console.log(category.value)
       })
 }
 
@@ -190,6 +192,8 @@ function onImageChangeThumbnail(e) {
   thumbnail.value = e.target.files[0]
 
   url.value = URL.createObjectURL(thumbnail.value)
+
+  console.log(thumbnail.value)
 
   store('product', product.value.id, thumbnail.value, 'thumbnails')
       .then((response) => {

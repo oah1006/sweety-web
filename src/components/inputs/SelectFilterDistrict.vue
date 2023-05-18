@@ -13,7 +13,7 @@ import {computed, ref, watch} from "vue";
 
 const props = defineProps({
   modelDistrict: Object,
-  modelCity: String
+  modelProvince: String
 })
 
 const emits = defineEmits(['update:modelDistrict', 'update:modelCity'])
@@ -25,9 +25,9 @@ const district = computed({
 })
 
 const provinceCode = computed({
-  get: () => props.modelCity,
+  get: () => props.modelProvince,
 
-  set: (value) => emits('update:modelCity', value)
+  set: (value) => emits('update:modelProvince', value)
 })
 
 const districts = ref('')
@@ -41,7 +41,7 @@ function filterData() {
 
 watch(provinceCode, () => {
   filterData()
-})
+}, { immediate: true })
 
 watch(district, () => {
   const districtFind = districts.value.find((item) =>

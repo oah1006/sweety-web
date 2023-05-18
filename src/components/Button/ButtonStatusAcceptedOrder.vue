@@ -12,6 +12,7 @@
 import {useUpdateStatusAcceptedOrderApi} from "@/repositories/order";
 import {useRouter} from "vue-router";
 import {useToastStore} from "@/stores/toast";
+import { database, refFireBase, setFireBase } from "@/stores/firebase";
 
 const router = useRouter();
 
@@ -24,8 +25,13 @@ function changeStatusAcceptedOrder() {
       .then((response) => {
         useToastStore().success('Cập nhật trạng thái thành công', 3000)
         router.push({ name: 'index-order' })
+
+        setFireBase(refFireBase(database, 'order_checking/' + props.id), {
+          accepted: response.data.data
+        });
       })
       .catch((error) => {
+        console.log(error.response)
         useToastStore().error('Bạn không có quyền cập nhật trạng thái', 3000)
         router.push({ name: 'index-order' })
       })

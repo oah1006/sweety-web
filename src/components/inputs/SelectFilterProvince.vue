@@ -12,15 +12,15 @@ import {useIndexProvinceApi} from "@/repositories/province";
 import {computed, ref, watch} from "vue";
 
 const props = defineProps({
-  modelProvice: Object,
+  modelProvince: Object,
 })
 
-const emits = defineEmits(['update:modelProvice'])
+const emits = defineEmits(['update:modelProvince'])
 
 const province = computed({
-  get: () => props.modelProvice,
+  get: () => props.modelProvince,
 
-  set: (value) => emits('update:modelProvice', value)
+  set: (value) => emits('update:modelProvince', value)
 })
 
 const provinces = ref('')

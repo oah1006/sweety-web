@@ -5,7 +5,7 @@
       <router-link
           class="underline text-cyan-500"
           :to="{
-        name: 'detail-stores',
+        name: props.location,
         params: {
           id: props.id
         }
@@ -26,6 +26,10 @@ const props = defineProps({
   padding: String,
   border: String,
   id: String,
+  location: {
+    type: String,
+    default: () => ''
+  }
 })
 
 </script>

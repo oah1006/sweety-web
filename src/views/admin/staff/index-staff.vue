@@ -44,7 +44,7 @@
               <ListTableColumn class="text-orange-500" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
-              <ListTableColumnStore :nameStore="item.store?.store_name" :idStore="item.store?.id"/>
+              <ListTableColumnLink :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
               <ListTableColumnBadge :role="item.role" />
               <ListTableColumnBoolean :isActive="item.is_active" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
@@ -88,6 +88,7 @@ import { useToastStore } from "@/stores/toast";
 import InputSearch from "@/components/inputs/InputSearch.vue";
 import SelectFilterRole from "@/components/inputs/SelectFilterRole.vue";
 import SelectFilterStatus from "@/components/inputs/SelectFilterStatus.vue";
+import ListTableColumnLink from "@/components/table/ListTableColumnLink.vue";
 
 const router = useRouter()
 
@@ -229,8 +230,5 @@ function filterData() {
   }, 400)
 }
 
-function resetFilter() {
-
-}
 
 </script>

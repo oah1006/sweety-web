@@ -9,7 +9,7 @@
           <ButtonStatusPreparingOrder :id="id" v-else-if="order.status === 'accepted'" />
           <ButtonStatusPreparedOrder :id="id" v-else-if="order.status === 'preparing'" />
           <ButtonStatusDeliveringOrder :id="id" v-else-if="order.status === 'prepared'" />
-          <div class="flex gap-4 items-center" v-else="order.status === 'delivering'" >
+          <div class="flex gap-4 items-center" v-else-if="order.status === 'delivering'" >
             <ButtonStatusSucceedOrder :id="id" />
             <ButtonStatusFailedOrder :id="id" />
           </div>
@@ -30,8 +30,8 @@
               <ListTableRow color="text-zinc-600" border="border-b" fontSize="text-sm" v-for="item in order.items" :key="item.id">
                 <template #table-column>
                   <ListTableColumnProductImage :id="item.product.id" :text="item.product?.name" :attachment="item.product.attachment" />
-                  <ListTableColumn :text="item.quantity" />
-                  <ListTableColumn :text="item.product?.price" />
+                  <ListTableColumn :text="item.quantity"/>
+                  <ListTableColumn :text="formatPrice(item.product?.price)" unit="đồng"/>
                   <ListTableColumnTotalProduct :price="item.product?.price" :quantity="item.quantity" />
                 </template>
               </ListTableRow>
@@ -40,21 +40,21 @@
         </template>
         <template #order-summary>
           <BoxOrderSummary :createdAt="order.created_at" :status="order.status" :code="order.code"
-                           :subTotal="order.sub_total" :idSaleStaff="order.sale_staff?.id"
-                           :idDeliveryStaff="order.delivery_staff?.id" :total="order.total" :items="items"
-                           :nameDeliveryStaff="order.delivery_staff?.full_name" :isPercentValue="order.coupon.is_percent_value"
+                           :subTotal="order.sub_total"
+                           :idSaleStaff="order.sale_staff?.id" :total="order.total" :items="items"
+                           :nameSaleStaff="order.sale_staff?.full_name" :isPercentValue="order.coupon.is_percent_value"
+                           :nameDeliveryStaff="order.delivery_staff?.full_name" :idDeliveryStaff="order.delivery_staff?.id"
           >
-
           </BoxOrderSummary>
         </template>
         <template #address>
           <BoxTitle text="Thông tin khách hàng" />
           <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Tên khách hàng" :item="order.address.name"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Số nhà" :item="order.address?.house_number"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Số nhà" :item="order.address?.street_number"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Đường" :item="order.address?.street"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Phường" :item="order.address?.ward"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Quận" :item="order.address?.district"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Thành phố" :item="order.address?.city"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Phường" :item="order.address?.ward.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Quận" :item="order.address?.district.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Thành phố" :item="order.address?.province.full_name"/>
           <BoxItem padding="px-4 py-4" width="w-1/2" nameLabel="Số điện thoại" :item="order.address?.phone_number"/>
         </template>
       </FromDetailOrderLayout>
@@ -106,6 +106,7 @@ const items = ref()
 function getInformationOrder() {
   useGetOrderInformationApi()
       .then((response) => {
+        console.log(response.data.data)
         order.value = response.data.data
         isLoadingPage.value = false
 
@@ -117,6 +118,10 @@ function useClickRedirectIndex() {
   router.push({
     name: 'index-order',
   })
+}
+
+function formatPrice(price) {
+  return price.toLocaleString("vi-VN")
 }
 
 

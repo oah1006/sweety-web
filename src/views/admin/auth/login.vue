@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:flex lg:flex-col lg:items-center lg:justify-center w-full h-full lg:min-h-screen lg:bg-slate-200">
+    <div class="lg:flex lg:flex-col lg:items-center lg:justify-center w-full h-full lg:min-h-screen lg:bg-zinc-100">
         <div class="lg:flex rounded-lg overflow-hidden">
             <div class="lg:rounded-lg lg:block hidden">
                 <img src="../../../images/milktea.jpg" alt="" class="h-[620px] w-96 object-cover">
@@ -46,6 +46,8 @@ const employee = ref({
   email: '',
   password: ''
 })
+
+
 
 const errors = ref({});
 

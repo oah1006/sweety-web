@@ -33,12 +33,12 @@
             <template #address>
               <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <SelectFilterCity v-model:modelCity="store.city" placeholder="Thành phố" />
+                  <SelectFilterProvince v-model:modelProvince="store.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelCity="store.city.code" placeholder="Quận" />
+                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelProvince="store.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -67,9 +67,8 @@
                 </template>
                 <template #button-coordinates>
                   <ButtonLoadCoordinates :streetNumber="store.house_number" :street="store.street"
-                                         :district="store.district.full_name" :province="store.city.full_name"
+                                         :district="store.district.full_name" :province="store.province.full_name"
                                          v-model:modelPosition="store" />
-
                 </template>
               </BoxGetCoordinates>
             </template>
@@ -93,12 +92,6 @@ import LoadingPage from "@/components/loadings/LoadingPage.vue";
 import InputName from "@/components/inputs/InputName.vue";
 import InputOpenStore from "@/components/inputs/InputOpenStore.vue";
 import InputCloseStore from "@/components/inputs/InputCloseStore.vue";
-
-import {computed, ref} from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useToastStore } from "@/stores/toast";
-import { useGetStoreInformationApi, useUpdateStoreApi } from "@/repositories/store";
-import {useProfileStore} from "@/stores/getMyProfile";
 import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
 import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
 import BoxGetCoordinates from "@/components/inputs/BoxGetCoordinates.vue";
@@ -107,7 +100,13 @@ import InputLat from "@/components/inputs/InputLat.vue";
 import ButtonLoadCoordinates from "@/components/Button/ButtonLoadCoordinates.vue";
 import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
 import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
-import SelectFilterCity from "@/components/inputs/SelectFilterProvince.vue";
+import SelectFilterProvince from "@/components/inputs/SelectFilterProvince.vue";
+
+import {ref} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useToastStore } from "@/stores/toast";
+import { useGetStoreInformationApi, useUpdateStoreApi } from "@/repositories/store";
+import {useProfileStore} from "@/stores/getMyProfile";
 
 
 const router = useRouter();
@@ -133,7 +132,7 @@ const store = ref({
     code: '',
     full_name: ''
   },
-  city: {
+  province: {
     code: '',
     full_name: ''
   },
@@ -146,7 +145,9 @@ const id = route.params.id
 const isLoadingPage = ref(true)
 
 async function submit() {
-  useUpdateStoreApi(store.value, id)
+  useUpdateStoreApi(store.value.store_name, store.value.open_store, store.value.close_store, store.value.street_number,
+      store.value.street, store.value.ward.code, store.value.district.code, store.value.province.code,
+      store.value.long, store.value.lat, id)
       .then((response) => {
         useToastStore().success('Cập nhật thành công', 3000)
         router.push({ name: 'index-stores' })
@@ -158,16 +159,20 @@ async function submit() {
 function getInformationStore() {
   useGetStoreInformationApi()
       .then((response) => {
-        console.log(response.data.data.address)
         store.value.store_name = response.data.data.store_name
-        store.value.house_number = response.data.data.address.house_number
+        store.value.house_number = response.data.data.address.street_number
         store.value.street = response.data.data.address.street
-        store.value.ward.full_name = response.data.data.address.ward
-        store.value.district.full_name = response.data.data.address.district
-        store.value.city.full_name = response.data.data.address.city
+
+        store.value.ward.full_name = response.data.data.address.ward.full_name
+        store.value.ward.code = response.data.data.address.ward.code
+
+        store.value.district.full_name = response.data.data.address.district.full_name
+        store.value.district.code = response.data.data.address.district.code
+
+        store.value.province.full_name = response.data.data.address.province.full_name
+        store.value.province.code = response.data.data.address.province.code
         store.value.long = response.data.data.address.long
         store.value.lat = response.data.data.address.lat
-
 
         const openStore = format(response.data.data.open_store)
         const closeStore = format(response.data.data.close_store)

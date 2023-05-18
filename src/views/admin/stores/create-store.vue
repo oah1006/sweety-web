@@ -33,12 +33,12 @@
             <template #address>
               <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <SelectFilterProvice v-model:modelProvice="store.province" placeholder="Thành phố" />
+                  <SelectFilterProvince v-model:modelProvince="store.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
                 <template #input>
-                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelCity="store.province.code" placeholder="Quận" />
+                  <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelProvince="store.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
@@ -93,7 +93,7 @@ import InputAddress from "@/components/inputs/InputAddress.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
 import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
-import SelectFilterProvice from "@/components/inputs/SelectFilterProvince.vue";
+import SelectFilterProvince from "@/components/inputs/SelectFilterProvince.vue";
 import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
 import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
 import BoxGetCoordinates from "@/components/inputs/BoxGetCoordinates.vue";

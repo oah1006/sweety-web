@@ -4,15 +4,17 @@
       <FormDetailLayout v-if="!isLoadingPage" listName="Danh sách cửa hàng" @use-click-index="useClickRedirectIndex" @use-click-update="useClickRedirectUpdate"
                         :item-id="store.id">
         <template #title>
-          <TitlePage title="Thông tin khách hàng" subTitle="Chào mừng bạn đến với trang thông tin khách hàng!"></TitlePage>
+          <TitlePage title="Thông tin cửa hàng" subTitle="Chào mừng bạn đến với trang thông tin cửa hàng!"></TitlePage>
         </template>
         <template #box-item>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" color="text-orange-500" nameLabel="Tên cửa hàng" :item="store.store_name"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Số nhà" :item="store.address.street_number"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Đường" :item="store.address.street"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Phường" :item="store.address.ward"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Quận" :item="store.address.district"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Thành phố" :item="store.address.city"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Phường" :item="store.address.ward.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Quận" :item="store.address.district.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Thành phố" :item="store.address.province.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Kinh độ" :item="store.address.long"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Vĩ độ" :item="store.address.lat"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Giờ mở cửa" :item="store.open_store"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Giờ đóng cửa" :item="store.close_store"/>
         </template>

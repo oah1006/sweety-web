@@ -35,11 +35,11 @@
           <ListTableRow v-for="item in orders" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.code" />
-              <ListTableColumnLink :id="item.sale_staff?.id" :text="item.sale_staff?.full_name" />
-              <ListTableColumnLink :id="item.delivery_staff?.id" :text="item.delivery_staff?.full_name" />
+              <ListTableColumnLink :id="item.sale_staff?.id" :text="item.sale_staff?.full_name" location="detail-staff" />
+              <ListTableColumnLink :id="item.delivery_staff?.id" :text="item.delivery_staff?.full_name" location="detail-staff" />
               <ListTableColumn :text="item.address.name" />
-              <ListTableColumn :text="item.sub_total" />
-              <ListTableColumn :text="item.total" />
+              <ListTableColumn :text="formatPrice(item.sub_total)" unit="đồng" />
+              <ListTableColumn :text="formatPrice(item.total)" unit="đồng" />
               <ListTableColumnStatusOrder :status="item.status" />
               <ListTableColumnFunctionOrder @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail"
                                        :item-id="item.id" />
@@ -69,12 +69,8 @@ import ListTableColumnFunctionOrder from "@/components/table/ListTableColumnFunc
 
 import {onBeforeMount, ref} from "vue";
 import {useRouter} from "vue-router";
-
-import { useIndexProductApi } from "@/repositories/product";
 import {useIndexOrderApi} from "@/repositories/order";
-
-
-
+import { database, refFireBase, setFireBase, onValueFireBase} from "@/stores/firebase";
 
 const router = useRouter()
 
@@ -109,38 +105,28 @@ const selectOptionStatus = ref([
 const debounce = ref(0)
 
 function getData() {
-  setTimeout(() => {
-    useIndexOrderApi(page.value)
-        .then((response) => {
-          pagination.value.lastPage = response.data.data.last_page
-          pagination.value.total = response.data.data.total
+  useIndexOrderApi(page.value)
+      .then((response) => {
 
-          orders.value = response.data.data.data
+        pagination.value.lastPage = response.data.data.last_page
+        pagination.value.total = response.data.data.total
 
-          isLoadingPage.value = false
-          isLoadingListTable.value = false
-        })
-  }, 0)
+        orders.value = response.data.data.data
+
+        isLoadingPage.value = false
+        isLoadingListTable.value = false
+
+      })
 }
 
 onBeforeMount(() => {
   getData()
 })
 
-function filterData() {
-  clearTimeout(debounce.value)
-
-  debounce.value = setTimeout(() => {
-    isLoadingListTable.value = true
-
-    useIndexProductApi(page.value, search.value)
-        .then((response) => {
-          products.value = response.data.data.data
-
-          isLoadingListTable.value = false
-        })
-  }, 400)
-}
+const statusRef = refFireBase(database, 'order_checking/');
+onValueFireBase(statusRef, (snapshot) => {
+  getData()
+});
 
 function useClickRedirectDetail(id) {
   router.push({
@@ -151,6 +137,9 @@ function useClickRedirectDetail(id) {
   })
 }
 
+function formatPrice(price) {
+  return price.toLocaleString("vi-VN")
+}
 
 
 </script>

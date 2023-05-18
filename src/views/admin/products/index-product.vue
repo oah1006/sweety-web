@@ -42,7 +42,7 @@
           <ListTableRow v-for="item in products" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.name" />
-              <ListTableColumn :text="item.category?.name" />
+              <ListTableColumnLink :text="item.category?.name" :id="item.category?.id" location="detail-category" />
               <ListTableColumn :text="item.stock"/>
               <ListTableColumn :text="formatPrice(item.price)" unit="đồng" />
               <ListTableColumnPublished :published="item.published" />
@@ -73,18 +73,18 @@ import FilterLayout from "@/components/layouts/FilterLayout.vue";
 import InputSearch from "@/components/inputs/InputSearch.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
-
-
-import {onBeforeMount, ref} from "vue";
-import {useRouter} from "vue-router";
-import {useToastStore} from "@/stores/toast";
-import {useDeleteProductApi, useIndexProductApi} from "@/repositories/product";
-import ListTableColumnPublished from "@/components/table/ListTableColumnPublished.vue";
-import {useIndexStaff} from "@/repositories/staff";
-import {useIndexCategoryApi} from "@/repositories/category";
-import SelectCategory from "@/components/inputs/SelectFilterCategory.vue";
 import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue";
 import SelectFilterCategory from "@/components/inputs/SelectFilterCategory.vue";
+import ListTableColumnLink from "@/components/table/ListTableColumnLink.vue";
+import ListTableColumnPublished from "@/components/table/ListTableColumnPublished.vue";
+
+import { onBeforeMount, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useToastStore } from "@/stores/toast";
+import { useDeleteProductApi, useIndexProductApi } from "@/repositories/product";
+
+import { useIndexCategoryApi } from "@/repositories/category";
+
 
 const isModal = ref(false)
 const idProduct = ref(null)

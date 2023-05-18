@@ -41,7 +41,7 @@ function filterData() {
 
 watch(districtCode, () => {
   filterData()
-})
+}, { immediate: true })
 
 watch(ward, () => {
   const wardFind = wards.value.find((item) =>

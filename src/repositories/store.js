@@ -59,7 +59,7 @@ export function useDeleteStoreApi(id) {
         .delete('http://127.0.0.1:8000/private/stores/' + id, config)
 }
 
-export function useUpdateStoreApi(store, id) {
+export function useUpdateStoreApi(store_name, open_store, close_store, street_number, street, ward_code, district_code, province_code, long, lat, id) {
     const token = $cookies.get('token')
 
     const config = {
@@ -67,6 +67,19 @@ export function useUpdateStoreApi(store, id) {
             Authorization: `Bearer ${token}`,
             Accept: 'application/json',
         },
+    }
+
+    const store = {
+        store_name: store_name,
+        open_store: open_store,
+        close_store: close_store,
+        street_number: street_number,
+        street: street,
+        ward_code: ward_code,
+        district_code: district_code,
+        province_code: province_code,
+        long: long,
+        lat: lat,
     }
 
     return axios

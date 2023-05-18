@@ -12,17 +12,36 @@
         <p>Ngày tạo</p>
         <p>{{ props.createdAt }}</p>
       </div>
-      <div class="flex justify-between mt-2">
+      <div v-if="props.idSaleStaff" class="flex justify-between mt-2">
         <p>Nhân viên tạo đơn</p>
-        <p class="underline text-cyan-500">{{ props.nameDeliveryStaff }}</p>
+        <router-link :to="{
+          name: 'detail-staff',
+          params: {
+            id: props.idSaleStaff
+          }
+        }"
+         class="underline text-cyan-500">{{ props.nameSaleStaff }}</router-link>
       </div>
-      <div class="flex justify-between mt-2">
+      <div v-else class="flex justify-between mt-2">
+        <p>Nhân viên tạo đơn</p>
+        <p>{{ props.nameSaleStaff }}</p>
+      </div>
+      <div v-if="props.idDeliveryStaff" class="flex justify-between mt-2">
         <p>Nhân viên vận chuyển</p>
-        <p class="underline text-cyan-500">{{ props.nameDeliveryStaff }}</p>
+        <router-link :to="{
+          name: 'detail-staff',
+          params: {
+            id: props.idDeliveryStaff
+          }
+        }" class="underline text-cyan-500">{{ props.nameDeliveryStaff }}</router-link>
+      </div>
+      <div v-else class="flex justify-between mt-2">
+        <p>Nhân viên vận chuyển</p>
+        <p>{{ props.nameDeliveryStaff }}</p>
       </div>
       <div class="flex justify-between mt-2">
         <p>Tạm tính</p>
-        <p>{{ props.subTotal }} đồng</p>
+        <p>{{ formatPrice(props.subTotal) }} đồng</p>
       </div>
       <div class="flex justify-between mt-2">
         <p>Phí vận chuyển</p>
@@ -35,7 +54,7 @@
     </div>
     <div class="border-t flex items-center justify-between mb-6 mt-4">
       <p class="font-bold">Tổng</p>
-      <p>{{ props.total }} đồng</p>
+      <p>{{ formatPrice(props.total) }} đồng</p>
     </div>
   </div>
 </template>
@@ -51,6 +70,10 @@ const props = defineProps({
   subTotal: String,
   status: String,
   createdAt: String,
+  nameSaleStaff: {
+    type: String,
+    default: () => null
+  },
   nameDeliveryStaff: {
     type: String,
     default: () => null
@@ -66,6 +89,8 @@ const props = defineProps({
   isPercentValue: String,
 })
 
-
+function formatPrice(price) {
+  return price.toLocaleString("vi-VN")
+}
 
 </script>
