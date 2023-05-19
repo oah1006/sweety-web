@@ -153,7 +153,6 @@ async function submit() {
         router.push({ name: 'index-stores' })
       })
       .catch((error) => {
-        console.log(error)
       })
 }
 function getInformationStore() {

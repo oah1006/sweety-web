@@ -11,8 +11,6 @@ const props = defineProps({
   quantity: Number
 })
 
-console.log(props.price)
-
 function formatPrice(price) {
   return price.toLocaleString("vi-VN")
 }

@@ -31,7 +31,6 @@ function changeStatusAcceptedOrder() {
         });
       })
       .catch((error) => {
-        console.log(error.response)
         useToastStore().error('Bạn không có quyền cập nhật trạng thái', 3000)
         router.push({ name: 'index-order' })
       })

@@ -31,7 +31,6 @@ const position = computed({
 function getCoordinates() {
   useIndexGetCoodinatesApi(props.streetNumber, props.street, props.district, props.province)
       .then((response) => {
-        console.log(response.data.results[0].position)
         position.value.lat = response.data.results[0].position.lat
         position.value.long = response.data.results[0].position.lon
       })

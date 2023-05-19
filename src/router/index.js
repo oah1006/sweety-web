@@ -38,13 +38,20 @@ import DetailProduct from "@/views/admin/products/detail-product.vue";
 import IndexCoupon from "@/views/admin/coupons/index-coupon.vue";
 import CreateCoupon from "@/views/admin/coupons/create-coupon.vue";
 import UpdateCoupon from "@/views/admin/coupons/update-coupon.vue";
+import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
 
+import IndexTopping from "@/views/admin/Toppings/index-topping.vue";
+import CreateTopping from "@/views/admin/Toppings/create_topping.vue"
+import UpdateTopping from "@/views/admin/Toppings/update-topping.vue";
+import DetailTopping from "@/views/admin/Toppings/detail-topping.vue"
+
+import IndexOrder from "@/views/admin/orders/index-order.vue";
+import DetailOrder from "@/views/admin/orders/detail-order.vue";
 
 import { useProfileStore } from "@/stores/getMyProfile";
 import Unauthorized from "@/components/Unauthorized.vue";
-import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
-import IndexOrder from "@/views/admin/orders/index-order.vue";
-import DetailOrder from "@/views/admin/orders/detail-order.vue";
+
+
 import ButtonClickListProvince from "@/components/Button/ButtonClickListProvince.vue";
 
 
@@ -232,6 +239,38 @@ const router = createRouter({
       path: '/detail-category/:id',
       name: 'detail-category',
       component: DetailCategory,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/toppings',
+      name: 'index-topping',
+      component: IndexTopping,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create-topping',
+      name: 'create-topping',
+      component: CreateTopping,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/update-topping/:id',
+      name: 'update-topping',
+      component: UpdateTopping,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/detail-topping/:id',
+      name: 'detail-topping',
+      component: DetailTopping,
       meta: {
         requiresAuth: true
       }

@@ -20,8 +20,4 @@ const address = computed({
   set: (value) => emits('update:modelAddress', value)
 })
 
-watch(address, () => {
-  console.log(address.value)
-})
-
 </script>
