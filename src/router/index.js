@@ -53,6 +53,8 @@ import Unauthorized from "@/components/Unauthorized.vue";
 
 
 import ButtonClickListProvince from "@/components/Button/ButtonClickListProvince.vue";
+import SelectTopping from "@/components/inputs/InputCheckboxTopping.vue"
+import BoxItemTopping from "@/components/details/BoxItemTopping.vue";
 
 
 
@@ -371,6 +373,22 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: '/select-topping',
+      name: 'SelectTopping',
+      component: SelectTopping,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/box-item-topping',
+      name: 'BoxItemTopping',
+      component: BoxItemTopping,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ],
   linkActiveClass: 'vue-active-link'
 })

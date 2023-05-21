@@ -54,6 +54,15 @@
               </SelectPublished>
             </template>
           </InputBox>
+          <InputBox name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <div class="grid grid-cols-2 items-center gap-5">
+                <div v-for="topping in toppings" :key="topping.id">
+                  <InputCheckboxTopping :idTopping="topping.id" v-model:modalTopping="checkNames" :name="topping.name" :price="topping.price"></InputCheckboxTopping>
+                </div>
+              </div>
+            </template>
+          </InputBox>
         </template>
       </FormCreateLayout>
     </template>
@@ -82,9 +91,9 @@ import { useIndexCategoryApi } from "@/repositories/category";
 import {useStoreProductApi} from "@/repositories/product";
 import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
 import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
-import IconDetachImage from "@/components/IconDetachImage.vue";
-import {detach} from "@/repositories/attachment";
 import {useProfileStore} from "@/stores/getMyProfile";
+import InputCheckboxTopping from "@/components/inputs/InputCheckboxTopping.vue";
+import {useIndexToppingApi} from "@/repositories/topping";
 
 const router = useRouter();
 
@@ -110,6 +119,9 @@ const formProduct = ref({
 });
 
 const category = ref({})
+const toppings = ref({})
+
+const checkNames = ref([])
 
 const selectOptionPublished = ref([
   {
@@ -147,7 +159,7 @@ function clickDeleteItemImage(id, attachment_id = null) {
 
 async function submit() {
   await useStoreProductApi(thumbnail.value, detailProducts.value, formProduct.value.name, formProduct.value.description, formProduct.value.stock,
-      formProduct.value.price, formProduct.value.category_id, formProduct.value.published)
+      formProduct.value.price, formProduct.value.category_id, formProduct.value.published, checkNames.value)
       .then((response) => {
         useToastStore().success('Tạo sản phẩm thành công', 3000)
         router.push({ name: 'index-product' })
@@ -160,6 +172,15 @@ function getCategory() {
         category.value = response.data.data.data
       })
 }
+
+function getToppings() {
+  useIndexToppingApi()
+      .then((response) => {
+        toppings.value = response.data.data.data
+      })
+}
+
+getToppings()
 
 getCategory()
 

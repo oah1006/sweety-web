@@ -21,7 +21,15 @@
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Số lượng" :item="product.stock"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Giá tiền" :item="product.price"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Loại sản phẩm" :item="product.category?.name" />
-          <BoxItemPublished class="" nameLabel="Xuất bản" :item="product.published" />
+          <BoxItemPublished class="border-b border-solid border-gray-100" nameLabel="Xuất bản" :item="product.published" />
+          <div class="flex items-center px-10 pt-3 pb-4">
+            <p class="w-1/6">Các loại topping</p>
+            <div class="grid grid-cols-2 gap-4" >
+              <div v-for="productTopping in product.product_toppings">
+                <BoxItemTopping :name="productTopping.topping?.name" :price="productTopping.topping?.price"></BoxItemTopping>
+              </div>
+            </div>
+          </div>
         </template>
       </FormDetailLayout>
       <LoadingPage v-else />
@@ -44,6 +52,7 @@ import { useRouter } from 'vue-router'
 import {useGetProductInformation} from "@/repositories/product";
 import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
+import BoxItemTopping from "@/components/details/BoxItemTopping.vue";
 
 
 const router = useRouter();

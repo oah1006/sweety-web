@@ -54,6 +54,49 @@
               </SelectPublished>
             </template>
           </InputBox>
+          <InputBox name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+            <template #input>
+              <div class="grid grid-cols-2 items-center gap-5">
+                <div v-for="topping in toppings" :key="topping.id">
+                  <InputCheckboxTopping :idTopping="topping.id" v-model:modalTopping="checkNames" :name="topping.name" :price="topping.price"></InputCheckboxTopping>
+                </div>
+              </div>
+            </template>
+          </InputBox>
+        </template>
+        <template #title-variant>
+          <TitleFormField name="Tạo biến thể của sản phâm" />
+        </template>
+        <template #list-table-row-head>
+          <ListTableRow>
+            <template #table-column>
+              <ListTableColumn text="TÊN SIZE" />
+              <ListTableColumn text="TỔNG TIỀN"/>
+              <ListTableColumn />
+            </template>
+          </ListTableRow>
+        </template>
+        <template #list-table-row-body>
+          <ListTableRow>
+            <template #table-column>
+              <td class="lg:px-4 py-4">
+                <InputSize placeholder="Tên size"></InputSize>
+              </td>
+              <td class="lg:px-4 py-4">
+                <InputPrice></InputPrice>
+              </td>
+              <td class="lg:px-4 py-4">
+                <div class="flex items-center">
+                  <button class="ml-auto flex items-center gap-2 py-2 px-4 hover:bg-zinc-400 bg-zinc-300 rounded-lg border border-zinc-300 font-medium text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Thêm mới
+                  </button>
+                </div>
+              </td>
+            </template>
+          </ListTableRow>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -76,20 +119,22 @@ import InputBox from "@/components/layouts/BoxInputLayout.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import InputFile from "@/components/inputs/InputFile.vue";
+import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
+import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
+import InputCheckboxTopping from "@/components/inputs/InputCheckboxTopping.vue";
+import InputSize from "@/components/inputs/InputSize.vue";
 
 import { detach, store } from '@/repositories/attachment'
 import { useToastStore } from "@/stores/toast";
-
 import {useRoute, useRouter} from 'vue-router'
 import { ref } from 'vue'
-
-
-
 import {useGetProductInformation, useUpdateProductApi} from "@/repositories/product";
 import {useIndexCategoryApi} from "@/repositories/category";
-import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
-import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
 import {useProfileStore} from "@/stores/getMyProfile";
+import {useIndexToppingApi} from "@/repositories/topping";
+import ListTableColumn from "@/components/table/ListTableColumn.vue";
+import ListTableRow from "@/components/table/ListTableRow.vue";
+
 
 const router = useRouter()
 
@@ -118,7 +163,13 @@ const product = ref({
   price: '',
   category_id: '',
   published: '',
+  productTopping: [],
 });
+
+const variants = ref({
+  size: '',
+  unit_price: '',
+})
 
 const isLoadingPage = ref(true)
 
@@ -135,9 +186,22 @@ const selectOptionPublished = ref([
 
 const category = ref({})
 
+const toppings  = ref({})
+const checkNames = ref([])
+
+function getToppings() {
+  useIndexToppingApi()
+      .then((response) => {
+        toppings.value = response.data.data.data
+      })
+}
+
+getToppings()
+
 function getProductInformation() {
   useGetProductInformation()
       .then((response) => {
+        product.value.productTopping = response.data.data.product_toppings
         product.value.id = response.data.data.id
         product.value.name = response.data.data.name
         product.value.description = response.data.data.description
@@ -145,6 +209,14 @@ function getProductInformation() {
         product.value.price = response.data.data.price
         product.value.category_id = response.data.data.category_id
         product.value.published = response.data.data.published
+
+        if (product.value.productTopping) {
+          for (let i = 0; i < product.value.productTopping.length; i++) {
+            checkNames.value.push(product.value.productTopping[i]?.topping_id)
+          }
+        }
+
+        console.log(checkNames.value)
 
         if (response.data.data.attachment.length > 0) {
           const attachments = response.data.data.attachment
@@ -168,7 +240,8 @@ function getProductInformation() {
       })
 }
 async function submit() {
-  useUpdateProductApi(product.value, id)
+  useUpdateProductApi(id, product.value.name, product.value.description, product.value.stock,
+      product.value.price, product.value.category_id, product.value.published, checkNames.value)
       .then((response) => {
         router.push({ name: 'index-product' })
         useToastStore().success('Cập nhật thành công', 3000)

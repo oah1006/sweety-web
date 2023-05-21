@@ -8,7 +8,7 @@
         <template #title>
           <TitlePage title="Sản phẩm" subTitle="Chào mừng bạn đến với trang các sản phẩm của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
+              <ButtonCreate textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
@@ -65,7 +65,7 @@
 import IndexLayout from "@/components/layouts/IndexLayout.vue";
 import ListTableLayout from "@/components/layouts/ListTableLayout.vue"
 import TitlePage from "@/components/TitlePage.vue";
-import Button from "@/components/Button/ButtonCreate.vue"
+import ButtonCreate from "@/components/Button/ButtonCreate.vue"
 import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
 import ModalDelete from "@/components/ModalDelete.vue"
@@ -171,6 +171,7 @@ function formatPrice(price) {
 }
 
 function useClickRedirectCreate() {
+  console.log('hi')
   router.push({ name: 'create-product' })
 }
 

@@ -4,7 +4,7 @@
       <img src="../../images/nodata.png" class="w-72 object-cover h-72"/>
       <p class="text-zinc-400 text-xl">Không có dữ liệu {{ props.namePage }} </p>
       <p class="text-zinc-400 text-md">Bạn có thể tạo nhanh {{ props.namePage }} với nút tạo dưới đây!</p>
-      <Button class="mt-4" textButton="Tạo mới" @submit="clickRedirect" />
+      <Button class="mt-4" textButton="Tạo mới" @click="clickRedirect" />
     </div>
   </div>
 </template>
@@ -19,6 +19,7 @@ const props = defineProps({
 })
 
 function clickRedirect() {
+  console.log('hello')
   emits('click-redirect-create')
 }
 

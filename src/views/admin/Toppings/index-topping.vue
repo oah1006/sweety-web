@@ -3,11 +3,11 @@
       <template #list-table>
           <ListTableLayout v-if="!isLoadingPage" :total="pagination.total" :last-page="pagination.lastPage" v-model:modelValue="page"
                            v-model:modelBoolean="isLoadingListTable" @get-data="getData" :listName="toppings"
-                           name-page="namePage">
+                           name-page="namePage" @click-redirect-create="useClickRedirectCreate">
               <template #title>
                   <TitlePage title="Topping" subTitle="Chào mừng bạn đến với trang các Topping của cửa hàng!">
                       <template #button>
-                          <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
+                          <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
                       </template>
                   </TitlePage>
               </template>
@@ -44,7 +44,7 @@
           <LoadingPage v-else />
       </template>
       <template #modal-delete>
-          <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteCustomer" :itemId="idProduct" />
+          <ModalDelete v-if="isModal" @close="isModal = false" @delete-item="useDeleteTopping" :itemId="idTopping" />
       </template>
   </IndexLayout>
 </template>
@@ -55,11 +55,9 @@ import TitlePage from "@/components/TitlePage.vue";
 import InputSearch from "@/components/inputs/InputSearch.vue";
 import FilterLayout from "@/components/layouts/FilterLayout.vue";
 import SelectFilterPublished from "@/components/inputs/SelectFilterPublished.vue";
-import SelectFilterCategory from "@/components/inputs/SelectFilterCategory.vue";
 import ListTableLayout from "@/components/layouts/ListTableLayout.vue";
 import ListTableColumnPublished from "@/components/table/ListTableColumnPublished.vue";
 import Button from "@/components/Button/ButtonCreate.vue";
-import ListTableColumnLink from "@/components/table/ListTableColumnLink.vue";
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
 import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.vue";
@@ -67,7 +65,7 @@ import ListTableColumnFunction from "@/components/table/ListTableColumnFunction.
 
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {useIndexToppingApi} from "@/repositories/topping";
+import {useDeleteToppingApi, useIndexToppingApi} from "@/repositories/topping";
 import LoadingPage from "@/components/loadings/LoadingPage.vue";
 import ModalDelete from "@/components/ModalDelete.vue";
 import {useDeleteStoreApi, useIndexStoreApi} from "@/repositories/store";
@@ -120,6 +118,15 @@ function useClickRedirectUpdate(id) {
     })
 }
 
+function useClickRedirectDetail(id) {
+  router.push({
+    name: 'detail-topping',
+    params: {
+      id: id
+    }
+  })
+}
+
 function formatPrice(price) {
     return price.toLocaleString("vi-VN")
 }
@@ -129,8 +136,8 @@ function showModal(id) {
     idTopping.value = id
 }
 
-function useDeleteCustomer(id) {
-    useDeleteStoreApi(id)
+function useDeleteTopping(id) {
+  useDeleteToppingApi(id)
         .then((response) => {
             useToastStore().success('Xóa thành công', 3000)
             getData()

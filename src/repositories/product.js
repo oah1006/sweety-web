@@ -20,7 +20,7 @@ export function useIndexProductApi(page = null,  category_id = '', published = '
         .get('http://127.0.0.1:8000/private/products?', config)
 }
 
-export function useStoreProductApi(thumbnail, detailProduct, name, description, stock, price, category_id, published) {
+export function useStoreProductApi(thumbnail, detailProduct, name, description, stock, price, category_id, published, checkNames) {
     const formData = new FormData();
 
     if (detailProduct != undefined) {
@@ -40,7 +40,9 @@ export function useStoreProductApi(thumbnail, detailProduct, name, description, 
     formData.append('category_id', category_id)
     formData.append('published', published)
 
-
+    for (let i = 0; i < checkNames.length; i++) {
+        formData.append('toppings[]', checkNames[i])
+    }
 
     const token = $cookies.get('token')
 
@@ -55,8 +57,19 @@ export function useStoreProductApi(thumbnail, detailProduct, name, description, 
         .postForm('http://127.0.0.1:8000/private/products', formData, config)
 }
 
-export function useUpdateProductApi(product, id) {
+export function useUpdateProductApi(id, name, description, stock, price, category_id, published, checkNames) {
+
     const token = $cookies.get('token')
+
+    const product = {
+        'name': name,
+        'description': description,
+        'stock': stock,
+        'price': price,
+        'category_id': category_id,
+        'published': published,
+        'toppings': checkNames
+    }
 
     const config = {
         headers: {
