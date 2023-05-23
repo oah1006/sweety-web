@@ -14,11 +14,7 @@
       <slot name="title-box-input-address"></slot>
       <slot name="box-input-address"></slot>
     </div>
-    <div class="bg-white w-full mt-5 rounded-lg shadow-md">
-      <slot name="title-variant"></slot>
-      <slot name="box-product-variant"></slot>
-    </div>
-    <div class="my-6 shadow-md rounded-md bg-white">
+    <div class="my-6 shadow-md rounded-md bg-white py-6">
       <slot name="title-variant"></slot>
       <table class="w-full bg-white rounded-lg border-t">
         <thead class="uppercase">
@@ -28,6 +24,7 @@
           <slot name="list-table-row-body"></slot>
         </tbody>
       </table>
+        <slot name="button-add-element"></slot>
     </div>
     <div class="flex my-8">
       <div class="flex items-center gap-3">

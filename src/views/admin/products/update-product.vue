@@ -77,26 +77,33 @@
           </ListTableRow>
         </template>
         <template #list-table-row-body>
-          <ListTableRow>
+          <ListTableRow v-for="variant in variants" :key="variant">
             <template #table-column>
               <td class="lg:px-4 py-4">
-                <InputSize placeholder="Tên size"></InputSize>
+                <InputSize placeholder="Tên size" v-model:modelSize="variant.size"></InputSize>
               </td>
               <td class="lg:px-4 py-4">
-                <InputPrice></InputPrice>
+                <InputPrice v-model:modelPrice="variant.unit_price"></InputPrice>
               </td>
-              <td class="lg:px-4 py-4">
-                <div class="flex items-center">
-                  <button class="ml-auto flex items-center gap-2 py-2 px-4 hover:bg-zinc-400 bg-zinc-300 rounded-lg border border-zinc-300 font-medium text-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Thêm mới
-                  </button>
-                </div>
+              <td class="px-4 py-4">
+                  <a @click="useDeleteProductVariant(variant.id)" class="flex items-center cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 mx-auto">
+                          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
+                      </svg>
+                  </a>
               </td>
             </template>
           </ListTableRow>
+        </template>
+        <template #button-add-element>
+          <div class="flex items-center">
+            <a @click="addVariantObject()" class="cursor-pointer mx-auto flex items-center gap-2 py-1 px-2 hover:bg-zinc-400 bg-zinc-300 rounded-lg border border-zinc-300 font-medium text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Thêm mới
+            </a>
+          </div>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -131,9 +138,10 @@ import { ref } from 'vue'
 import {useGetProductInformation, useUpdateProductApi} from "@/repositories/product";
 import {useIndexCategoryApi} from "@/repositories/category";
 import {useProfileStore} from "@/stores/getMyProfile";
-import {useIndexToppingApi} from "@/repositories/topping";
+import {useDeleteToppingApi, useIndexToppingApi} from "@/repositories/topping";
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
+import {useDeleteProductVariantApi} from "@/repositories/product-variant";
 
 
 const router = useRouter()
@@ -166,10 +174,29 @@ const product = ref({
   productTopping: [],
 });
 
-const variants = ref({
-  size: '',
-  unit_price: '',
-})
+const variants = ref([
+    {
+        size: null,
+        unit_price: null
+    }
+])
+
+function addVariantObject() {
+    variants.value.push({
+        size: '',
+        unit_price: ''
+    })
+
+    console.log(variants.value)
+}
+
+function useDeleteProductVariant(id) {
+    useDeleteProductVariantApi(id)
+        .then((response) => {
+            useToastStore().success('Xóa thành công', 3000)
+            getProductInformation()
+        })
+}
 
 const isLoadingPage = ref(true)
 
@@ -201,6 +228,7 @@ getToppings()
 function getProductInformation() {
   useGetProductInformation()
       .then((response) => {
+        variants.value = response.data.data.product_variants
         product.value.productTopping = response.data.data.product_toppings
         product.value.id = response.data.data.id
         product.value.name = response.data.data.name
@@ -241,7 +269,7 @@ function getProductInformation() {
 }
 async function submit() {
   useUpdateProductApi(id, product.value.name, product.value.description, product.value.stock,
-      product.value.price, product.value.category_id, product.value.published, checkNames.value)
+      product.value.price, product.value.category_id, product.value.published, checkNames.value, variants.value)
       .then((response) => {
         router.push({ name: 'index-product' })
         useToastStore().success('Cập nhật thành công', 3000)

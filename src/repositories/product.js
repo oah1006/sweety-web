@@ -57,7 +57,7 @@ export function useStoreProductApi(thumbnail, detailProduct, name, description, 
         .postForm('http://127.0.0.1:8000/private/products', formData, config)
 }
 
-export function useUpdateProductApi(id, name, description, stock, price, category_id, published, checkNames) {
+export function useUpdateProductApi(id, name, description, stock, price, category_id, published, checkNames, variants) {
 
     const token = $cookies.get('token')
 
@@ -68,7 +68,8 @@ export function useUpdateProductApi(id, name, description, stock, price, categor
         'price': price,
         'category_id': category_id,
         'published': published,
-        'toppings': checkNames
+        'toppings': checkNames,
+        'variants': variants
     }
 
     const config = {
