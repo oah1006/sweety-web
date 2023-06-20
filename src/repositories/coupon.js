@@ -15,7 +15,7 @@ export function useIndexCouponApi(page = null, keywords = '', status = '') {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/coupons?', config)
+        .get(process.env.BASE_API + '/private/coupons?', config)
 }
 
 export function useStoreCouponApi(coupon) {
@@ -29,7 +29,7 @@ export function useStoreCouponApi(coupon) {
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/coupons', coupon, config)
+        .post(process.env.BASE_API + '/private/coupons', coupon, config)
 }
 
 export function useUpdateCouponApi(coupon, id) {
@@ -43,7 +43,7 @@ export function useUpdateCouponApi(coupon, id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/coupons/' + id, coupon, config)
+        .put(process.env.BASE_API + '/private/coupons/' + id, coupon, config)
 }
 
 export function useGetCouponInformationApi() {
@@ -58,7 +58,7 @@ export function useGetCouponInformationApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/coupons/' + id, config)
+        .get(process.env.BASE_API + '/private/coupons/' + id, config)
 }
 
 export function useDeleteCouponApi(id) {
@@ -72,5 +72,5 @@ export function useDeleteCouponApi(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/coupons/' + id, config)
+        .delete(process.env.BASE_API + '/private/coupons/' + id, config)
 }

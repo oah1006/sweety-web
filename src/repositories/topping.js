@@ -14,7 +14,7 @@ export function useIndexToppingApi(page = null, keywords = '') {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/toppings?', config)
+        .get(process.env.BASE_API + '/private/toppings?', config)
 }
 
 export function useCreateToppingApi(topping) {
@@ -28,7 +28,7 @@ export function useCreateToppingApi(topping) {
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/toppings', topping, config)
+        .post(process.env.BASE_API + '/private/toppings', topping, config)
 }
 
 export function useUpdateToppingApi(topping, id) {
@@ -42,7 +42,7 @@ export function useUpdateToppingApi(topping, id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/toppings/' + id, topping, config)
+        .put(process.env.BASE_API + '/private/toppings/' + id, topping, config)
 }
 
 export function useDeleteToppingApi(id) {
@@ -56,7 +56,7 @@ export function useDeleteToppingApi(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/toppings/' + id, config)
+        .delete(process.env.BASE_API + '/private/toppings/' + id, config)
 }
 
 export function useGetInformationToppingApi() {
@@ -72,5 +72,5 @@ export function useGetInformationToppingApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/toppings/' + id, config)
+        .get(process.env.BASE_API + '/private/toppings/' + id, config)
 }

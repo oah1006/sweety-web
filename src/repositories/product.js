@@ -17,7 +17,7 @@ export function useIndexProductApi(page = null,  category_id = '', published = '
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/products?', config)
+        .get(process.env.BASE_API + '/private/products?', config)
 }
 
 export function useStoreProductApi(thumbnail, detailProduct, name, description, stock, price, category_id, published, checkNames) {
@@ -54,7 +54,7 @@ export function useStoreProductApi(thumbnail, detailProduct, name, description, 
     }
 
     return axios
-        .postForm('http://127.0.0.1:8000/private/products', formData, config)
+        .postForm(process.env.BASE_API + '/private/products', formData, config)
 }
 
 export function useUpdateProductApi(id, name, description, stock, price, category_id, published, checkNames, variants) {
@@ -80,7 +80,7 @@ export function useUpdateProductApi(id, name, description, stock, price, categor
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/products/' + id, product, config)
+        .put(process.env.BASE_API + '/private/products/' + id, product, config)
 }
 
 export function useGetProductInformation() {
@@ -96,7 +96,7 @@ export function useGetProductInformation() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/products/' + id, config)
+        .get(process.env.BASE_API + '/private/products/' + id, config)
 }
 
 export function useDeleteProductApi(id) {
@@ -110,5 +110,5 @@ export function useDeleteProductApi(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/products/' + id, config)
+        .delete(process.env.BASE_API + '/private/products/' + id, config)
 }

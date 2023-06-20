@@ -11,7 +11,7 @@ export function useIndexProvinceApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/provinces', config)
+        .get(process.env.BASE_API + '/private/provinces', config)
 }
 
 export function useIndexDistrictApi(provinceCode) {
@@ -24,7 +24,7 @@ export function useIndexDistrictApi(provinceCode) {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/districts/' + provinceCode, config)
+        .get(process.env.BASE_API + '/private/districts/' + provinceCode, config)
 }
 
 export function useIndexWardApi(districtCode) {
@@ -37,5 +37,5 @@ export function useIndexWardApi(districtCode) {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/wards/' + districtCode, config)
+        .get(process.env.BASE_API + '/private/wards/' + districtCode, config)
 }

@@ -13,5 +13,5 @@ export function useIndexGetCoodinatesApi(streetNumber, street, district, provinc
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/get-coordinates?', config)
+        .get(process.env.BASE_API + '/private/get-coordinates?', config)
 }

@@ -15,7 +15,7 @@ export function useIndexCustomerApi(page = null, keywords = '') {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/customers?', config)
+        .get(process.env.BASE_API + '/private/customers?', config)
 }
 
 export function useStoreCustomerApi(email, password, full_name, phone_number, street_number, street, ward_code,
@@ -44,7 +44,7 @@ export function useStoreCustomerApi(email, password, full_name, phone_number, st
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/customers', customer, config)
+        .post(process.env.BASE_API + '/private/customers', customer, config)
 }
 
 export function useUpdateCustomer(formCusomter, id) {
@@ -58,7 +58,7 @@ export function useUpdateCustomer(formCusomter, id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/customers/' + id, formCusomter, config)
+        .put(process.env.BASE_API + '/private/customers/' + id, formCusomter, config)
 }
 
 export function useGetCustomerInformation() {
@@ -74,7 +74,7 @@ export function useGetCustomerInformation() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/customers/' + id, config)
+        .get(process.env.BASE_API + '/private/customers/' + id, config)
 }
 
 export function useDeleteCustomerApi(id) {
@@ -88,6 +88,6 @@ export function useDeleteCustomerApi(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/customers/' + id, config)
+        .delete(process.env.BASE_API + '/private/customers/' + id, config)
 }
 
