@@ -43,18 +43,6 @@
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>
           </InputBox>
-          <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
-            <template #input>
-              <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
-              </SelectRole>
-            </template>
-          </InputBox>
-          <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
-            <template #input>
-              <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
-              </SelectStatus>
-            </template>
-          </InputBox>
         </template>
       </FormProfile>
     </template>
@@ -78,7 +66,7 @@ import InputFile from "@/components/inputs/InputFile.vue";
 
 import { useProfileStore } from "@/stores/getMyProfile"
 import { ref } from "vue";
-import { detach, store } from "@/repositories/attachment";
+import { detach, storeAttachment } from "@/repositories/attachment";
 import { useUpdateProfileApi } from "@/repositories/auth";
 import { useRouter } from "vue-router";
 import ButtonChangePassword from "@/components/Button/ButtonChangePassword.vue";
@@ -97,41 +85,16 @@ if (profileStore.profile.profile?.attachment != null) {
   url.value = profileStore.profile.profile?.attachment?.url
 }
 
+console.log(profileStore.profile)
+
 const formStaff = ref({
   id: profileStore.profile.profile?.id,
   email: profileStore.profile.email,
   full_name: profileStore.profile.profile?.full_name,
-  phone_number: profileStore.profile.phone_number,
-  address: profileStore.profile.address,
-  role: profileStore.profile.profile.role,
-  is_active: profileStore.profile.profile?.is_active
+  phone_number: profileStore.profile.profile?.phone_number,
+  address: profileStore.profile.profile?.address,
 })
 
-const selectOptionRole = ref([
-  {
-    value: "administrator",
-    label: "Quản trị viên"
-  },
-  {
-    value: "manager",
-    label: "Quản lý"
-  },
-  {
-    value: "employee",
-    label: "Nhân viên"
-  }
-])
-
-const selectOptionStatus = ref([
-  {
-    value: "1",
-    label: "Hoạt động"
-  },
-  {
-    value: "0",
-    label: "Không hoạt động"
-  }
-])
 
 
 function detachAttachment() {
@@ -145,7 +108,7 @@ function detachAttachment() {
 function onImageChange(e) {
   file.value = e.target.files[0]
 
-  store('staff', formStaff.value.id, file.value, 'avatars')
+  storeAttachment('staff', formStaff.value.id, file.value, 'avatars')
       .then((response) => {
         profileStore.getMyProfile()
         url.value = URL.createObjectURL(file.value)

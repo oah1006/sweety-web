@@ -14,7 +14,7 @@ export function detach(id) {
 }
 
 
-export function store(attachmentable, attachmentableId, file, type) {
+export function storeAttachment(attachmentable, attachmentableId, file, type) {
     const formData = new FormData()
 
     const token = $cookies.get('token')

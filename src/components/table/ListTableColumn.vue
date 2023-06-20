@@ -1,5 +1,5 @@
 <template>
-  <td class="lg:px-4 py-4">
+  <td class="lg:px-4 px-2 py-4 text-sm lg:text-md">
     {{ props.text }} {{ props.unit }}
   </td>
 </template>

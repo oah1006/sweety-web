@@ -26,6 +26,8 @@ function changeStatusAcceptedOrder() {
         useToastStore().success('Cập nhật trạng thái thành công', 3000)
         router.push({ name: 'index-order' })
 
+        console.log(props.id, response.data.data)
+
         setFireBase(refFireBase(database, 'order_checking/' + props.id), {
           accepted: response.data.data
         });

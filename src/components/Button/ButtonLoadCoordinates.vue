@@ -9,31 +9,10 @@
 
 <script setup>
 
-import {useIndexGetCoodinatesApi} from "@/repositories/get-coordinates";
-import {computed} from "vue";
-
-const props = defineProps({
-  streetNumber: String,
-  street: String,
-  district: String,
-  province: String,
-  modelPosition: Object,
-})
-
-const emits = defineEmits(['update:modelPosition'])
-
-const position = computed({
-  get: () => props.modelPosition,
-
-  set: (value) => emits('update:modelPosition', value)
-})
+const emits = defineEmits(['get-coordinates'])
 
 function getCoordinates() {
-  useIndexGetCoodinatesApi(props.streetNumber, props.street, props.district, props.province)
-      .then((response) => {
-        position.value.lat = response.data.results[0].position.lat
-        position.value.long = response.data.results[0].position.lon
-      })
+  emits('get-coordinates')
 }
 
 </script>

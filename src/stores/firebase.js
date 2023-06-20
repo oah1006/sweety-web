@@ -3,7 +3,7 @@ import { getDatabase, ref, set, onValue } from "firebase/database";
 
 
 const firebaseConfig = {
-    databaseURL: "https://sweety-89cb8-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    databaseURL: "https://sweety-43e62-default-rtdb.asia-southeast1.firebasedatabase.app/",
 };
 
 const setFireBase = set

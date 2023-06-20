@@ -1,5 +1,5 @@
 <template>
-  <td v-if="props.id != null" class="lg:px-4 py-4 underline text-cyan-500">
+  <td v-if="props.id != null" class="lg:px-4 py-4 text-cyan-500">
     <router-link :to="{
       name: props.location,
       params: {

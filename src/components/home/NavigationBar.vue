@@ -1,6 +1,6 @@
 <template>
-  <div class="lg:w-64 lg:translate-x-0 -translate-x-full duration-300 lg:ease-in-out lg:duration-300 bg-white z-20 fixed bg-white h-full flex-none py-28">
-      <div class="pb-6">
+  <div :class="[navigationBarStore.isShown == true ? '!translate-x-0' : '']" class="lg:w-64 lg:translate-x-0 -translate-x-full duration-300 lg:ease-in-out lg:duration-300 bg-white z-20 fixed bg-white h-full flex-none py-28">
+    <div class="pb-6">
           <p class="text-base font-medium text-orange-600 px-4">Hệ thống</p>
           <div>
               <router-link :to="{name: 'dashboard'}" class="flex gap-4 items-center text-zinc-600 mt-2 mx-8 px-2 py-0.5">
@@ -62,10 +62,10 @@
                   <p class="text-base">Khách hàng</p>
               </router-link>
               <router-link :to="{ name: 'index-coupon' }" class="flex gap-4 items-center mt-2 text-zinc-600 mx-8 px-2 py-0.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-                  </svg>
-                  <p class="text-base">Khuyến mãi</p>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+                </svg>
+                <p class="text-base">Khuyến mãi</p>
               </router-link>
           </div>
       </div>
@@ -74,6 +74,8 @@
 
 <script setup>
 import { useNavigationBarStore } from "@/stores/navigationBar";
+
+const navigationBarStore = useNavigationBarStore();
 
 </script>
 

@@ -8,7 +8,7 @@
         <template #title>
           <TitlePage title="Loại sản phẩm" subTitle="Chào mừng bạn đến với trang các loại sản phẩm của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
@@ -32,7 +32,7 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in categories" :key="item.id">
             <template #table-column>
-              <ListTableColumn :text="item.name" />
+              <ListTableColumn class="text-orange-500" :text="item.name" />
               <ListTableColumn :text="item.description" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
                                        @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"

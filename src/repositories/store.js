@@ -18,21 +18,27 @@ export function useIndexStoreApi(page = null, keywords = '') {
         .get('http://127.0.0.1:8000/private/stores?', config)
 }
 
-export function useCreateStoreApi(store_name, open_store, close_store, street_number, street, ward_code, district_code, province_code, long, lat) {
+export function useCreateStoreApi(detailProducts, store_name, open_store, close_store, street_number, street, ward_code, district_code, province_code, long, lat) {
+    const formData = new FormData();
+
+    if (detailProducts != undefined) {
+        for (let i = 0; i < detailProducts.length; i++) {
+            formData.append('detail_stores[]', detailProducts[i])
+        }
+    }
+
     const token = $cookies.get('token')
 
-    const store = {
-        store_name: store_name,
-        open_store: open_store,
-        close_store: close_store,
-        street_number: street_number,
-        street: street,
-        ward_code: ward_code,
-        district_code: district_code,
-        province_code: province_code,
-        long: long,
-        lat: lat,
-    }
+    formData.append('store_name', store_name)
+    formData.append('open_store', open_store)
+    formData.append('close_store', close_store)
+    formData.append('street_number', street_number)
+    formData.append('street', street)
+    formData.append('ward_code', ward_code)
+    formData.append('district_code', district_code)
+    formData.append('province_code', province_code)
+    formData.append('long', long)
+    formData.append('lat', lat)
 
     const config = {
         headers: {
@@ -42,7 +48,7 @@ export function useCreateStoreApi(store_name, open_store, close_store, street_nu
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/stores', store, config)
+        .postForm('http://127.0.0.1:8000/private/stores', formData, config)
 }
 
 export function useDeleteStoreApi(id) {
@@ -86,11 +92,10 @@ export function useUpdateStoreApi(store_name, open_store, close_store, street_nu
         .put('http://127.0.0.1:8000/private/stores/' + id, store, config)
 }
 
-export function useGetStoreInformationApi() {
+export function useGetStoreInformationApi(id) {
     const token = $cookies.get('token')
 
-    const route = useRoute();
-    const id = route.params.id
+
 
     const config = {
         headers: {

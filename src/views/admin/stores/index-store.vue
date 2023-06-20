@@ -8,7 +8,7 @@
         <template #title>
           <TitlePage title="Cửa hàng" subTitle="Chào mừng bạn đến với trang các chi nhánh của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>
@@ -96,6 +96,8 @@ const pagination = ref({
 const debounce = ref(0)
 
 function getData() {
+  clearTimeout(debounce.value)
+
   setTimeout(() => {
     useIndexStoreApi(page.value)
         .then((response) => {

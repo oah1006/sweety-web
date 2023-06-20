@@ -8,7 +8,7 @@
         <template #title>
           <TitlePage title="Mã khuyến mãi" subTitle="Chào mừng bạn đến với trang mã khuyến mãi của cửa hàng!">
             <template #button>
-              <Button textButton="Tạo mới" class="ml-auto" @click-redirect="useClickRedirectCreate" />
+              <Button textButton="Tạo mới" class="ml-auto" @click-redirect-create="useClickRedirectCreate" />
             </template>
           </TitlePage>
         </template>

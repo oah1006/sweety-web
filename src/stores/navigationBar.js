@@ -7,13 +7,4 @@ export const useNavigationBarStore = defineStore('navigationBarStore', {
             isShown: false
         }
     },
-    actions: {
-        open() {
-            this.isShown = true
-        },
-
-        close() {
-            this.isShown = false
-        }
-    }
 })

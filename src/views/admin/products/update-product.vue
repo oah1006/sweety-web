@@ -1,7 +1,7 @@
 <template>
   <UpdateLayout @submit.prevent="submit">
     <template #form-create>
-      <FormUpdateLayout v-if="!isLoadingPage" listName="Danh sách sản phẩm" @click-redirect="redirectIndex">
+      <FormUpdateProductLayout v-if="!isLoadingPage" listName="Danh sách sản phẩm" @click-redirect="redirectIndex">
         <template #title>
           <TitlePage title="Cập nhật sản phẩm" subTitle="Chào mừng bạn đến với trang cập nhật sản phẩm!"></TitlePage>
         </template>
@@ -23,38 +23,38 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Tên sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <InputBoxLayout name="Tên sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputName v-model:modelName="product.name" placeholder="Tên sản phẩm" />
             </template>
-          </InputBox>
-          <InputBox name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </InputBoxLayout>
+          <InputBoxLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputDescription v-model:modelDescription="product.description" />
             </template>
-          </InputBox>
-          <InputBox name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </InputBoxLayout>
+          <InputBoxLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputStock v-model:modelStock="product.stock" />
             </template>
-          </InputBox>
-          <InputBox name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </InputBoxLayout>
+          <InputBoxLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPrice v-model:modelPrice="product.price" />
             </template>
-          </InputBox>
-          <InputBox name="Loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </InputBoxLayout>
+          <InputBoxLayout name="Loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <SelectCategory v-model:modalSelectCategory="product.category_id" :category="category" />
+              <SelectCategory v-model:modalSelectCategory="product.category_id" :category="categories" />
             </template>
-          </InputBox>
-          <InputBox name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </InputBoxLayout>
+          <InputBoxLayout name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <SelectPublished v-model:modalPublished="product.published" :selectOptionPublished="selectOptionPublished">
               </SelectPublished>
             </template>
-          </InputBox>
-          <InputBox name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </InputBoxLayout>
+          <InputBoxLayout name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <div class="grid grid-cols-2 items-center gap-5">
                 <div v-for="topping in toppings" :key="topping.id">
@@ -62,8 +62,11 @@
                 </div>
               </div>
             </template>
-          </InputBox>
+          </InputBoxLayout>
         </template>
+        <div class="my-6 shadow-md rounded-md bg-white py-6">
+
+        </div>
         <template #title-variant>
           <TitleFormField name="Tạo biến thể của sản phâm" />
         </template>
@@ -86,7 +89,7 @@
                 <InputPrice v-model:modelPrice="variant.unit_price"></InputPrice>
               </td>
               <td class="px-4 py-4">
-                  <a @click="useDeleteProductVariant(variant.id)" class="flex items-center cursor-pointer">
+                  <a @click="useDeleteProductVariant(variant)" class="flex items-center cursor-pointer">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 mx-auto">
                           <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
                       </svg>
@@ -105,7 +108,7 @@
             </a>
           </div>
         </template>
-      </FormUpdateLayout>
+      </FormUpdateProductLayout>
       <LoadingPage v-else />
     </template>
   </UpdateLayout>
@@ -122,7 +125,7 @@ import SelectCategory from "@/components/inputs/SelectCategory.vue";
 import SelectPublished from "@/components/inputs/SelectPublished.vue";
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue";
+import InputBoxLayout from "@/components/layouts/BoxInputLayout.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import InputFile from "@/components/inputs/InputFile.vue";
@@ -131,18 +134,17 @@ import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
 import InputCheckboxTopping from "@/components/inputs/InputCheckboxTopping.vue";
 import InputSize from "@/components/inputs/InputSize.vue";
 
-import { detach, store } from '@/repositories/attachment'
+import { detach, storeAttachment } from '@/repositories/attachment'
 import { useToastStore } from "@/stores/toast";
 import {useRoute, useRouter} from 'vue-router'
 import { ref } from 'vue'
 import {useGetProductInformation, useUpdateProductApi} from "@/repositories/product";
 import {useIndexCategoryApi} from "@/repositories/category";
 import {useProfileStore} from "@/stores/getMyProfile";
-import {useDeleteToppingApi, useIndexToppingApi} from "@/repositories/topping";
+import { useIndexToppingApi } from "@/repositories/topping";
 import ListTableColumn from "@/components/table/ListTableColumn.vue";
 import ListTableRow from "@/components/table/ListTableRow.vue";
-import {useDeleteProductVariantApi} from "@/repositories/product-variant";
-
+import FormUpdateProductLayout from "@/components/layouts/FormUpdateProductLayout.vue";
 
 const router = useRouter()
 
@@ -191,11 +193,7 @@ function addVariantObject() {
 }
 
 function useDeleteProductVariant(id) {
-    useDeleteProductVariantApi(id)
-        .then((response) => {
-            useToastStore().success('Xóa thành công', 3000)
-            getProductInformation()
-        })
+  variants.value.splice(id, 1)
 }
 
 const isLoadingPage = ref(true)
@@ -211,7 +209,7 @@ const selectOptionPublished = ref([
   }
 ])
 
-const category = ref({})
+const categories = ref({})
 
 const toppings  = ref({})
 const checkNames = ref([])
@@ -243,8 +241,6 @@ function getProductInformation() {
             checkNames.value.push(product.value.productTopping[i]?.topping_id)
           }
         }
-
-        console.log(checkNames.value)
 
         if (response.data.data.attachment.length > 0) {
           const attachments = response.data.data.attachment
@@ -279,7 +275,8 @@ async function submit() {
 function getCategory() {
   useIndexCategoryApi()
       .then((response) => {
-        category.value = response.data.data.data
+        console.log(response.data.data.data)
+        categories.value = response.data.data.data
       })
 }
 
@@ -292,7 +289,7 @@ function onImageChangeThumbnail(e) {
 
   url.value = URL.createObjectURL(thumbnail.value)
 
-  store('product', product.value.id, thumbnail.value, 'thumbnails')
+  storeAttachment('product', product.value.id, thumbnail.value, 'thumbnails')
       .then((response) => {
         idAttachment.value = response.data.data[0].id
 
@@ -307,7 +304,7 @@ function onImageChangeDetailProducts(e) {
     return
   }
 
-  store('product', product.value.id, files, 'detail_products')
+  storeAttachment('product', product.value.id, files, 'detail_products')
       .then((response) => {
         const detail_products = response.data.data
 

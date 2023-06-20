@@ -10,7 +10,7 @@
           </TitlePage>
         </template>
         <template #box-filter>
-          <FilterLayout grid="grid grid-cols-3 items-center gap-10">
+          <FilterLayout grid="lg:grid lg:grid-cols-3 lg:items-center lg:gap-10 w-full">
             <template #filter>
               <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                            v-model:modalSearch="search" label="Tìm kiếm theo từ khóa" />
@@ -21,9 +21,9 @@
           <ListTableRow>
             <template #table-column>
               <ListTableColumn text="MÃ HÓA ĐƠN" />
-              <ListTableColumn text="NHÂN VIÊN BÁN HÀNG" />
-              <ListTableColumn text="NHÂN VIÊN GIAO HÀNG" />
-              <ListTableColumn text="KHÁCH HÀNG" />
+              <ListTableColumn text="NHÂN VIÊN BÁN HÀNG" class="hidden lg:table-cell" />
+              <ListTableColumn text="NHÂN VIÊN GIAO HÀNG" class="hidden lg:table-cell" />
+              <ListTableColumn text="KHÁCH HÀNG" class="hidden lg:table-cell" />
               <ListTableColumn text="TẠM TÍNH"/>
               <ListTableColumn text="TỔNG TIỀN"/>
               <ListTableColumn text="TRẠNG THÁI"/>
@@ -35,9 +35,9 @@
           <ListTableRow v-for="item in orders" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.code" />
-              <ListTableColumnLink :id="item.sale_staff?.id" :text="item.sale_staff?.full_name" location="detail-staff" />
-              <ListTableColumnLink :id="item.delivery_staff?.id" :text="item.delivery_staff?.full_name" location="detail-staff" />
-              <ListTableColumn :text="item.address.name" />
+              <ListTableColumnLink :id="item.sale_staff?.id" :text="item.sale_staff?.full_name" location="detail-staff" class="hidden lg:table-cell text-sm" />
+              <ListTableColumnLink :id="item.delivery_staff?.id" :text="item.delivery_staff?.full_name" location="detail-staff" class="hidden lg:table-cell text-sm" />
+              <ListTableColumn :text="item.address?.name" class="hidden lg:table-cell" />
               <ListTableColumn :text="formatPrice(item.sub_total)" unit="đồng" />
               <ListTableColumn :text="formatPrice(item.total)" unit="đồng" />
               <ListTableColumnStatusOrder :status="item.status" />
@@ -49,7 +49,6 @@
       </ListTableLayout>
       <LoadingPage v-else />
     </template>
-
   </IndexLayout>
 </template>
 
@@ -80,7 +79,6 @@ const namePage = "Hóa Đơn"
 
 const search = ref('')
 
-
 const page = ref(1);
 
 const isLoadingPage = ref(true)
@@ -107,7 +105,6 @@ const debounce = ref(0)
 function getData() {
   useIndexOrderApi(page.value)
       .then((response) => {
-
         pagination.value.lastPage = response.data.data.last_page
         pagination.value.total = response.data.data.total
 
@@ -115,7 +112,6 @@ function getData() {
 
         isLoadingPage.value = false
         isLoadingListTable.value = false
-
       })
 }
 

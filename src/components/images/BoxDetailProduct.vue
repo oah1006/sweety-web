@@ -1,6 +1,6 @@
 <template>
   <div class="my-4 mx-4">
-    <p>Ảnh chi tiết sản phẩm</p>
+    <p>Ảnh chi tiết</p>
     <div class="w-full grid grid-cols-4 gap-4" v-if="!detailProducts.length">
       <div class="border-dashed border-2 border-zinc-300 w-48 h-48 mt-2">
 

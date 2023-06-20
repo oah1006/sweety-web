@@ -8,6 +8,18 @@
         <template #title-box-input>
           <TitleFormField name="Thông tin cửa hàng" />
         </template>
+        <template #avatar>
+          <ImageDetailLayout
+          >
+            <template #box-detail-image>
+              <BoxDetailProduct @detach-one-image-in-multiple="clickDeleteItemImage"
+                                v-model:modelDetailProducts="detailProducts" />
+            </template>
+            <template #input-multiple-image>
+              <InputMultipleFile class="text-center ml-4 pb-4" @change-multiple-image="onImageChangeDetailProducts" />
+            </template>
+          </ImageDetailLayout>
+        </template>
         <template #box-input>
           <InputBox name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
@@ -66,10 +78,7 @@
                   <InputLat placeholder="Vĩ độ" :placeholder="store.lat" v-model:modelLat="store.lat"/>
                 </template>
                 <template #button-coordinates>
-                  <ButtonLoadCoordinates :streetNumber="store.house_number" :street="store.street"
-                                         :district="store.district.full_name" :province="store.province.full_name"
-                                         v-model:modelPosition="store" />
-
+                  <ButtonLoadCoordinates @get-coordinates="getCoordinates" />
                 </template>
               </BoxGetCoordinates>
             </template>
@@ -106,9 +115,17 @@ import {ref} from "vue";
 import { useToastStore } from "@/stores/toast";
 import { useCreateStoreApi } from "@/repositories/store";
 import { useProfileStore } from "@/stores/getMyProfile";
+import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
+import InputFile from "@/components/inputs/InputFile.vue";
+import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
+import ImageDetailLayout from "@/components/images/ImageDetailLayout.vue";
+import BoxDetailProduct from "@/components/images/BoxDetailProduct.vue";
+import {useIndexGetCoodinatesApi} from "@/repositories/get-coordinates";
 
 
 const router = useRouter();
+
+const detailProducts = ref([])
 
 const profileStore = useProfileStore()
 
@@ -124,29 +141,46 @@ const store = ref({
   street: '',
   ward: {
     code: '',
-    full_name: ''
   },
   district: {
     code: '',
-    full_name: ''
   },
   province: {
     code: '',
-    full_name: ''
   },
   long: '',
   lat: ''
 })
 
-const position = ref({
-  lat: '',
-  long: '',
-})
+function getCoordinates() {
+  console.log(store.value.district.code)
+  useIndexGetCoodinatesApi(store.value.street_number, store.value.street, store.value.district.code, store.value.province.code)
+      .then((response) => {
+        store.value.lat = response.data.results[0].position.lat
+        store.value.long = response.data.results[0].position.lon
+      })
+}
 
-const cities = ref({});
+function clickDeleteItemImage(id, attachment_id = null) {
+  detailProducts.value.splice(id, 1)
+}
+
+function onImageChangeDetailProducts(e) {
+  detailProducts.value = []
+
+  const selectedFiles = e.target.files
+
+  if (!selectedFiles.length) {
+    return
+  }
+
+  for (let i = 0; i < selectedFiles.length; i++) {
+    detailProducts.value.push(selectedFiles[i])
+  }
+}
 
 async function submit() {
-  useCreateStoreApi(store.value.store_name, store.value.open_store, store.value.close_store, store.value.street_number,
+  useCreateStoreApi(detailProducts.value, store.value.store_name, store.value.open_store, store.value.close_store, store.value.street_number,
   store.value.street, store.value.ward.code, store.value.district.code, store.value.province.code,
   store.value.long, store.value.lat)
       .then((response) => {

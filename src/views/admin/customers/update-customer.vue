@@ -11,12 +11,12 @@
         <template #box-input>
           <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputEmail v-model:modelEmail="customers.email" />
+              <InputEmail v-model:modelEmail="customer.email" />
             </template>
           </InputBox>
           <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
-              <InputFullName v-model:modelFullName="customers.full_name" />
+              <InputFullName v-model:modelFullName="customer.full_name" />
             </template>
           </InputBox>
         </template>
@@ -43,6 +43,16 @@ import { useRouter, useRoute } from 'vue-router'
 import { useToastStore } from '@/stores/toast'
 import { ref } from "vue"
 import {useProfileStore} from "@/stores/getMyProfile"
+import BoxInputAddressLayout from "@/components/layouts/BoxInputAddressLayout.vue";
+import BoxInputAddress from "@/components/layouts/BoxInputAddress.vue";
+import SelectFilterProvince from "@/components/inputs/SelectFilterProvince.vue";
+import SelectFilterDistrict from "@/components/inputs/SelectFilterDistrict.vue";
+import SelectFilterWard from "@/components/inputs/SelectFilterWard.vue";
+import InputAddress from "@/components/inputs/InputAddress.vue";
+import BoxGetCoordinates from "@/components/inputs/BoxGetCoordinates.vue";
+import InputLong from "@/components/inputs/InputLong.vue";
+import InputLat from "@/components/inputs/InputLat.vue";
+import ButtonLoadCoordinates from "@/components/Button/ButtonLoadCoordinates.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -54,11 +64,9 @@ if (profileStore.profile.profile?.role !== 'administrator') {
 }
 
 
-const customers = ref({
+const customer = ref({
   email: '',
   full_name: '',
-  phone_number: '',
-  address: ''
 })
 
 const id = route.params.id
@@ -76,8 +84,11 @@ async function submit() {
 function getInformationCustomer() {
   useGetCustomerInformation()
       .then((response) => {
-        customers.value.email = response.data.data.user?.email
-        customers.value.full_name = response.data.data.full_name
+
+        customer.value.email = response.data.data.user?.email
+        customer.value.full_name = response.data.data.full_name
+        customer.value.phone_number = response.data.data.phone_number
+
 
         isLoadingPage.value = false
       })

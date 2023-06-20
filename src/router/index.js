@@ -390,7 +390,8 @@ const router = createRouter({
       }
     }
   ],
-  linkActiveClass: 'vue-active-link'
+  linkActiveClass: 'vue-active-link',
+
 })
 
 router.beforeEach(async(to, from, next) => {

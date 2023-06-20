@@ -3,9 +3,6 @@
     <slot name="title"></slot>
     <slot name="box-filter"></slot>
     <div class="my-6 shadow-md rounded-md bg-white">
-      <div class="py-4 px-4">
-
-      </div>
       <table class="w-full bg-white rounded-lg border-t">
         <thead class="uppercase rounded-lg bg-zinc-100">
           <slot name="list-table-row-head"></slot>
