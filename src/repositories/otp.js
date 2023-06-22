@@ -10,7 +10,7 @@ export function useSendOtpApi(email) {
     }
 
     return axios
-        .post(process.env.BASE_API + '/private/auth/send-otp', { email } , config)
+        .post('http://127.0.0.1:8000/private/auth/send-otp', { email } , config)
 }
 
 export function useVerifyOtpApi(formVerifyOtp) {
@@ -23,5 +23,5 @@ export function useVerifyOtpApi(formVerifyOtp) {
     }
 
     return axios
-        .post(process.env.BASE_API + '/private/auth/verify-otp', formVerifyOtp, config)
+        .post('http://127.0.0.1:8000/private/auth/verify-otp', formVerifyOtp, config)
 }

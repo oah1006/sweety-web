@@ -15,7 +15,7 @@ export function useIndexCategoryApi(page = null, keywords = '') {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/categories?', config)
+        .get('http://127.0.0.1:8000/private/categories?', config)
 }
 
 export function useStoreCategoryApi(formCategory) {
@@ -29,7 +29,7 @@ export function useStoreCategoryApi(formCategory) {
     }
 
     return axios
-        .post(process.env.BASE_API + '/private/categories', formCategory, config)
+        .post('http://127.0.0.1:8000/private/categories', formCategory, config)
 }
 
 export function useUpdateCategoryApi(formCategory, id) {
@@ -43,7 +43,7 @@ export function useUpdateCategoryApi(formCategory, id) {
     }
 
     return axios
-        .put(process.env.BASE_API + '/private/categories/' + id, formCategory, config)
+        .put('http://127.0.0.1:8000/private/categories/' + id, formCategory, config)
 }
 
 export function useDeleteCategoryApi(id) {
@@ -57,7 +57,7 @@ export function useDeleteCategoryApi(id) {
     }
 
     return axios
-        .delete(process.env.BASE_API + '/private/categories/' + id, config)
+        .delete('http://127.0.0.1:8000/private/categories/' + id, config)
 }
 
 export function useGetCategoryInformationApi() {
@@ -73,6 +73,6 @@ export function useGetCategoryInformationApi() {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/categories/' + id, config)
+        .get('http://127.0.0.1:8000/private/categories/' + id, config)
 }
 

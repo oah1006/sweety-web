@@ -28,7 +28,7 @@ export function useStoreStaffApi(file, email, password, full_name, phone_number,
     }
 
     return axios
-        .postForm(process.env.BASE_API + '/private/staff', formData, config)
+        .postForm('http://127.0.0.1:8000/private/staff', formData, config)
 }
 
 export function useUpdateStaffApi(formStaff, id) {
@@ -42,7 +42,7 @@ export function useUpdateStaffApi(formStaff, id) {
     }
 
     return axios
-        .put(process.env.BASE_API + '/private/staff/' + id, formStaff, config)
+        .put('http://127.0.0.1:8000/private/staff/' + id, formStaff, config)
 }
 
 export function useDeleteStaffApi(id) {
@@ -56,7 +56,7 @@ export function useDeleteStaffApi(id) {
     }
 
     return axios
-        .delete(process.env.BASE_API + '/private/staff/' + id, config)
+        .delete('http://127.0.0.1:8000/private/staff/' + id, config)
 }
 
 export function useIndexStaff(page = null, status = '', role = '', store_id = '', keywords = '') {
@@ -76,7 +76,7 @@ export function useIndexStaff(page = null, status = '', role = '', store_id = ''
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/staff?', config)
+        .get('http://127.0.0.1:8000/private/staff?', config)
 }
 
 
@@ -93,7 +93,7 @@ export function useGetStaffInformation() {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/staff/' + id, config)
+        .get('http://127.0.0.1:8000/private/staff/' + id, config)
 }
 
 

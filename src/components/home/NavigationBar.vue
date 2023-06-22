@@ -1,5 +1,5 @@
 <template>
-  <div :class="[navigationBarStore.isShown == true ? '!translate-x-0' : '']" class="lg:w-64 lg:translate-x-0 -translate-x-full duration-300 lg:ease-in-out lg:duration-300 bg-white z-20 fixed bg-white h-full flex-none py-28">
+  <div :class="[navigationBarStore.isShown == true ? '!translate-x-0' : '']" class="lg:w-72 lg:translate-x-0 -translate-x-full duration-300 lg:ease-in-out lg:duration-300 bg-white z-20 fixed bg-white h-full flex-none py-28">
     <div class="pb-6">
           <p class="text-base font-medium text-orange-600 px-4">Hệ thống</p>
           <div>
@@ -7,8 +7,24 @@
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
                   </svg>
-                  <p class="text-base">Bảng điều khiển</p>
+                  <p class="text-base">Dashboard</p>
               </router-link>
+          </div>
+          <div>
+            <router-link :to="{name: 'dashboard-revenue'}" class="flex gap-4 items-center text-zinc-600 mt-2 mx-8 px-2 py-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p class="text-base">Thống kê doanh thu</p>
+            </router-link>
+          </div>
+          <div>
+            <router-link :to="{name: 'dashboard-product'}" class="flex gap-4 items-center text-zinc-600 mt-2 mx-8 px-2 py-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+              </svg>
+              <p class="text-base">Thống kê sản phẩm</p>
+            </router-link>
           </div>
       </div>
       <div class="pb-6">

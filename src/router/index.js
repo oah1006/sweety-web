@@ -9,6 +9,7 @@ import ForgotPassword from '@/views/admin/auth/forgot-password.vue'
 import ChangePassword from "@/views/admin/auth/change-password.vue";
 
 import Dashboard from '@/views/admin/Dashboard.vue'
+import DashboardRevenue from "@/views/admin/DashboardRevenue.vue";
 
 import IndexStaff from '@/views/admin/staff/index-staff.vue'
 import CreateStaff from '@/views/admin/staff/create-staff.vue'
@@ -55,6 +56,7 @@ import Unauthorized from "@/components/Unauthorized.vue";
 import ButtonClickListProvince from "@/components/Button/ButtonClickListProvince.vue";
 import SelectTopping from "@/components/inputs/InputCheckboxTopping.vue"
 import BoxItemTopping from "@/components/details/BoxItemTopping.vue";
+import DashboardProduct from "@/views/admin/DashboardProduct.vue";
 
 
 
@@ -105,6 +107,22 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/dashboard-revenue',
+      name: 'dashboard-revenue',
+      component: DashboardRevenue,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/dashboard-product',
+      name: 'dashboard-product',
+      component: DashboardProduct,
       meta: {
         requiresAuth: true
       }

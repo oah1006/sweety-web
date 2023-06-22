@@ -19,7 +19,7 @@ export const useProfileStore = defineStore('useProfileStore', {
             }
 
             await axios
-            .get(process.env.BASE_API + '/private/auth/profile', config)
+            .get('http://127.0.0.1:8000/private/auth/profile', config)
                 .then((response) => {
                     this.profile = response.data.data
                 })

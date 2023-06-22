@@ -10,7 +10,7 @@ export function useIndexGetRevenueDashboardApi() {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/dashboard/compare-revenue', config)
+        .get('http://127.0.0.1:8000/private/dashboard/compare-revenue', config)
 }
 
 export function useIndexGetTotalProductDashboardApi() {
@@ -23,7 +23,7 @@ export function useIndexGetTotalProductDashboardApi() {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/dashboard/total-product', config)
+        .get('http://127.0.0.1:8000/private/dashboard/total-product', config)
 }
 
 export function useIndexGetTotalOrderDashboardApi() {
@@ -36,7 +36,7 @@ export function useIndexGetTotalOrderDashboardApi() {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/dashboard/total-order', config)
+        .get('http://127.0.0.1:8000/private/dashboard/total-order', config)
 }
 
 export function useIndexGetBestSellerProductDashboardApi() {
@@ -49,5 +49,5 @@ export function useIndexGetBestSellerProductDashboardApi() {
     }
 
     return axios
-        .get(process.env.BASE_API + '/private/dashboard/best-seller-product', config)
+        .get('http://127.0.0.1:8000/private/dashboard/best-seller-product', config)
 }
