@@ -10,7 +10,7 @@ export function useIndexGetRevenueDashboardApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/dashboard/compare-revenue', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/compare-revenue', config)
 }
 
 export function useIndexGetTotalProductDashboardApi() {
@@ -23,7 +23,7 @@ export function useIndexGetTotalProductDashboardApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/dashboard/total-product', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/total-product', config)
 }
 
 export function useIndexGetTotalOrderDashboardApi() {
@@ -36,7 +36,7 @@ export function useIndexGetTotalOrderDashboardApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/dashboard/total-order', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/total-order', config)
 }
 
 export function useIndexGetBestSellerProductDashboardApi() {
@@ -49,7 +49,7 @@ export function useIndexGetBestSellerProductDashboardApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/dashboard/best-seller-product', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/best-seller-product', config)
 }
 
 export function useIndexGetRevenueByDates() {
@@ -62,5 +62,5 @@ export function useIndexGetRevenueByDates() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/dashboard/calculate-revenue-by-dates', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/calculate-revenue-by-dates', config)
 }

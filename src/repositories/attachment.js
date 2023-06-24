@@ -10,7 +10,7 @@ export function detach(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/attachments/' + id, config)
+        .delete(process.env.VUE_APP_ENV_VARIABLE + '/private/attachments/' + id, config)
 }
 
 
@@ -39,6 +39,6 @@ export function storeAttachment(attachmentable, attachmentableId, file, type) {
     formData.append('type', type)
 
     return axios
-        .postForm('http://127.0.0.1:8000/private/attachments/' + attachmentable + '/' + attachmentableId, formData, config)
+        .postForm(process.env.VUE_APP_ENV_VARIABLE + '/private/attachments/' + attachmentable + '/' + attachmentableId, formData, config)
 }
 

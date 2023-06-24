@@ -15,7 +15,7 @@ export function useIndexOrderApi(page = null, keywords = '') {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/orders?', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/orders?', config)
 }
 
 export function useGetOrderInformationApi() {
@@ -31,7 +31,7 @@ export function useGetOrderInformationApi() {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/orders/' + id, config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/' + id, config)
 }
 
 export function useUpdateStatusAcceptedOrderApi(id) {
@@ -44,7 +44,7 @@ export function useUpdateStatusAcceptedOrderApi(id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/orders/update-status-accepted/' + id, {}, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/update-status-accepted/' + id, {}, config)
 }
 
 export function useUpdateStatusPreparingOrderApi(id) {
@@ -57,7 +57,7 @@ export function useUpdateStatusPreparingOrderApi(id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/orders/update-status-preparing/' + id, {}, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/update-status-preparing/' + id, {}, config)
 }
 
 export function useUpdateStatusPreparedOrderApi(id) {
@@ -70,7 +70,7 @@ export function useUpdateStatusPreparedOrderApi(id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/orders/update-status-prepared/' + id, {}, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/update-status-prepared/' + id, {}, config)
 }
 
 export function useUpdateStatusDeliveringOrderApi(id) {
@@ -83,7 +83,7 @@ export function useUpdateStatusDeliveringOrderApi(id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/orders/update-status-delivering/' + id, {}, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/update-status-delivering/' + id, {}, config)
 }
 
 export function useUpdateStatusSucceedOrderApi(id) {
@@ -96,7 +96,7 @@ export function useUpdateStatusSucceedOrderApi(id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/orders/update-status-succeed/' + id, {}, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/update-status-succeed/' + id, {}, config)
 }
 
 export function useUpdateStatusFailedOrderApi(id) {
@@ -109,5 +109,5 @@ export function useUpdateStatusFailedOrderApi(id) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/orders/update-status-failed/' + id, {}, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/orders/update-status-failed/' + id, {}, config)
 }

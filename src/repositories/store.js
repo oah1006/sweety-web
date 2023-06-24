@@ -15,7 +15,7 @@ export function useIndexStoreApi(page = null, keywords = '') {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/stores?', config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/stores?', config)
 }
 
 export function useCreateStoreApi(detailProducts, store_name, open_store, close_store, street_number, street, ward_code, district_code, province_code, long, lat) {
@@ -48,7 +48,7 @@ export function useCreateStoreApi(detailProducts, store_name, open_store, close_
     }
 
     return axios
-        .postForm('http://127.0.0.1:8000/private/stores', formData, config)
+        .postForm(process.env.VUE_APP_ENV_VARIABLE + '/private/stores', formData, config)
 }
 
 export function useDeleteStoreApi(id) {
@@ -62,7 +62,7 @@ export function useDeleteStoreApi(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/stores/' + id, config)
+        .delete(process.env.VUE_APP_ENV_VARIABLE + '/private/stores/' + id, config)
 }
 
 export function useUpdateStoreApi(store_name, open_store, close_store, street_number, street, ward_code, district_code, province_code, long, lat, id) {
@@ -89,7 +89,7 @@ export function useUpdateStoreApi(store_name, open_store, close_store, street_nu
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/stores/' + id, store, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/stores/' + id, store, config)
 }
 
 export function useGetStoreInformationApi(id) {
@@ -104,5 +104,5 @@ export function useGetStoreInformationApi(id) {
     }
 
     return axios
-        .get('http://127.0.0.1:8000/private/stores/' + id, config)
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/stores/' + id, config)
 }

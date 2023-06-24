@@ -2,7 +2,7 @@ import axios from "axios"
 
 export function useLogin(employee) {
     return axios
-        .post('http://127.0.0.1:8000/private/auth/login', employee.value)
+        .post(process.env.VUE_APP_ENV_VARIABLE + '/private/auth/login', employee.value)
 }
 
 export async function useLogoutApi() {
@@ -16,7 +16,7 @@ export async function useLogoutApi() {
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/auth/logout', {}, config)
+        .post(process.env.VUE_APP_ENV_VARIABLE + '/private/auth/logout', {}, config)
 }
 
 export function useUpdateProfileApi(formStaff) {
@@ -30,7 +30,7 @@ export function useUpdateProfileApi(formStaff) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/auth/profile', formStaff, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/auth/profile', formStaff, config)
 }
 
 export function useForgotPasswordApi(formForgotPassword, tokenOtp) {
@@ -44,7 +44,7 @@ export function useForgotPasswordApi(formForgotPassword, tokenOtp) {
     }
 
     return axios
-        .post('http://127.0.0.1:8000/private/auth/forgot-password', formForgotPassword, config)
+        .post(process.env.VUE_APP_ENV_VARIABLE + '/private/auth/forgot-password', formForgotPassword, config)
 }
 
 export function useChangePasswordApi(formChangePassword) {
@@ -58,5 +58,5 @@ export function useChangePasswordApi(formChangePassword) {
     }
 
     return axios
-        .put('http://127.0.0.1:8000/private/auth/change-password', formChangePassword, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/auth/change-password', formChangePassword, config)
 }

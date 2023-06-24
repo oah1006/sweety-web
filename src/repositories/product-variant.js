@@ -11,5 +11,5 @@ export function useDeleteProductVariantApi(id) {
     }
 
     return axios
-        .delete('http://127.0.0.1:8000/private/productVariants/' + id, config)
+        .delete(process.env.VUE_APP_ENV_VARIABLE + '/private/productVariants/' + id, config)
 }
