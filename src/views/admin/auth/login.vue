@@ -65,8 +65,8 @@ const errors = ref({});
         errors.value = error.response.data
       })
 }
-
-
+//
+// console.log(process.env.BASE_API)
 
 </script>
 

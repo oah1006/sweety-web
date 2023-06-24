@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-md rounded-md bg-white px-4 py-3 flex flex-col justify-between">
+  <div class="shadow-md rounded-md bg-white px-4 py-3 flex flex-col">
     <div>
       <div class="flex items-center justify-between">
         <p class="font-medium text-xl">Tóm tắt hóa đơn</p>
@@ -8,7 +8,7 @@
           <BoxItemStatusOrder :status="props.status" />
         </div>
       </div>
-      <div class="flex justify-between mt-4">
+      <div class="flex justify-between mt-6">
         <p>Ngày tạo</p>
         <p>{{ props.createdAt }}</p>
       </div>
@@ -52,7 +52,7 @@
         <p>- {{ props.isPercentValue }} %</p>
       </div>
     </div>
-    <div class="border-t flex items-center justify-between mb-6 mt-4">
+    <div class="border-t flex items-center justify-between py-2 mt-4">
       <p class="font-bold">Tổng</p>
       <p>{{ formatPrice(props.total) }} đồng</p>
     </div>

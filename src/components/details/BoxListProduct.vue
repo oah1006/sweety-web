@@ -1,6 +1,6 @@
 <template>
-  <div class="my-6 shadow-md rounded-md bg-white lg:w-2/3 px-4">
-    <table class="w-full bg-white rounded-lg">
+  <div class="px-4 py-3 shadow-md rounded-md bg-white">
+    <table class="bg-white rounded-lg">
       <thead class="uppercase rounded-lg">
         <slot name="list-table-row-head"></slot>
       </thead>

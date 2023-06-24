@@ -5,9 +5,9 @@
       <slot name="button-status"></slot>
     </div>
 
-    <div class="lg:flex lg:gap-4">
-      <slot name="list-product"></slot>
-      <div class="lg:w-1/3 my-6 flex flex-col justify-between">
+    <div class="flex flex-col xl:flex-row lg:gap-4">
+      <slot name="list-product" class="lg:w-1/4"></slot>
+      <div class="lg:w-3/4">
         <div>
           <slot name="order-summary"></slot>
         </div>

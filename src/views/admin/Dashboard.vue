@@ -252,8 +252,6 @@ function getTotalOrder() {
 
         countStatus.value = response.data.countStatus
 
-        console.log(response.data.countStatus)
-
         chartData.value = {
           datasets: [{
             data: response.data.countStatus,
@@ -261,9 +259,9 @@ function getTotalOrder() {
               '#f97316',
               '#dc2626',
               '#06b6d4',
-                '#a16207',
+              '#a16207',
               '#eab308',
-                '#8b5cf6',
+              '#8b5cf6',
               '#22c55e',
               '#030712',
             ],
@@ -316,5 +314,5 @@ function getBestSellerProduct() {
 
 getBestSellerProduct()
 
-
+console.log(process.env.VUE_APP_ENV_VARIABLE, process.env.BASE_URL)
 </script>
