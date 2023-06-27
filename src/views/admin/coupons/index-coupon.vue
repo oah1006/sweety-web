@@ -26,13 +26,13 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn text="CODE"/>
+              <ListTableColumn class="hidden lg:block" text="CODE"/>
               <ListTableColumn text="TÊN MÃ KHUYẾN MÃI" />
-              <ListTableColumn text="SỐ LƯỢNG"/>
+              <ListTableColumn class="hidden lg:block" text="SỐ LƯỢNG"/>
               <ListTableColumn text="GIÁ TRỊ MÃ GIẢM"/>
               <ListTableColumn text="TỔNG HÓA ĐƠN CẦN ĐẠT"/>
-              <ListTableColumn text="BẮT ĐẦU"/>
-              <ListTableColumn text="HẾT HẠN"/>
+              <ListTableColumn class="hidden lg:block" text="BẮT ĐẦU"/>
+              <ListTableColumn class="hidden lg:block" text="HẾT HẠN"/>
               <ListTableColumn text="TRẠNG THÁI"/>
               <ListTableColumn />
             </template>
@@ -41,13 +41,13 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in coupons" :key="item.id">
             <template #table-column>
-              <ListTableColumn class="text-orange-500" :text="item.code" />
+              <ListTableColumn class="text-orange-500 hidden lg:block" :text="item.code" />
               <ListTableColumn :text="item.name" />
-              <ListTableColumn :text="item.stock" />
+              <ListTableColumn class="hidden lg:block" :text="item.stock" />
               <ListTableColumn :text="item.is_percent_value" />
               <ListTableColumn :text="item.min_order_total" />
-              <ListTableColumn :text="item.started_at" />
-              <ListTableColumn :text="item.expired_at" />
+              <ListTableColumn class="hidden lg:block" :text="item.started_at" />
+              <ListTableColumn class="hidden lg:block" :text="item.expired_at" />
               <ListTableColumnStatusCoupon :status="item.status" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
                                        @show-modal="showModal" />

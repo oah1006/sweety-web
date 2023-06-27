@@ -1,6 +1,6 @@
 <template>
   <div class="flex border-b border-solid border-gray-100 px-10">
-    <p class="w-1/6">{{ props.nameLabel }}</p>
+    <p class="lg:w-1/6 w-1/2">{{ props.nameLabel }}</p>
     <div>
       <div v-if="props.item == 1" class="flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-500">

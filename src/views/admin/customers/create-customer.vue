@@ -9,26 +9,26 @@
           <TitleFormField name="Thông tin Khách hàng" />
         </template>
         <template #box-input>
-          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputEmail v-model:modelEmail="customer.email" />
             </template>
-          </InputBox>
-          <InputBox name="Mật khẩu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Mật khẩu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPassword v-model:modelPassword="customer.password" />
             </template>
-          </InputBox>
-          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputFullName v-model:modelFullName="customer.full_name" />
             </template>
-          </InputBox>
-          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="customer.phone_number" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
         <template #title-box-input-address>
           <TitleFormField name="Địa chỉ" />
@@ -36,34 +36,34 @@
         <template #box-input-address>
           <BoxInputAddressLayout>
             <template #address>
-              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterProvince v-model:modelProvince="customer.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterDistrict v-model:modelDistrict="customer.district" v-model:modelProvince="customer.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterWard v-model:modelWard="customer.ward" v-model:modelDistrict="customer.district.code" placeholder="Phường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="customer.street" placeholder="Đường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="customer.street_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
             </template>
             <template #get-coordinates>
-              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input-long>
                   <InputLong placeholder="Kinh độ" :placeholder="customer.long" v-model:modelLong="customer.long" />
                 </template>
@@ -89,7 +89,7 @@
 import CreateLayout from "@/components/layouts/CreateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import InputEmail from "@/components/inputs/InputEmail.vue";
 import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";

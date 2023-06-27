@@ -9,22 +9,22 @@
           <TitleFormField name="Thông tin Topping" />
         </template>
         <template #box-input>
-          <InputBoxLayout name="Tên Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayoutLayout name="Tên Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputName v-model:modelName="topping.name" placeholder="Tên topping" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPrice v-model:modelPrice="topping.price" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectPublished v-model:modalPublished="topping.published" :selectOptionPublished="selectOptionPublished">
               </SelectPublished>
             </template>
-          </InputBoxLayout>
+          </BoxInputLayoutLayout>
         </template>
       </FormUpdateLayout>
 
@@ -38,7 +38,7 @@ import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
-import InputBoxLayout from "@/components/layouts/BoxInputLayout.vue";
+import BoxInputLayoutLayout from "@/components/layouts/BoxInputLayout.vue";
 import SelectPublished from "@/components/inputs/SelectPublished.vue";
 import InputPrice from "@/components/inputs/InputPrice.vue";
 import InputName from "@/components/inputs/InputName.vue";

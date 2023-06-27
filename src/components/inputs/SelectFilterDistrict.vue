@@ -1,6 +1,6 @@
 <template>
   <select name="district" v-model="district.code"
-          class="form-select left-0 top-10 mt-2 border border-zinc-300 w-full py-2 pl-4 text-slate-900">
+          class="form-select left-0 top-10 mt-2 border border-zinc-300 lg:text-base text-sm w-full py-2 pl-4 text-slate-900">
     <option disabled value="">Vui lòng chọn dưới đây!</option>
     <option v-for="option in districts" :value="option.code" :key="option.code">{{ option.full_name }}</option>
   </select>
@@ -32,16 +32,20 @@ const provinceCode = computed({
 
 const districts = ref('')
 
+
 function filterData() {
-  useIndexDistrictApi(provinceCode.value)
-      .then((response) => {
-        districts.value = response.data
-      })
+  if (provinceCode.value) {
+    useIndexDistrictApi(provinceCode.value)
+        .then((response) => {
+          districts.value = response.data
+        })
+  }
 }
+
 
 watch(provinceCode, () => {
   filterData()
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 watch(district, () => {
   const districtFind = districts.value.find((item) =>
@@ -51,5 +55,6 @@ watch(district, () => {
   district.value.full_name = districtFind.full_name
 
 }, { deep: true })
+
 
 </script>

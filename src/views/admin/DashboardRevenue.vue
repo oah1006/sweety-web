@@ -10,9 +10,10 @@
             Xuất thống kê
           </div>
           <div class="ml-auto flex gap-3 items-center">
-            <div class="px-4 py-2 bg-white rounded-lg border border-zinc-300">
-              Tất cả chi nhánh
-            </div>
+            <select v-model="store_id" class="form-select text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 pr-8">
+              <option disabled value="">Hãy chọn dưới đây</option>
+              <option v-for="store in stores" :value="store.id" :key="store.id">{{ store.store_name }}</option>
+            </select>
             <select class="form-select text-gray-700 bg-white border border-solid border-zinc-300 rounded" v-model="optionRevenue">
               <option value="7 days">7 ngày gần nhất</option>
               <option value="7 months">7 tháng gần nhất</option>
@@ -38,6 +39,8 @@ import {
   useIndexGetRevenueByLastSevenDays,
   useIndexGetRevenueByLastSevenMonths
 } from "@/repositories/dashboard";
+import {useIndexStoreApi} from "@/repositories/store";
+import {useIndexProductApi} from "@/repositories/product";
 
 const chartCanvas = ref(null);
 
@@ -48,7 +51,12 @@ const dates = ref([])
 const revenues = ref([])
 const optionRevenue = ref('7 days')
 
-watch(optionRevenue, getRevenueByDates, {immediate: true})
+const stores = ref([])
+const store_id = ref('')
+
+const debounce = ref(0)
+
+
 
 function createChart() {
   const ctx = chartCanvas.value.getContext('2d');
@@ -146,6 +154,60 @@ function getRevenueByDates() {
       })
 }
 
+function getStores() {
+  useIndexStoreApi()
+      .then((response) => {
+        stores.value = response.data.data.data
+      })
+}
+
+
+function filterData() {
+  clearTimeout(debounce.value)
+
+  debounce.value = setTimeout(() => {
+
+    useIndexGetRevenueByDates(store_id.value)
+        .then((response) => {
+
+          const dataType = response.data
+
+          for (const key in dataType) {
+            if (key == '7 days') {
+              dataRevenueSevenDay.value = dataType[key]
+            } else if (key == '7 months') {
+              dataRevenueSevenMonth.value = dataType[key]
+            }
+          }
+
+          dates.value = []
+          revenues.value = []
+
+          if (optionRevenue.value == '7 days') {
+            dataRevenueSevenDay.value.forEach((item) => {
+              const formattedDate = formatDate(item.date);
+              dates.value.push(formattedDate);
+              revenues.value.push(item.revenue)
+            })
+          } else if (optionRevenue.value == '7 months') {
+            dataRevenueSevenMonth.value.forEach((item) => {
+              const formattedMonth = formatMonth(item.month);
+              dates.value.push(formattedMonth);
+              revenues.value.push(item.revenue)
+
+            })
+          }
+
+          createChart()
+        })
+  }, 400)
+}
+
+getStores()
+
+watch([store_id, optionRevenue], () => {
+  filterData()
+}, {immediate: true})
 
 
 

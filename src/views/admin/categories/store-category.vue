@@ -6,16 +6,16 @@
           <TitlePage title="Tạo cửa hàng" subTitle="Chào mừng bạn đến với trang tạo cửa hàng!"></TitlePage>
         </template>
         <template #box-input>
-          <InputBox name="Tên loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Tên loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputName v-model:modelName="category.name" placeholder="Tên loại sản phẩm" />
             </template>
-          </InputBox>
-          <InputBox name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputDescription v-model:modelDescription="category.description" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormCreateLayout>
     </template>
@@ -27,7 +27,7 @@
 import CreateLayout from "@/components/layouts/CreateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import InputDescription from "@/components/inputs/InputDescription.vue";
 import InputName from "@/components/inputs/InputName.vue";
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white w-full rounded-lg shadow-md flex">
+  <div class="bg-white w-full rounded-lg shadow-md lg:flex">
     <div>
       <div class="relative">
         <BoxThumbnailProduct :isShowDetach="props.isShowDetach" :idAttachment="idAttachment" @detach-thumbnail="detachThumbnail"

@@ -9,46 +9,46 @@
           <TitleFormField name="Thông tin mã khuyến mãi" />
         </template>
         <template #box-input>
-          <InputBox name="Tên mã giảm giá" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Tên mã giảm giá" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputName v-model:modelName="coupon.name" />
             </template>
-          </InputBox>
-          <InputBox name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputDescription v-model:modelDescription="coupon.description" />
             </template>
-          </InputBox>
-          <InputBox name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputStock v-model:modelStock="coupon.stock" />
             </template>
-          </InputBox>
-          <InputBox name="Phần trăm giảm giá" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Phần trăm giảm giá" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPercentValue v-model:modelPercentValue="coupon.is_percent_value" />
             </template>
-          </InputBox>
-          <InputBox name="Tổng yêu cầu tối thiểu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Tổng yêu cầu tối thiểu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputMinOrderTotal v-model:modelMinOrderTotal="coupon.min_order_total" />
             </template>
-          </InputBox>
-          <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectStatus v-model:modalSelectStatus="coupon.status" :selectOptionStatus="selectOptionStatus" />
             </template>
-          </InputBox>
-          <InputBox name="Bắt đầu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Bắt đầu" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputStartedAt v-model:modelStartedAt="coupon.started_at" />
             </template>
-          </InputBox>
-          <InputBox name="Kết thúc" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Kết thúc" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputExpiredAt v-model:modelExpiredAt="coupon.expired_at" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -61,7 +61,7 @@
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue";
 import InputName from "@/components/inputs/InputName.vue";

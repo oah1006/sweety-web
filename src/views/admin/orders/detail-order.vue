@@ -48,7 +48,7 @@
           </BoxOrderSummary>
         </template>
         <template #address>
-          <BoxTitle text="Thông tin khách hàng" />
+          <BoxTitle class="mb-4" text="Thông tin khách hàng" />
           <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Tên khách hàng" :item="order.address?.name"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Số nhà" :item="order.address?.street_number"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-4 py-2" width="w-1/2" nameLabel="Đường" :item="order.address?.street"/>

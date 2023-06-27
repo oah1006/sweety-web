@@ -1,12 +1,12 @@
 <template>
   <div class="min-h-screen">
     <Header />
-    <div class="flex">
+    <div class="lg:flex">
       <NavigationBar />
-      <div class="ml-64 px-12 grow pt-28 bg-zinc-100 min-h-screen">
-        <p class="px-12 py-4 text-4xl text-zinc-600 font-medium">Dashboard</p>
-        <div class="px-12 grid grid-cols-3 gap-4">
-          <div class="px-4 py-3 rounded-lg bg-white">
+      <div class="lg:ml-64 ml-0 lg:px-12 px-2 lg:grow pt-28 bg-zinc-100 min-h-screen">
+        <p class="lg:px-12 py-4 text-4xl text-zinc-600 font-medium">Dashboard</p>
+        <div class="lg:px-12 lg:grid lg:grid-cols-3 lg:gap-4">
+          <div class="px-4 py-3 rounded-lg bg-white mb-4 lg:mb-0">
             <div class="flex">
               <div class="relative ml-auto px-3 py-1 border border-zinc-300 ml-auto">
                 <div @click="showPopup" class="flex gap-2 items-center cursor-pointer">
@@ -43,9 +43,9 @@
               </div>
             </div>
           </div>
-          <div class="px-4 py-3 rounded-lg bg-white">
-            <div class="flex">
-              <div class="relative ml-auto px-3 py-1 border border-zinc-300">
+          <div class="px-4 py-3 rounded-lg bg-white mb-4 lg:mb-0">
+            <div class="lg:flex">
+              <div class="relative w-28 ml-auto px-3 py-1 border border-zinc-300">
                 <div @click="showPopupOrder" class="flex gap-2 items-center cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
@@ -71,7 +71,7 @@
               <p class="font-medium text-lg text-zinc-600">Tổng hóa đơn</p>
             </div>
           </div>
-          <div class="rounded-lg bg-white flex flex-col items-center justify-center">
+          <div class="rounded-lg bg-white flex flex-col items-center justify-center mb-4 lg:mb-0 py-4 lg:py-0">
             <div class="flex">
               <div class="bg-cyan-500 w-20 h-20 flex items-center justify-center rounded-full mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-white">
@@ -85,8 +85,8 @@
             </div>
           </div>
         </div>
-        <div class="flex gap-10 mt-10 ml-12 mr-12">
-          <div class="bg-white w-1/3 px-4 py-5">
+        <div class="lg:flex gap-10 mt-10 lg:ml-12 lg:mr-12">
+          <div class="bg-white lg:w-1/3 px-4 py-5 mb-4 lg:mb-0">
             <div class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-red-500">
                 <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clip-rule="evenodd" />
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-          <div class="w-2/3 flex items-center gap-20 bg-white px-10 ml-auto">
+          <div class="lg:w-2/3 lg:flex lg:items-center lg:gap-20 bg-white px-10 lg:ml-auto">
             <div class="py-5">
               <p class="font-medium text-lg">Các trạng thái đơn hàng</p>
               <div class="mt-4">

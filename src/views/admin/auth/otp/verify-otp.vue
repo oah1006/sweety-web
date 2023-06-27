@@ -3,16 +3,16 @@
     <template #form-forgot-password>
       <FormForgotPasswordLayout textButton="Xác nhận OPT" title="Xác thực mã OTP" subTitle="Vui lòng nhập mã OTP 6 chữ số đã được gửi đến email của bạn. Mã OTP sẽ có hiệu lực trong 1 phút">
         <template #box-input>
-          <InputBox margin="mt-4">
+          <BoxInputLayout margin="mt-4">
             <template #input>
               <InputOtp v-model:modelOtp="formVerifyOtp.otp" />
             </template>
-          </InputBox>
-          <InputBox>
+          </BoxInputLayout>
+          <BoxInputLayout>
             <template #input>
               <InputEmail type="hidden" v-model:modelEmail="formVerifyOtp.email" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormForgotPasswordLayout>
     </template>
@@ -24,7 +24,7 @@
 import ForgotLayout from "@/components/layouts/ForgotLayout.vue";
 import FormForgotPasswordLayout from "@/components/layouts/FormForgotPasswordLayout.vue";
 import InputEmail from "@/components/inputs/InputEmail.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue";
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue";
 import InputOtp from "@/components/inputs/InputOtp.vue";
 
 import { ref } from "vue";

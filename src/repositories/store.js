@@ -95,8 +95,6 @@ export function useUpdateStoreApi(store_name, open_store, close_store, street_nu
 export function useGetStoreInformationApi(id) {
     const token = $cookies.get('token')
 
-
-
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,

@@ -24,7 +24,7 @@
           <ListTableRow>
             <template #table-column>
               <ListTableColumn text="Tên loại" />
-              <ListTableColumn text="Mô tả"/>
+              <ListTableColumn class="hidden lg:block" text="Mô tả"/>
               <ListTableColumn />
             </template>
           </ListTableRow>
@@ -33,7 +33,7 @@
           <ListTableRow v-for="item in categories" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.name" />
-              <ListTableColumn :text="item.description" />
+              <ListTableColumn class="hidden lg:block" :text="item.description" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
                                        @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
                                        @show-modal="showModal"/>

@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 py-3 shadow-md rounded-md bg-white">
+  <div class="px-4 py-3 mb-4 lg:m-0 shadow-md rounded-md bg-white">
     <table class="bg-white rounded-lg">
       <thead class="uppercase rounded-lg">
         <slot name="list-table-row-head"></slot>

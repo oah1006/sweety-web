@@ -1,6 +1,6 @@
 <template>
   <select name="cities" v-model="province.code"
-          class="form-select left-0 top-10 mt-2 border border-zinc-300 w-full py-2 pl-4 text-slate-900">
+          class="form-select left-0 top-10 mt-2 border border-zinc-300 w-full py-2 pl-4 text-slate-900 lg:text-base text-sm">
     <option disabled value="">Vui lòng chọn dưới đây!</option>
     <option v-for="option in provinces" :value="option.code" :key="option.id">{{ option.full_name }}</option>
   </select>

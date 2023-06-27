@@ -21,21 +21,21 @@
           <TitleFormField name="Thông tin cửa hàng" />
         </template>
         <template #box-input>
-          <InputBox name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputName v-model:modelName="store.store_name" placeholder="Tên cửa hàng"/>
             </template>
-          </InputBox>
-          <InputBox name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputOpenStore v-model:modelOpenStore="store.open_store" />
             </template>
-          </InputBox>
-          <InputBox name="Giờ đóng cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Giờ đóng cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputCloseStore v-model:modelCloseStore="store.close_store" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
         <template #title-box-input-address>
           <TitleFormField name="Địa chỉ" />
@@ -43,34 +43,34 @@
         <template #box-input-address>
           <BoxInputAddressLayout>
             <template #address>
-              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterProvince v-model:modelProvince="store.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelProvince="store.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterWard v-model:modelWard="store.ward" v-model:modelDistrict="store.district.code" placeholder="Phường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.street_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
             </template>
             <template #get-coordinates>
-              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input-long>
                   <InputLong placeholder="Kinh độ" :placeholder="store.long" v-model:modelLong="store.long" />
                 </template>
@@ -96,7 +96,7 @@ import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue";
 import InputName from "@/components/inputs/InputName.vue";

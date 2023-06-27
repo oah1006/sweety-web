@@ -23,46 +23,46 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBoxLayout name="Tên sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayoutLayout name="Tên sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputName v-model:modelName="product.name" placeholder="Tên sản phẩm" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputDescription v-model:modelDescription="product.description" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputStock v-model:modelStock="product.stock" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPrice v-model:modelPrice="product.price" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectCategory v-model:modalSelectCategory="product.category_id" :category="categories" />
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectPublished v-model:modalPublished="product.published" :selectOptionPublished="selectOptionPublished">
               </SelectPublished>
             </template>
-          </InputBoxLayout>
-          <InputBoxLayout name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayoutLayout>
+          <BoxInputLayoutLayout name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
-              <div class="grid grid-cols-2 items-center gap-5">
+              <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-5">
                 <div v-for="topping in toppings" :key="topping.id">
                   <InputCheckboxTopping :idTopping="topping.id" v-model:modalTopping="checkNames" :name="topping.name" :price="topping.price"></InputCheckboxTopping>
                 </div>
               </div>
             </template>
-          </InputBoxLayout>
+          </BoxInputLayoutLayout>
         </template>
         <div class="my-6 shadow-md rounded-md bg-white py-6">
 
@@ -125,7 +125,7 @@ import SelectCategory from "@/components/inputs/SelectCategory.vue";
 import SelectPublished from "@/components/inputs/SelectPublished.vue";
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
-import InputBoxLayout from "@/components/layouts/BoxInputLayout.vue";
+import BoxInputLayoutLayout from "@/components/layouts/BoxInputLayout.vue";
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue"
 import InputFile from "@/components/inputs/InputFile.vue";

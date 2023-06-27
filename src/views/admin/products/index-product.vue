@@ -13,7 +13,7 @@
           </TitlePage>
         </template>
         <template #box-filter>
-          <FilterLayout grid="grid grid-cols-3 items-center gap-10">
+          <FilterLayout grid="grid lg:grid-cols-3 grid-cols-2 items-center gap-10">
             <template #filter>
               <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                            v-model:modalSearch="search" label="Tìm kiếm theo từ khóa" />
@@ -30,7 +30,7 @@
           <ListTableRow>
             <template #table-column>
               <ListTableColumn text="TÊN SẢN PHẨM" />
-              <ListTableColumn text="LOẠI SẢN PHẨM"/>
+              <ListTableColumn class="hidden lg:block" text="LOẠI SẢN PHẨM"/>
               <ListTableColumn text="SỐ LƯỢNG"/>
               <ListTableColumn text="GIÁ TIỀN"/>
               <ListTableColumn text="XUẤT BẢN"/>
@@ -42,7 +42,7 @@
           <ListTableRow v-for="item in products" :key="item.id">
             <template #table-column>
               <ListTableColumn class="text-orange-500" :text="item.name" />
-              <ListTableColumnLink :text="item.category?.name" :id="item.category?.id" location="detail-category" />
+              <ListTableColumnLink class="hidden lg:block" :text="item.category?.name" :id="item.category?.id" location="detail-category" />
               <ListTableColumn :text="item.stock"/>
               <ListTableColumn :text="formatPrice(item.price)" unit="đồng" />
               <ListTableColumnPublished :published="item.published" />

@@ -49,6 +49,8 @@ export function useUpdateCouponApi(coupon, id) {
 export function useGetCouponInformationApi() {
     const token = $cookies.get('token')
 
+
+    const route = useRoute()
     const id = route.params.id
 
     const config = {

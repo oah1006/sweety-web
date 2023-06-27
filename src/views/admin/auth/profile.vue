@@ -23,26 +23,26 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputEmail v-model:modelEmail="formStaff.email" />
             </template>
-          </InputBox>
-          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputFullName v-model:modelFullName="formStaff.full_name"/>
             </template>
-          </InputBox>
-          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number"/>
             </template>
-          </InputBox>
-          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputAddress v-model:modelAddress="formStaff.address" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormProfile>
     </template>
@@ -60,7 +60,7 @@ import SelectRole from "@/components/inputs/SelectRole.vue";
 import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";
 import InputAddress from "@/components/inputs/InputAddress.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import IconDetachImage from "@/components/IconDetachImage.vue";
 import InputFile from "@/components/inputs/InputFile.vue";
 

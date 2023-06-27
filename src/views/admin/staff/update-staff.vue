@@ -19,44 +19,44 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputEmail v-model:modelEmail="formStaff.email" />
             </template>
-          </InputBox>
-          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputFullName v-model:modelFullName="formStaff.full_name" />
             </template>
-          </InputBox>
-          <InputBox name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputAddress v-model:modelAddress="formStaff.address" placeholder="Địa chỉ" />
             </template>
-          </InputBox>
-          <InputBox name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
             </template>
-          </InputBox>
-          <InputBox name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
               </SelectRole>
             </template>
-          </InputBox>
-          <InputBox name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
               </SelectStatus>
             </template>
-          </InputBox>
-          <InputBox name="Cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectStore v-model:modalSelectStore="formStaff.store_id" :stores="stores">
               </SelectStore>
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -83,7 +83,7 @@ import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import AvatarLayout from "@/components/layouts/AvatarLayout.vue";
 import SelectRole from "@/components/inputs/SelectRole.vue";
 import SelectStatus from "@/components/inputs/SelectStatus.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue";
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue";
 import InputEmail from "@/components/inputs/InputEmail.vue";
 import InputFullName from "@/components/inputs/InputFullName.vue";
 import InputPhoneNumber from "@/components/inputs/InputPhoneNumber.vue";

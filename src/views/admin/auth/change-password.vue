@@ -6,16 +6,16 @@
           <TitlePage title="Đổi mật khẩu" subTitle="Bạn sẽ cần phải nhập lại mật khẩu hiện tại của mình và mật khẩu mới để thay đổi nhé!"></TitlePage>
         </template>
         <template #box-input>
-          <InputBox name="Mật khẩu cũ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/6">
+          <BoxInputLayout name="Mật khẩu cũ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/6">
             <template #input>
               <InputOldPassword v-model:modelOldPassword="formChangePassword.old_password" />
             </template>
-          </InputBox>
-          <InputBox name="Mật khẩu mới" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/6">
+          </BoxInputLayout>
+          <BoxInputLayout name="Mật khẩu mới" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/6">
             <template #input>
               <InputPassword v-model:modelPassword="formChangePassword.password" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -27,7 +27,7 @@ import InputPassword from "@/components/inputs/InputPassword.vue";
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import InputOldPassword from "@/components/inputs/InputOldPassword.vue";
 
 

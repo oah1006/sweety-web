@@ -31,7 +31,6 @@ const props = defineProps({
   itemId: Number
 })
 
-
 const emits = defineEmits(['click-redirect-update', 'delete-item', 'click-redirect-detail', 'show-modal'])
 
 function useClickRedirectUpdate(id) {

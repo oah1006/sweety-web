@@ -9,16 +9,16 @@
           <TitleFormField name="Thông tin nhân viên" />
         </template>
         <template #box-input>
-          <InputBox name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Email" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputEmail v-model:modelEmail="customer.email" />
             </template>
-          </InputBox>
-          <InputBox name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputFullName v-model:modelFullName="customer.full_name" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -33,7 +33,7 @@ import TitlePage from "@/components/TitlePage.vue"
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
 import InputEmail from "@/components/inputs/InputEmail.vue";
 import InputFullName from "@/components/inputs/InputFullName.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import TitleFormField from "@/components/TitleFormField.vue";
 import LoadingPage from "@/components/loadings/LoadingPage.vue";
 

@@ -42,7 +42,7 @@ import UpdateCoupon from "@/views/admin/coupons/update-coupon.vue";
 import DetailCoupon from "@/views/admin/coupons/detail-coupon.vue";
 
 import IndexTopping from "@/views/admin/Toppings/index-topping.vue";
-import CreateTopping from "@/views/admin/Toppings/create_topping.vue"
+import CreateTopping from "@/views/admin/Toppings/create-topping.vue"
 import UpdateTopping from "@/views/admin/Toppings/update-topping.vue";
 import DetailTopping from "@/views/admin/Toppings/detail-topping.vue"
 

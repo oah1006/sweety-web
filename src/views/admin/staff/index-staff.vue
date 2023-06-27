@@ -13,7 +13,7 @@
         </template>
         <template #box-filter>
           <div class="border border-zinc-50 shadow bg-white mt-4 px-4 py-3 rounded-lg">
-            <FilterLayout grid="grid grid-cols-4 items-center gap-10">
+            <FilterLayout grid="grid lg:grid-cols-4 grid-cols-2 items-center gap-10">
               <template #filter>
                 <InputSearch :isLoadingListTable="isLoadingListTable" @filter-data="filterData"
                              v-model:modalSearch="filters.search" label="Tìm kiếm theo từ khóa" />
@@ -32,9 +32,9 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn />
+              <ListTableColumn class="hidden lg:block" />
               <ListTableColumn text="Tên"/>
-              <ListTableColumn text="CỬA HÀNG"/>
+              <ListTableColumn class="hidden lg:block" text="CỬA HÀNG"/>
               <ListTableColumn text="VAI TRÒ"/>
               <ListTableColumn class="text-center" text="TRẠNG THÁI"/>
               <ListTableColumn />
@@ -44,9 +44,9 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in staff" :key="item.id">
             <template #table-column>
-              <ListTableColumnImage :url="item.attachment?.url"  />
+              <ListTableColumnImage class="hidden lg:block" :url="item.attachment?.url"  />
               <ListTableColumn :text="item.full_name" class="text-lg text-orange-500" />
-              <ListTableColumnLink :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
+              <ListTableColumnLink class="hidden lg:block" :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
               <ListTableColumnBadge :role="item.role" />
               <ListTableColumnBoolean :isActive="item.is_active" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"
@@ -164,8 +164,6 @@ function getData() {
       .then((response) => {
         pagination.value.lastPage = response.data.data.last_page
         pagination.value.total = response.data.data.total
-
-        console.log(response.data.data.data)
 
         staff.value = response.data.data.data
 

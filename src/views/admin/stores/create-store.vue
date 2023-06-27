@@ -21,21 +21,21 @@
           </ImageDetailLayout>
         </template>
         <template #box-input>
-          <InputBox name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Tên cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputName v-model:modelName="store.store_name" placeholder="Tên cửa hàng" color="text-orange-500" />
             </template>
-          </InputBox>
-          <InputBox name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputOpenStore v-model:modelOpenStore="store.open_store" />
             </template>
-          </InputBox>
-          <InputBox name="Giờ đóng cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Giờ đóng cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputCloseStore v-model:modelCloseStore="store.close_store" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
         <template #title-box-input-address>
           <TitleFormField name="Địa chỉ" />
@@ -43,34 +43,34 @@
         <template #box-input-address>
           <BoxInputAddressLayout>
             <template #address>
-              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Thành phố" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterProvince v-model:modelProvince="store.province" placeholder="Thành phố" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelProvince="store.province.code" placeholder="Quận" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterWard v-model:modelWard="store.ward" v-model:modelDistrict="store.district.code" placeholder="Phường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
                 </template>
               </BoxInputAddress>
-              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.street_number" placeholder="Số nhà" />
                 </template>
               </BoxInputAddress>
             </template>
             <template #get-coordinates>
-              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+              <BoxGetCoordinates name="Tính tọa độ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="lg:flex lg:items-center lg:gap-4" width="lg:w-1/12 w-1/2">
                 <template #input-long>
                   <InputLong placeholder="Kinh độ" :placeholder="store.long" v-model:modelLong="store.long" />
                 </template>
@@ -94,7 +94,7 @@
 import CreateLayout from "@/components/layouts/CreateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormCreateLayout from "@/components/layouts/FormCreateLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import InputName from "@/components/inputs/InputName.vue";
 import InputOpenStore from "@/components/inputs/InputOpenStore.vue";
 import InputCloseStore from "@/components/inputs/InputCloseStore.vue";
@@ -115,8 +115,6 @@ import {ref} from "vue";
 import { useToastStore } from "@/stores/toast";
 import { useCreateStoreApi } from "@/repositories/store";
 import { useProfileStore } from "@/stores/getMyProfile";
-import ImageProductLayout from "@/components/layouts/ImageProductLayout.vue";
-import InputFile from "@/components/inputs/InputFile.vue";
 import InputMultipleFile from "@/components/inputs/InputMultipleFile.vue";
 import ImageDetailLayout from "@/components/images/ImageDetailLayout.vue";
 import BoxDetailProduct from "@/components/images/BoxDetailProduct.vue";

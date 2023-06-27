@@ -6,16 +6,16 @@
           <TitlePage title="Cập nhật loại sản phẩm" subTitle="Chào mừng bạn đến với trang cập nhật loại sản phẩm!"></TitlePage>
         </template>
         <template #box-input>
-          <InputBox name="Tên loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          <BoxInputLayout name="Tên loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputName v-model:modelName="category.name" placeholder="Tên loại sản phẩm" />
             </template>
-          </InputBox>
-          <InputBox name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
+          </BoxInputLayout>
+          <BoxInputLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputDescription v-model:modelDescription="category.description" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormUpdateLayout>
       <LoadingPage v-else />
@@ -28,7 +28,7 @@
 import UpdateLayout from "@/components/layouts/UpdateLayout.vue";
 import TitlePage from "@/components/TitlePage.vue"
 import FormUpdateLayout from "@/components/layouts/FormUpdateLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue"
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue"
 import LoadingPage from "@/components/loadings/LoadingPage.vue";
 import InputName from "@/components/inputs/InputName.vue";
 import InputDescription from "@/components/inputs/InputDescription.vue";

@@ -10,11 +10,11 @@
           <BoxAvatarDetail nameLabel="Họ và tên" :item="staff.full_name" :url="url" :role="staff.role" width="w-28" height="h-28" />
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" color="text-orange-500"  nameLabel="Mã nhân viên" :item="staff.code"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Email" :item="staff.user?.email"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Địa chỉ" :item="staff.address"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Số điện thoại" :item="staff.phone_number"/>
-          <BoxItemLink border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"  nameLabel="Làm việc tại" location="detail-stores" :id="staff.store.id" :item="staff.store.store_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="text-orange-500"  nameLabel="Mã nhân viên" :item="staff.code"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Email" :item="staff.user?.email"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Địa chỉ" :item="staff.address"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Số điện thoại" :item="staff.phone_number"/>
+          <BoxItemLink border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Làm việc tại" location="detail-stores" :id="staff.store.id" :item="staff.store.store_name"/>
           <BoxItemStatus class="py-4 px-10" nameLabel="Trạng thái" :item="staff.is_active"/>
         </template>
       </FormDetailLayout>

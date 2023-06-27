@@ -7,14 +7,14 @@
           <TitlePage title="Thông tin mã khuyến mãi" subTitle="Chào mừng bạn đến với trang thông tin mã khuyến mãi!"></TitlePage>
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" color="text-orange-500" nameLabel="Mã khuyến mãi" :item="coupon.code"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Tên khuyến mãi" :item="coupon.name"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Mô tả" :item="coupon.description"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Số lượng" :item="coupon.stock"/>
-          <BoxItemHasUnit border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Giảm số phần trăm" :item="coupon.is_percent_value" unit="%"/>
-          <BoxItemHasUnit border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Tối thiểu cần đạt" :item="coupon.min_order_total" unit="đồng"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Ngày bắt đầu" :item="coupon.started_at"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6" nameLabel="Ngày hết hạn" :item="coupon.expired_at"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="text-orange-500" nameLabel="Mã khuyến mãi" :item="coupon.code"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Tên khuyến mãi" :item="coupon.name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Mô tả" :item="coupon.description"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Số lượng" :item="coupon.stock"/>
+          <BoxItemHasUnit border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Giảm số phần trăm" :item="coupon.is_percent_value" unit="%"/>
+          <BoxItemHasUnit border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Tối thiểu cần đạt" :item="coupon.min_order_total" unit="đồng"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Ngày bắt đầu" :item="coupon.started_at"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" nameLabel="Ngày hết hạn" :item="coupon.expired_at"/>
           <BoxItemStatusCoupon class="py-4 px-10" nameLabel="Trạng thái" :status="coupon.status"/>
         </template>
       </FormDetailLayout>

@@ -3,7 +3,7 @@
     <Header />
     <div class="flex h-full">
       <NavigationBar />
-      <div class="ml-64 px-12 grow mt-28">
+      <div class="lg:ml-64 lg:px-12 px-4 grow mt-28">
         <slot name="form-create"></slot>
       </div>
     </div>

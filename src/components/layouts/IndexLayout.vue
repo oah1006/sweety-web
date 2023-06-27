@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-zinc-50 ">
+  <div class="min-h-screen bg-zinc-50">
     <Header />
     <div class="flex h-full z-50">
       <NavigationBar />

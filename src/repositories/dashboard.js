@@ -52,15 +52,34 @@ export function useIndexGetBestSellerProductDashboardApi() {
         .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/best-seller-product', config)
 }
 
-export function useIndexGetRevenueByDates() {
+export function useIndexGetRevenueByDates(store_id = null) {
     const token = $cookies.get('token')
 
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
+        params: {
+            store_id
+        }
     }
 
     return axios
         .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/calculate-revenue-by-dates', config)
+}
+
+export function useIndexGetProductByDates(store_id = null) {
+    const token = $cookies.get('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        params: {
+            store_id
+        }
+    }
+
+    return axios
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/get-product-by-dates', config)
 }

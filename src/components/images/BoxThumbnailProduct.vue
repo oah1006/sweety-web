@@ -1,5 +1,5 @@
 <template>
-  <div class="my-4 mx-4">
+  <div class="lg:my-4 pb-4 mx-4">
     <p>Ảnh mô tả</p>
     <div class="w-full flex gap-10" v-if="!url">
       <div class="border-dashed border-2 border-zinc-300 w-48 h-48 mt-2">

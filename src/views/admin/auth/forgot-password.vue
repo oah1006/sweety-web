@@ -3,21 +3,21 @@
     <template #form-forgot-password>
       <FormForgotPasswordLayout title="Khôi phục mật khẩu" textButton="Xác nhận">
         <template #box-input>
-          <InputBox>
+          <BoxInputLayout>
             <template #input>
               <InputEmail type="hidden" v-model:modelEmail="formForgotPassword.email" />
             </template>
-          </InputBox>
-          <InputBox name="Email mới" margin="mt-2">
+          </BoxInputLayout>
+          <BoxInputLayout name="Email mới" margin="mt-2">
             <template #input>
               <InputNewPassword v-model:modelNewPassword="formForgotPassword.new_password" />
             </template>
-          </InputBox>
-          <InputBox name="Xác nhận lại Email mới" margin="mt-4">
+          </BoxInputLayout>
+          <BoxInputLayout name="Xác nhận lại Email mới" margin="mt-4">
             <template #input>
               <InputPasswordConfirmation v-model:modelNewPasswordConfirmation="formForgotPassword.new_password_confirmation" />
             </template>
-          </InputBox>
+          </BoxInputLayout>
         </template>
       </FormForgotPasswordLayout>
     </template>
@@ -27,7 +27,7 @@
 <script setup>
 import ForgotLayout from "@/components/layouts/ForgotLayout.vue";
 import FormForgotPasswordLayout from "@/components/layouts/FormForgotPasswordLayout.vue";
-import InputBox from "@/components/layouts/BoxInputLayout.vue";
+import BoxInputLayout from "@/components/layouts/BoxInputLayout.vue";
 import InputNewPassword from "@/components/inputs/InputNewPassword.vue";
 import InputPasswordConfirmation from "@/components/inputs/InputPasswordConfirmation.vue";
 import InputEmail from "@/components/inputs/InputEmail.vue";

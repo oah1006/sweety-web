@@ -1,7 +1,7 @@
 <template>
   <div :class="`${props.padding} ${props.flex} ${props.border} ${props.margin}`">
     <p :class="`${props.width}`">{{ props.name }}</p>
-    <div class="w-full flex items-center justify-between">
+    <div class="lg:flex lg:items-center lg:justify-between lg:gap-4">
       <div class="flex gap-10">
         <slot name="input-long"></slot>
         <slot name="input-lat"></slot>

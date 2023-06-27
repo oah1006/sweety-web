@@ -23,7 +23,7 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn text="MÃ KHÁCH HÀNG" />
+              <ListTableColumn class="hidden lg:block" text="MÃ KHÁCH HÀNG" />
               <ListTableColumn text="Tên"/>
               <ListTableColumn text="EMAIL"/>
               <ListTableColumn />
@@ -33,7 +33,7 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in customers" :key="item.id">
             <template #table-column>
-              <ListTableColumn class="text-orange-500" :text="item.code" />
+              <ListTableColumn class="text-orange-500 hidden lg:block" :text="item.code" />
               <ListTableColumn :text="item.full_name" />
               <ListTableColumn :text="item.user?.email" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"

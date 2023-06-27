@@ -7,9 +7,9 @@
           <TitlePage title="Thông tin khách hàng" subTitle="Chào mừng bạn đến với trang thông tin khách hàng!"></TitlePage>
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   color="text-orange-500" nameLabel="Mã khách hàng" :item="customer.code"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Email" :item="customer.user?.email"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="w-1/6"   nameLabel="Họ và tên" :item="customer.full_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  color="text-orange-500" nameLabel="Mã khách hàng" :item="customer.code"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Email" :item="customer.user?.email"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" w idth="lg:w-1/6 w-1/2"  nameLabel="Họ và tên" :item="customer.full_name"/>
         </template>
         <template #list-address>
           <TableListAddress :lengthListAddress="customer.address.length">
