@@ -21,7 +21,7 @@
           </div>
         </div>
         <div>
-          <canvas class="!bg-white !px-10 my-10 ml-10" ref="chartCanvas"></canvas>
+          <canvas class="!bg-white !px-10 my-10 ml-10 !w-[1020px]" ref="chartCanvas"></canvas>
         </div>
       </div>
     </div>
