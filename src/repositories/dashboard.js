@@ -93,9 +93,24 @@ export function exportRevenueByInputDate(start_date, end_date, store_id) {
         },
         params: {
             start_date, end_date, store_id
-        }
+        },
+        responseType: 'blob',
     }
 
     return axios
-        .postForm(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/export-revenue-by-input-date', {}, config)
+        .post(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/export-revenue-by-input-date', {}, config)
+        .then((response) => {
+            const href = URL.createObjectURL(response.data);
+
+            // create "a" HTML element with href to file & click
+            const link = document.createElement('a');
+            link.href = href;
+            link.setAttribute('download', 'revenue.xlsx'); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+
+            // clean up "a" element & remove ObjectURL
+            document.body.removeChild(link);
+            URL.revokeObjectURL(href);
+        })
 }

@@ -102,7 +102,7 @@ const file = ref('')
 
 const input = ref('')
 
-const url = ref(process.env.VUE_APP_ENV_URL + '')
+const url = ref( + '')
 
 const route = useRoute();
 

@@ -1,6 +1,6 @@
 <template>
   <div :class="`${props.width} ${props.height}`" class="my-4 ">
-    <img v-if="props.url" :class="`${props.width} ${props.height} ${props.shape} ${props.border}`" :src="urlApi + props.url" class="object-cover"/>
+    <img v-if="props.url" :class="`${props.width} ${props.height} ${props.shape} ${props.border}`" :src="props.url" class="object-cover"/>
     <img v-else :class="`${props.width} ${props.height} ${props.shape} ${props.border}`" src="../../images/no-avatar.jpg" class="object-cover"/>
   </div>
 </template>
@@ -15,6 +15,6 @@ const props = defineProps({
   border: String,
 })
 
-const urlApi = process.env.VUE_APP_ENV_URL
+
 
 </script>

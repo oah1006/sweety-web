@@ -44,8 +44,7 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in staff" :key="item.id">
             <template #table-column>
-              <ListTableColumnImage v-if="urlApi != null" class="hidden lg:block" :url="urlApi + item.attachment?.url"  />
-              <ListTableColumnImage v-else class="hidden lg:block" :url="item.attachment?.url"  />
+              <ListTableColumnImage class="hidden lg:block" :url="item.attachment?.url"  />
               <ListTableColumn :text="item.full_name" class="text-lg text-orange-500" />
               <ListTableColumnLink class="hidden lg:block" :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
               <ListTableColumnBadge :role="item.role" />
@@ -114,7 +113,7 @@ const pagination = ref({
     lastPage: null
 })
 
-const urlApi = process.env.VUE_APP_ENV_URL
+
 
 const filters = ref({
   filterStatus: '',
@@ -238,6 +237,6 @@ function filterData() {
   }, 400)
 }
 
-console.log(process.env.VUE_APP_ENV_URL)
+console.log()
 
 </script>

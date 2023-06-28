@@ -56,11 +56,13 @@ import { useRouter } from "vue-router";
 import { useNavigationBarStore } from "@/stores/navigationBar";
 
 
+
 const profileStore = useProfileStore()
 
 const isPopup = ref(false)
 
 const router = useRouter();
+
 
 function showPopup() {
   isPopup.value = !isPopup.value

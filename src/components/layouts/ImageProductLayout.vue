@@ -69,7 +69,7 @@ const props = defineProps({
   },
 })
 
-const urlApi = process.env.VUE_APP_ENV_URL
+
 
 const emits = defineEmits(['update:modelDetailProducts', 'detach-one-image-in-multiple', 'detach-thumbnail'])
 
