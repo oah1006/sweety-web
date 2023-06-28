@@ -235,5 +235,6 @@ function filterData() {
   }, 400)
 }
 
+console.log(process.env.VUE_APP_ENV_URL)
 
 </script>
