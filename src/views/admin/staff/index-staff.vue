@@ -44,7 +44,7 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in staff" :key="item.id">
             <template #table-column>
-              <ListTableColumnImage class="hidden lg:block" :url="item.attachment?.url"  />
+              <ListTableColumnImage class="hidden lg:block" :url="process.env.VUE_APP_ENV_URL + item.attachment?.url"  />
               <ListTableColumn :text="item.full_name" class="text-lg text-orange-500" />
               <ListTableColumnLink class="hidden lg:block" :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
               <ListTableColumnBadge :role="item.role" />

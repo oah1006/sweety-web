@@ -40,7 +40,7 @@ import BoxItemLink from "@/components/details/BoxItemLink.vue";
 
 const router = useRouter();
 
-const url = ref('')
+const url = ref(process.env.VUE_APP_ENV_URL + '')
 
 const staff = ref({})
 
