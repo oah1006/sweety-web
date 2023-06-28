@@ -3,7 +3,7 @@
     <slot name="title-form-field"></slot>
     <div class="flex flex-col items-center justify-center">
       <div class="relative">
-        <BoxImage :url="props.url" :border="props.border" :width="props.width" :height="props.height" :shape="props.shape" />
+        <BoxImage :url="urlApi + props.url" :border="props.border" :width="props.width" :height="props.height" :shape="props.shape" />
         <slot name="icon-detach-image"></slot>
       </div>
       <div>
@@ -20,7 +20,8 @@ import {ref} from "vue";
 
 const file = ref('')
 
-const url = ref('')
+const urlApi = process.env.VUE_APP_ENV_URL
+
 
 
 const emits = defineEmits(['change-image', 'detach-image'])
