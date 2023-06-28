@@ -3,13 +3,17 @@
     <Header />
     <div class="flex">
       <NavigationBar />
-      <div class="ml-56 px-12 grow pt-28 bg-zinc-100 min-h-screen">
+      <div class="ml-64 px-12 grow pt-28 bg-zinc-100 min-h-screen">
         <p class="px-12 py-4 text-4xl text-zinc-600 font-medium">Thống kê Doanh thu</p>
-        <div class="flex ml-14 items-center">
-          <div class="bg-cyan-500 px-2 py-1 rounded-lg text-white">
+        <div class="mx-12 px-10 py-5 flex items-center gap-4 bg-white">
+          <input type="date" name="start_date" v-model="start_date" class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4"/>
+          <input type="date" name="end_date" v-model="end_date" class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4"/>
+        </div>
+        <div class="flex ml-12 items-center mt-4">
+          <button @click="exportExcelRevenueByInputDate" class="bg-cyan-500 px-2 py-1 rounded-lg text-white cursor-pointer">
             Xuất thống kê
-          </div>
-          <div class="ml-auto flex gap-3 items-center">
+          </button>
+          <div class="ml-auto flex gap-3 items-center mr-12">
             <select v-model="store_id" class="form-select text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 pr-8">
               <option disabled value="">Hãy chọn dưới đây</option>
               <option v-for="store in stores" :value="store.id" :key="store.id">{{ store.store_name }}</option>
@@ -21,7 +25,7 @@
           </div>
         </div>
         <div>
-          <canvas class="!bg-white !px-10 my-10 ml-12" ref="chartCanvas"></canvas>
+          <canvas class="!bg-white !px-10 my-10 !w-[1070px] !ml-12 " ref="chartCanvas"></canvas>
         </div>
       </div>
     </div>
@@ -35,12 +39,14 @@ import {onMounted, ref, watch} from 'vue';
 import Chart from 'chart.js/auto';
 import {
   useIndexGetRevenueByDates,
-  useIndexGetRevenueByLastSevenDates,
-  useIndexGetRevenueByLastSevenDays,
-  useIndexGetRevenueByLastSevenMonths
+  exportRevenueByInputDate
 } from "@/repositories/dashboard";
+
 import {useIndexStoreApi} from "@/repositories/store";
-import {useIndexProductApi} from "@/repositories/product";
+
+import InputStartedAt from "@/components/inputs/InputStartedAt.vue";
+import InputExpiredAt from "@/components/inputs/InputExpiredAt.vue";
+
 
 const chartCanvas = ref(null);
 
@@ -53,6 +59,8 @@ const optionRevenue = ref('7 days')
 
 const stores = ref([])
 const store_id = ref('')
+const start_date = ref('')
+const end_date = ref('')
 
 const debounce = ref(0)
 
@@ -161,7 +169,6 @@ function getStores() {
       })
 }
 
-
 function filterData() {
   clearTimeout(debounce.value)
 
@@ -209,6 +216,12 @@ watch([store_id, optionRevenue], () => {
   filterData()
 }, {immediate: true})
 
+function exportExcelRevenueByInputDate() {
+  exportRevenueByInputDate(start_date.value, end_date.value, store_id.value)
+      .then((response) => {
+
+      })
+}
 
 
 </script>

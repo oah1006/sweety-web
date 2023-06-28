@@ -83,3 +83,20 @@ export function useIndexGetProductByDates(store_id = null) {
     return axios
         .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/get-product-by-dates', config)
 }
+
+export function exportRevenueByInputDate(start_date, end_date, store_id) {
+    const token = $cookies.get('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            responseType: 'blob'
+        },
+        params: {
+            start_date, end_date, store_id
+        }
+    }
+
+    return axios
+        .get(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/export-revenue-by-input-date', config)
+}

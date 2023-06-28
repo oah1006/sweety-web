@@ -166,7 +166,8 @@ function onImageChange(e) {
 
     storeAttachment('staff', formStaff.value.id, file.value, 'avatars')
       .then((response) => {
-        formStaff.value.attachment_id = response.data[0][0].id
+        console.log(response.data)
+        formStaff.value.attachment_id = response.data.id
         input.value.value = ''
       })
 }
