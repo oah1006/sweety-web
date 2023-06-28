@@ -100,6 +100,8 @@ if (profileStore.profile.profile?.role !== 'administrator') {
   router.push({ name: '403' })
 }
 
+const urlApi = process.env.VUE_APP_ENV_URL
+
 const file = ref();
 const url = ref('');
 
