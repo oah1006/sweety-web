@@ -35,7 +35,7 @@
 <script setup>
 import NavigationBar from "@/components/home/NavigationBar.vue";
 import Header from "@/components/home/Header.vue"
-import {onMounted, ref, watch} from 'vue';
+import { ref, watch } from 'vue';
 import Chart from 'chart.js/auto';
 import {
   useIndexGetRevenueByDates,
@@ -43,9 +43,6 @@ import {
 } from "@/repositories/dashboard";
 
 import {useIndexStoreApi} from "@/repositories/store";
-
-import InputStartedAt from "@/components/inputs/InputStartedAt.vue";
-import InputExpiredAt from "@/components/inputs/InputExpiredAt.vue";
 
 
 const chartCanvas = ref(null);
@@ -126,40 +123,6 @@ function formatDate(date) {
 function formatMonth(date) {
   const [year, month] = date.split('-');
   return `${month}-${year}`;
-}
-
-function getRevenueByDates() {
-  useIndexGetRevenueByDates()
-      .then((response) => {
-        const dataType = response.data
-
-        for (const key in dataType) {
-          if (key == '7 days') {
-            dataRevenueSevenDay.value = dataType[key]
-          } else if (key == '7 months') {
-            dataRevenueSevenMonth.value = dataType[key]
-          }
-        }
-
-        dates.value = []
-        revenues.value = []
-
-        if (optionRevenue.value == '7 days') {
-          dataRevenueSevenDay.value.forEach((item) => {
-            const formattedDate = formatDate(item.date);
-            dates.value.push(formattedDate);
-            revenues.value.push(item.revenue)
-          })
-        } else if (optionRevenue.value == '7 months') {
-          dataRevenueSevenMonth.value.forEach((item) => {
-            const formattedMonth = formatMonth(item.month);
-            dates.value.push(formattedMonth);
-            revenues.value.push(item.revenue)
-          })
-        }
-
-        createChart()
-      })
 }
 
 function getStores() {

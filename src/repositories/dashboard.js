@@ -102,14 +102,41 @@ export function exportRevenueByInputDate(start_date, end_date, store_id) {
         .then((response) => {
             const href = URL.createObjectURL(response.data);
 
-            // create "a" HTML element with href to file & click
             const link = document.createElement('a');
             link.href = href;
-            link.setAttribute('download', 'revenue.xlsx'); //or any other extension
+            link.setAttribute('download', 'revenue.xlsx');
             document.body.appendChild(link);
             link.click();
 
-            // clean up "a" element & remove ObjectURL
+            document.body.removeChild(link);
+            URL.revokeObjectURL(href);
+        })
+}
+
+export function exportProductByInputDate(start_date, end_date, store_id) {
+    const token = $cookies.get('token')
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        params: {
+            start_date, end_date, store_id
+        },
+        responseType: 'blob',
+    }
+
+    return axios
+        .post(process.env.VUE_APP_ENV_VARIABLE + '/private/dashboard/export-product-by-input-date', {}, config)
+        .then((response) => {
+            const href = URL.createObjectURL(response.data);
+
+            const link = document.createElement('a');
+            link.href = href;
+            link.setAttribute('download', 'product.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
             document.body.removeChild(link);
             URL.revokeObjectURL(href);
         })
