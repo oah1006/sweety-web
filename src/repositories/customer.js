@@ -47,7 +47,7 @@ export function useStoreCustomerApi(email, password, full_name, phone_number, st
         .post(process.env.VUE_APP_ENV_VARIABLE + '/private/customers', customer, config)
 }
 
-export function useUpdateCustomer(formCusomter, id) {
+export function useUpdateCustomer(customer, id) {
     const token = $cookies.get('token')
 
     const config = {
@@ -58,7 +58,7 @@ export function useUpdateCustomer(formCusomter, id) {
     }
 
     return axios
-        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/customers/' + id, formCusomter, config)
+        .put(process.env.VUE_APP_ENV_VARIABLE + '/private/customers/' + id, customer, config)
 }
 
 export function useGetCustomerInformation() {

@@ -237,6 +237,6 @@ function filterData() {
   }, 400)
 }
 
-console.log()
+
 
 </script>

@@ -74,7 +74,7 @@ const id = route.params.id
 const isLoadingPage = ref(true)
 
 async function submit() {
-  useUpdateCustomer(customers.value, id)
+  useUpdateCustomer(customer.value, id)
       .then((response) => {
         useToastStore().success('Cập nhật thành công', 3000)
         router.push({ name: 'index-customer' })
@@ -84,7 +84,6 @@ async function submit() {
 function getInformationCustomer() {
   useGetCustomerInformation()
       .then((response) => {
-
         customer.value.email = response.data.data.user?.email
         customer.value.full_name = response.data.data.full_name
         customer.value.phone_number = response.data.data.phone_number

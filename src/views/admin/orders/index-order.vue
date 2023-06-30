@@ -70,6 +70,7 @@ import {onBeforeMount, ref} from "vue";
 import {useRouter} from "vue-router";
 import {useIndexOrderApi} from "@/repositories/order";
 import { database, refFireBase, setFireBase, onValueFireBase} from "@/stores/firebase";
+import {useIndexStaff} from "@/repositories/staff";
 
 const router = useRouter()
 
@@ -136,6 +137,25 @@ function useClickRedirectDetail(id) {
 function formatPrice(price) {
   return price.toLocaleString("vi-VN")
 }
+
+function filterData() {
+  clearTimeout(debounce.value)
+
+  debounce.value = setTimeout(() => {
+    isLoadingListTable.value = true
+
+    useIndexOrderApi(page.value, search.value)
+        .then((response) => {
+          orders.value = response.data.data.data
+
+          isLoadingListTable.value = false
+        })
+        .catch((error) => {
+          console.log(error.response.data)
+        })
+  }, 400)
+}
+
 
 
 </script>
