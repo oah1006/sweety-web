@@ -31,8 +31,8 @@
               <ListTableColumn class="hidden lg:block" text="SỐ LƯỢNG"/>
               <ListTableColumn text="GIÁ TRỊ MÃ GIẢM"/>
               <ListTableColumn text="TỔNG HÓA ĐƠN CẦN ĐẠT"/>
-              <ListTableColumn class="hidden lg:block" text="BẮT ĐẦU"/>
-              <ListTableColumn class="hidden lg:block" text="HẾT HẠN"/>
+              <ListTableColumn text="BẮT ĐẦU"/>
+              <ListTableColumn text="HẾT HẠN"/>
               <ListTableColumn text="TRẠNG THÁI"/>
               <ListTableColumn />
             </template>
@@ -46,8 +46,8 @@
               <ListTableColumn class="hidden lg:block" :text="item.stock" />
               <ListTableColumn :text="item.is_percent_value" />
               <ListTableColumn :text="item.min_order_total" />
-              <ListTableColumn class="hidden lg:block" :text="item.started_at" />
-              <ListTableColumn class="hidden lg:block" :text="item.expired_at" />
+              <ListTableColumn :text="item.started_at" />
+              <ListTableColumn :text="item.expired_at" />
               <ListTableColumnStatusCoupon :status="item.status" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate" @click-redirect-detail="useClickRedirectDetail" :item-id="item.id"
                                        @show-modal="showModal" />

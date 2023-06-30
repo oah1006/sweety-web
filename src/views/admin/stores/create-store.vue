@@ -25,15 +25,30 @@
             <template #input>
               <InputName v-model:modelName="store.store_name" placeholder="Tên cửa hàng" color="text-orange-500" />
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.store_name">
+                <p v-if="errors?.errors?.store_name">{{ errors?.errors?.store_name[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayout>
           <BoxInputLayout name="Giờ mở cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputOpenStore v-model:modelOpenStore="store.open_store" />
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.open_store">
+                <p v-if="errors?.errors?.open_store">{{ errors?.errors?.open_store[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayout>
           <BoxInputLayout name="Giờ đóng cửa" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="w-1/12">
             <template #input>
               <InputCloseStore v-model:modelCloseStore="store.close_store" />
+            </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.close_store">
+                <p v-if="errors?.errors?.close_store">{{ errors?.errors?.close_store[0] }}</p>
+              </div>
             </template>
           </BoxInputLayout>
         </template>
@@ -47,25 +62,50 @@
                 <template #input>
                   <SelectFilterProvince v-model:modelProvince="store.province" placeholder="Thành phố" />
                 </template>
+                <template #error>
+                  <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3" v-if="errors?.errors?.province_code">
+                    <p v-if="errors?.errors?.province_code">{{ errors?.errors?.province_code[0] }}</p>
+                  </div>
+                </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Quận" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterDistrict v-model:modelDistrict="store.district" v-model:modelProvince="store.province.code" placeholder="Quận" />
+                </template>
+                <template #error>
+                  <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3" v-if="errors?.errors?.province_code">
+                    <p v-if="errors?.errors?.district_code">{{ errors?.errors?.district_code[0] }}</p>
+                  </div>
                 </template>
               </BoxInputAddress>
               <BoxInputAddress name="Tên Phường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <SelectFilterWard v-model:modelWard="store.ward" v-model:modelDistrict="store.district.code" placeholder="Phường" />
                 </template>
+                <template #error>
+                  <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3" v-if="errors?.errors?.ward_code">
+                    <p v-if="errors?.errors?.ward_code">{{ errors?.errors?.ward_code[0] }}</p>
+                  </div>
+                </template>
               </BoxInputAddress>
               <BoxInputAddress name="Đường" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.street" placeholder="Đường" />
                 </template>
+                <template #error>
+                  <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3" v-if="errors?.errors?.street">
+                    <p v-if="errors?.errors?.street">{{ errors?.errors?.street[0] }}</p>
+                  </div>
+                </template>
               </BoxInputAddress>
               <BoxInputAddress name="Số nhà" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
                 <template #input>
                   <InputAddress v-model:modelAddress="store.street_number" placeholder="Số nhà" />
+                </template>
+                <template #error>
+                  <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3" v-if="errors?.errors?.street_number">
+                    <p v-if="errors?.errors?.street_number">{{ errors?.errors?.street_number[0] }}</p>
+                  </div>
                 </template>
               </BoxInputAddress>
             </template>
@@ -177,6 +217,8 @@ function onImageChangeDetailProducts(e) {
   }
 }
 
+const errors = ref({})
+
 async function submit() {
   useCreateStoreApi(detailProducts.value, store.value.store_name, store.value.open_store, store.value.close_store, store.value.street_number,
   store.value.street, store.value.ward.code, store.value.district.code, store.value.province.code,
@@ -184,6 +226,10 @@ async function submit() {
       .then((response) => {
         useToastStore().success('Tạo thành công', 3000)
         router.push({ name: 'index-stores' })
+      })
+      .catch((error) => {
+        errors.value = error.response.data
+        console.log(errors.value)
       })
 }
 

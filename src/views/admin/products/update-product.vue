@@ -27,10 +27,20 @@
             <template #input>
               <InputName v-model:modelName="product.name" placeholder="Tên sản phẩm" />
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.name">
+                <p v-if="errors?.errors?.name">{{ errors?.errors?.name[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayoutLayout>
           <BoxInputLayoutLayout name="Mô tả" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputDescription v-model:modelDescription="product.description" />
+            </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.description">
+                <p v-if="errors?.errors?.description">{{ errors?.errors?.description[0] }}</p>
+              </div>
             </template>
           </BoxInputLayoutLayout>
           <BoxInputLayoutLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
@@ -42,10 +52,20 @@
             <template #input>
               <InputPrice v-model:modelPrice="product.price" />
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.price">
+                <p v-if="errors?.errors?.price">{{ errors?.errors?.price[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayoutLayout>
           <BoxInputLayoutLayout name="Loại sản phẩm" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectCategory v-model:modalSelectCategory="product.category_id" :category="categories" />
+            </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.category_id">
+                <p v-if="errors?.errors?.category_id">{{ errors?.errors?.category_id[0] }}</p>
+              </div>
             </template>
           </BoxInputLayoutLayout>
           <BoxInputLayoutLayout name="Xuất bản" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
@@ -53,13 +73,9 @@
               <SelectPublished v-model:modalPublished="product.published" :selectOptionPublished="selectOptionPublished">
               </SelectPublished>
             </template>
-          </BoxInputLayoutLayout>
-          <BoxInputLayoutLayout name="Topping" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
-            <template #input>
-              <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-5">
-                <div v-for="topping in toppings" :key="topping.id">
-                  <InputCheckboxTopping :idTopping="topping.id" v-model:modalTopping="checkNames" :name="topping.name" :price="topping.price"></InputCheckboxTopping>
-                </div>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.published">
+                <p v-if="errors?.errors?.published">{{ errors?.errors?.published[0] }}</p>
               </div>
             </template>
           </BoxInputLayoutLayout>
@@ -263,12 +279,19 @@ function getProductInformation() {
         isLoadingPage.value = false
       })
 }
+
+const errors = ref({})
+
 async function submit() {
   useUpdateProductApi(id, product.value.name, product.value.description, product.value.stock,
       product.value.price, product.value.category_id, product.value.published, checkNames.value, variants.value)
       .then((response) => {
         router.push({ name: 'index-product' })
         useToastStore().success('Cập nhật thành công', 3000)
+      })
+      .catch((error) => {
+        errors.value = error.response.data
+        console.log(errors.value)
       })
 }
 

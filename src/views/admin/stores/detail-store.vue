@@ -16,7 +16,7 @@
           </ImageDetailLayout>
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="text-orange-500" nameLabel="Tên cửa hàng" :item="store.store_name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="!text-orange-500" nameLabel="Tên cửa hàng" :item="store.store_name"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Số nhà" :item="store.address.street_number"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Đường" :item="store.address.street"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Phường" :item="store.address.ward.full_name"/>

@@ -32,9 +32,9 @@
         <template #list-table-row-head>
           <ListTableRow>
             <template #table-column>
-              <ListTableColumn class="hidden lg:block" />
+              <ListTableColumn class="hidden lg:inline-block" />
               <ListTableColumn text="Tên"/>
-              <ListTableColumn class="hidden lg:block" text="CỬA HÀNG"/>
+              <ListTableColumn class="hidden lg:inline-block" text="CỬA HÀNG"/>
               <ListTableColumn text="VAI TRÒ"/>
               <ListTableColumn class="text-center" text="TRẠNG THÁI"/>
               <ListTableColumn />
@@ -44,9 +44,9 @@
         <template #list-table-row-body>
           <ListTableRow v-for="item in staff" :key="item.id">
             <template #table-column>
-              <ListTableColumnImage class="hidden lg:block" :url="item.attachment?.url"  />
+              <ListTableColumnImage class="hidden lg:inline-block" :url="item.attachment?.url"  />
               <ListTableColumn :text="item.full_name" class="text-lg text-orange-500" />
-              <ListTableColumnLink class="hidden lg:block" :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
+              <ListTableColumnLink class="hidden lg:inline-block" :text="item.store?.store_name" :id="item.store?.id" location="detail-stores"/>
               <ListTableColumnBadge :role="item.role" />
               <ListTableColumnBoolean :isActive="item.is_active" />
               <ListTableColumnFunction @click-redirect-update="useClickRedirectUpdate"

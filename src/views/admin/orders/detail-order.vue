@@ -68,7 +68,7 @@
         </template>
         <template #order-summary>
           <BoxOrderSummary :createdAt="order.created_at" :status="order.status" :code="order.code"
-                           :subTotal="order.sub_total"
+                           :subTotal="order.sub_total" :shippingFee="order.shipping_fee"
                            :idSaleStaff="order.sale_staff?.id" :total="order.total" :items="items"
                            :nameSaleStaff="order.sale_staff?.full_name" :isPercentValue="order.coupon?.is_percent_value"
                            :nameDeliveryStaff="order.delivery_staff?.full_name" :idDeliveryStaff="order.delivery_staff?.id"
@@ -135,6 +135,8 @@ function getInformationOrder() {
   useGetOrderInformationApi(id)
       .then((response) => {
         order.value = response.data.data
+
+        console.log(order.value)
 
         const totalObject = order.value.items.map(item => {
           const optionsPrice = item.order_item_options.reduce((acc, option) => acc + (option.topping.price * option.qty), 0);

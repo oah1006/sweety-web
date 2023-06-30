@@ -7,7 +7,7 @@
           <TitlePage title="Thông tin loại sản phẩm" subTitle="Chào mừng bạn đến với trang thông tin loại sản phẩm!"></TitlePage>
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Tên loại sản phẩm" :item="category.name" />
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="!text-orange-500"  nameLabel="Tên loại sản phẩm" :item="category.name" />
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Mô tả" :item="category.description"/>
         </template>
       </FormDetailLayout>

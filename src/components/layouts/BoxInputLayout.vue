@@ -1,7 +1,10 @@
 <template>
-  <div :class="`${props.padding} ${props.flex} ${props.border} ${props.margin}`">
-    <p :class="`${props.width}`">{{ props.name }}</p>
-    <slot name="input"></slot>
+  <div :class="`${props.border} ${props.margin}`">
+    <div :class="`${props.padding} ${props.flex}`">
+      <p :class="`${props.width}`">{{ props.name }}</p>
+      <slot name="input"></slot>
+    </div>
+    <slot name="error"></slot>
   </div>
 </template>
 

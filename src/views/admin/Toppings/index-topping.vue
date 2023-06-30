@@ -24,7 +24,7 @@
                       <template #table-column>
                           <ListTableColumn text="TÊN TOPPING" />
                           <ListTableColumn text="GIÁ TIỀN"/>
-                          <ListTableColumn text="CÒN HÀNG"/>
+                          <ListTableColumn text="Xuất bản"/>
                           <ListTableColumn />
                       </template>
                   </ListTableRow>

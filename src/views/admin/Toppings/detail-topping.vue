@@ -7,9 +7,9 @@
           <TitlePage title="Thông tin cửa hàng" subTitle="Chào mừng bạn đến với trang thông tin cửa hàng!"></TitlePage>
         </template>
         <template #box-item>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="text-orange-500" nameLabel="Tên topping" :item="topping.name"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2" color="!text-orange-500" nameLabel="Tên topping" :item="topping.name"/>
           <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Giá tiền" :item="topping.price"/>
-          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Còn bán" :item="topping.published"/>
+          <BoxItem border="border-b border-solid border-gray-100" padding="px-10 pt-3 pb-4" width="lg:w-1/6 w-1/2"  nameLabel="Xuất bản" :item="topping.published"/>
         </template>
       </FormDetailLayout>
     </template>

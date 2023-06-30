@@ -45,11 +45,14 @@
       </div>
       <div class="flex justify-between mt-2">
         <p>Phí vận chuyển</p>
-        <p>+ 20000 đồng</p>
+        <p>{{ formatPrice(props.shippingFee) }} đồng</p>
       </div>
       <div class="flex justify-between mt-2">
         <p>Áp dụng mã giảm giá</p>
-        <p>- {{ props.isPercentValue }} %</p>
+        <div>
+          <p v-if="props.isPercentValue">- {{ props.isPercentValue }} %</p>
+          <p class="text-zinc-500" v-else>Không áp dụng mã giảm giá</p>
+        </div>
       </div>
     </div>
     <div class="border-t flex items-center justify-between py-2 mt-4">
@@ -87,6 +90,7 @@ const props = defineProps({
     default: () => null
   },
   isPercentValue: String,
+  shippingFee: String,
 })
 
 function formatPrice(price) {

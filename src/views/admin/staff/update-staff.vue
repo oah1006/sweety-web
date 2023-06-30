@@ -23,20 +23,40 @@
             <template #input>
               <InputEmail v-model:modelEmail="formStaff.email" />
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.email">
+                <p v-if="errors?.errors?.email">{{ errors?.errors?.email[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayout>
           <BoxInputLayout name="Họ và tên" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputFullName v-model:modelFullName="formStaff.full_name" />
+            </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.full_name">
+                <p v-if="errors?.errors?.full_name">{{ errors?.errors?.full_name[0] }}</p>
+              </div>
             </template>
           </BoxInputLayout>
           <BoxInputLayout name="Địa chỉ" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputAddress v-model:modelAddress="formStaff.address" placeholder="Địa chỉ" />
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.address">
+                <p v-if="errors?.errors?.address">{{ errors?.errors?.address[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayout>
           <BoxInputLayout name="Số điện thoại" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
+            </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.phone_number">
+                <p v-if="errors?.errors?.phone_number">{{ errors?.errors?.phone_number[0] }}</p>
+              </div>
             </template>
           </BoxInputLayout>
           <BoxInputLayout name="Vai trò" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
@@ -44,17 +64,32 @@
               <SelectRole v-model:modalSelectRole="formStaff.role" :selectOptionRole="selectOptionRole">
               </SelectRole>
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.role">
+                <p v-if="errors?.errors?.role">{{ errors?.errors?.role[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayout>
           <BoxInputLayout name="Trạng thái" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectStatus v-model:modalSelectStatus="formStaff.is_active" :selectOptionStatus="selectOptionStatus">
               </SelectStatus>
             </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.is_active">
+                <p v-if="errors?.errors?.is_active">{{ errors?.errors?.is_active[0] }}</p>
+              </div>
+            </template>
           </BoxInputLayout>
           <BoxInputLayout name="Cửa hàng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <SelectStore v-model:modalSelectStore="formStaff.store_id" :stores="stores">
               </SelectStore>
+            </template>
+            <template #error>
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.store_id">
+                <p v-if="errors?.errors?.store_id">{{ errors?.errors?.store_id[0] }}</p>
+              </div>
             </template>
           </BoxInputLayout>
         </template>
@@ -207,12 +242,18 @@ function getStore() {
       })
 }
 
+const errors = ref({})
+
 getStore();
 async function submit() {
   useUpdateStaffApi(formStaff.value, id)
     .then((response) => {
       router.push({ name: 'index-staff' })
       useToastStore().success('Cập nhật thành công', 3000)
+    })
+    .catch((error) => {
+      errors.value = error.response.data
+      console.log(errors.value)
     })
 }
 
