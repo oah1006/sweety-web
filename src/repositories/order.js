@@ -18,11 +18,11 @@ export function useIndexOrderApi(page = null, keywords = '') {
         .get(process.env.VUE_APP_ENV_VARIABLE + '/private/orders?', config)
 }
 
-export function useGetOrderInformationApi() {
+export function useGetOrderInformationApi(id) {
     const token = $cookies.get('token')
 
     const route = useRoute();
-    const id = route.params.id
+
 
     const config = {
         headers: {

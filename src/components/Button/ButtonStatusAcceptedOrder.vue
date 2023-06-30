@@ -24,7 +24,6 @@ function changeStatusAcceptedOrder() {
   useUpdateStatusAcceptedOrderApi(props.id)
       .then((response) => {
         useToastStore().success('Cập nhật trạng thái thành công', 3000)
-        router.push({ name: 'index-order' })
 
         console.log(props.id, response.data.data)
 

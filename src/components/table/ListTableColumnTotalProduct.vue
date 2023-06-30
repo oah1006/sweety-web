@@ -1,17 +1,14 @@
 <template>
   <td class="lg:px-4 py-4">
-    {{ formatPrice(props.price * props.quantity) }} đồng
+    {{ formatPrice(props.totalPrice) }} đồng
   </td>
 </template>
 
 <script setup>
 
 const props = defineProps({
-  price: Number,
-  quantity: Number
+  totalPrice: Number
 })
-
-console.log(props.quantity)
 
 function formatPrice(price) {
   return price.toLocaleString("vi-VN")

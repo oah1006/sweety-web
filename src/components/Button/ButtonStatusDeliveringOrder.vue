@@ -25,7 +25,6 @@ function changeStatusDeliveringOrder() {
   useUpdateStatusDeliveringOrderApi(props.id)
       .then((response) => {
         useToastStore().success('Cập nhật trạng thái thành công', 3000)
-        router.push({ name: 'index-order' })
 
         setFireBase(refFireBase(database, 'order_checking/' + props.id), {
           delivering: response.data.data

@@ -6,8 +6,8 @@
     </div>
 
     <div class="flex flex-col xl:flex-row lg:gap-4">
-      <slot name="list-product" class="lg:w-1/4"></slot>
-      <div class="lg:w-3/4">
+      <slot name="list-product" class="lg:w-3/4"></slot>
+      <div class="lg:w-1/4 grow">
         <div>
           <slot name="order-summary"></slot>
         </div>
