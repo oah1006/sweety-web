@@ -9,11 +9,11 @@
           <input type="date" name="start_date" v-model="start_date" class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4"/>
           <input type="date" name="end_date" v-model="end_date" class="form-input mt-1 w-full text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 px-4"/>
         </div>
-        <div class="flex ml-14 items-center">
+        <div class="flex ml-12 items-center mt-4">
           <div @click="exportExcelProductByInputDate" class="bg-cyan-500 px-2 py-1 rounded-lg text-white">
             Xuất thống kê
           </div>
-          <div class="ml-auto flex gap-3 items-center">
+          <div class="ml-auto flex gap-3 items-center mr-12">
             <select v-model="store_id" class="form-select text-gray-700 bg-white border border-solid border-zinc-300 rounded py-2 pr-8">
               <option disabled value="">Hãy chọn dưới đây</option>
               <option v-for="store in stores" :value="store.id" :key="store.id">{{ store.store_name }}</option>
