@@ -43,11 +43,6 @@
               </div>
             </template>
           </BoxInputLayoutLayout>
-          <BoxInputLayoutLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
-            <template #input>
-              <InputStock v-model:modelStock="product.stock" />
-            </template>
-          </BoxInputLayoutLayout>
           <BoxInputLayoutLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPrice v-model:modelPrice="product.price" />
@@ -185,7 +180,6 @@ const product = ref({
   id: '',
   name: '',
   description: '',
-  stock: '',
   price: '',
   category_id: '',
   published: '',
@@ -247,7 +241,6 @@ function getProductInformation() {
         product.value.id = response.data.data.id
         product.value.name = response.data.data.name
         product.value.description = response.data.data.description
-        product.value.stock = response.data.data.stock
         product.value.price = response.data.data.price
         product.value.category_id = response.data.data.category_id
         product.value.published = response.data.data.published
@@ -283,7 +276,7 @@ function getProductInformation() {
 const errors = ref({})
 
 async function submit() {
-  useUpdateProductApi(id, product.value.name, product.value.description, product.value.stock,
+  useUpdateProductApi(id, product.value.name, product.value.description,
       product.value.price, product.value.category_id, product.value.published, checkNames.value, variants.value)
       .then((response) => {
         router.push({ name: 'index-product' })
@@ -291,7 +284,6 @@ async function submit() {
       })
       .catch((error) => {
         errors.value = error.response.data
-        console.log(errors.value)
       })
 }
 

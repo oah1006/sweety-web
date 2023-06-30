@@ -20,7 +20,7 @@ export function useIndexProductApi(page = null,  category_id = '', published = '
         .get(process.env.VUE_APP_ENV_VARIABLE + '/private/products?', config)
 }
 
-export function useStoreProductApi(thumbnail, detailProduct, name, description, stock, price, category_id, published, checkNames) {
+export function useStoreProductApi(thumbnail, detailProduct, name, description, price, category_id, published, checkNames) {
     const formData = new FormData();
 
     if (detailProduct != undefined) {
@@ -35,7 +35,6 @@ export function useStoreProductApi(thumbnail, detailProduct, name, description, 
 
     formData.append('name', name)
     formData.append('description', description)
-    formData.append('stock', stock)
     formData.append('price', price)
     formData.append('category_id', category_id)
     formData.append('published', published)
@@ -57,14 +56,13 @@ export function useStoreProductApi(thumbnail, detailProduct, name, description, 
         .postForm(process.env.VUE_APP_ENV_VARIABLE + '/private/products', formData, config)
 }
 
-export function useUpdateProductApi(id, name, description, stock, price, category_id, published, checkNames, variants) {
+export function useUpdateProductApi(id, name, description, price, category_id, published, checkNames, variants) {
 
     const token = $cookies.get('token')
 
     const product = {
         'name': name,
         'description': description,
-        'stock': stock,
         'price': price,
         'category_id': category_id,
         'published': published,

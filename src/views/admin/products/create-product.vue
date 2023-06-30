@@ -43,11 +43,6 @@
               </div>
             </template>
           </BoxInputLayout>
-          <BoxInputLayout name="Số lượng" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
-            <template #input>
-              <InputStock v-model:modelStock="formProduct.stock" />
-            </template>
-          </BoxInputLayout>
           <BoxInputLayout name="Giá tiền" border="border-b border-gray-100 border-solid" padding="py-6 px-10" flex="flex items-center gap-4" width="lg:w-1/12 w-1/2">
             <template #input>
               <InputPrice v-model:modelPrice="formProduct.price" />
@@ -128,7 +123,6 @@ const url = ref('');
 const formProduct = ref({
   name: '',
   description: '',
-  stock: '',
   price: '',
   category_id: '',
   published: '',
@@ -176,7 +170,7 @@ function clickDeleteItemImage(id, attachment_id = null) {
 const errors = ref({})
 
 async function submit() {
-  await useStoreProductApi(thumbnail.value, detailProducts.value, formProduct.value.name, formProduct.value.description, formProduct.value.stock,
+  await useStoreProductApi(thumbnail.value, detailProducts.value, formProduct.value.name, formProduct.value.description,
       formProduct.value.price, formProduct.value.category_id, formProduct.value.published, checkNames.value)
       .then((response) => {
         useToastStore().success('Tạo sản phẩm thành công', 3000)
