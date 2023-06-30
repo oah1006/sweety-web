@@ -8,12 +8,12 @@
               <InputEmail type="hidden" v-model:modelEmail="formForgotPassword.email" />
             </template>
           </BoxInputLayout>
-          <BoxInputLayout name="Email mới" margin="mt-2">
+          <BoxInputLayout name="Mật khẩu mới" margin="mt-2">
             <template #input>
               <InputNewPassword v-model:modelNewPassword="formForgotPassword.new_password" />
             </template>
           </BoxInputLayout>
-          <BoxInputLayout name="Xác nhận lại Email mới" margin="mt-4">
+          <BoxInputLayout name="Xác nhận lại Mật khẩu mới" margin="mt-4">
             <template #input>
               <InputPasswordConfirmation v-model:modelNewPasswordConfirmation="formForgotPassword.new_password_confirmation" />
             </template>

@@ -97,4 +97,6 @@ function formatPrice(price) {
   return price.toLocaleString("vi-VN")
 }
 
+
+
 </script>

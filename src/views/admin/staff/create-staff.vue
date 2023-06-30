@@ -62,7 +62,7 @@
               <InputPhoneNumber v-model:modelPhoneNumber="formStaff.phone_number" />
             </template>
             <template #error>
-              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.email">
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.phone_number">
                 <p v-if="errors?.errors?.phone_number">{{ errors?.errors?.phone_number[0] }}</p>
               </div>
             </template>
@@ -73,7 +73,7 @@
               </SelectRole>
             </template>
             <template #error>
-              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.email">
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.role">
                 <p v-if="errors?.errors?.role">{{ errors?.errors?.role[0] }}</p>
               </div>
             </template>
@@ -84,7 +84,7 @@
               </SelectStatus>
             </template>
             <template #error>
-              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.email">
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.is_active">
                 <p v-if="errors?.errors?.is_active">{{ errors?.errors?.is_active[0] }}</p>
               </div>
             </template>
@@ -95,7 +95,7 @@
               </SelectStore>
             </template>
             <template #error>
-              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.email">
+              <div class="text-red-900 mt-2 text-md px-4 py-2 bg-red-100 rounded-md h-26 px-10 my-3 mx-10" v-if="errors?.errors?.store_id">
                 <p v-if="errors?.errors?.store_id">{{ errors?.errors?.store_id[0] }}</p>
               </div>
             </template>
