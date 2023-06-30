@@ -30,7 +30,6 @@
               <ListTableColumn text="TÊN MÃ KHUYẾN MÃI" />
               <ListTableColumn class="hidden lg:block" text="SỐ LƯỢNG"/>
               <ListTableColumn text="GIÁ TRỊ MÃ GIẢM"/>
-              <ListTableColumn text="TỔNG HÓA ĐƠN CẦN ĐẠT"/>
               <ListTableColumn text="BẮT ĐẦU"/>
               <ListTableColumn text="HẾT HẠN"/>
               <ListTableColumn text="TRẠNG THÁI"/>
@@ -45,7 +44,6 @@
               <ListTableColumn :text="item.name" />
               <ListTableColumn class="hidden lg:block" :text="item.stock" />
               <ListTableColumn :text="item.is_percent_value" />
-              <ListTableColumn :text="item.min_order_total" />
               <ListTableColumn :text="item.started_at" />
               <ListTableColumn :text="item.expired_at" />
               <ListTableColumnStatusCoupon :status="item.status" />
